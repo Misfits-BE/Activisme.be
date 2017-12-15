@@ -66,7 +66,7 @@ class CalendarController extends Controller
      */
     public function store(CalendarValidator $input): RedirectResponse
     {
-
+        dd($input->all());
     }
 
     /**

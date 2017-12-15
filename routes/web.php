@@ -66,3 +66,4 @@ Route::get('admin/article/status/{article}/{status}', 'Backend\ArticleStatusCont
 // Calendar routes
 Route::get('/admin/kalender', 'Backend\CalendarController@index')->name('admin.calendar.index');
 Route::get('/admin/kalender/nieuw', 'Backend\CalendarController@create')->name('admin.calendar.create');
+Route::post('/admin/kalender/opslaan', 'Backend\CalendarController@store')->name('admin.calendar.store');
