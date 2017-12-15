@@ -32,3 +32,8 @@ Breadcrumbs::register('articles-edit', function ($breadcrumbs, $article) {
     $breadcrumbs->push('Artikelen', route('admin.articles.index'));
     $breadcrumbs->push('Wijzig: ' . ucfirst($article->title), route('admin.articles.edit', $article));
 });
+
+Breadcrumbs::register('calendar-index', function ($breadcrumbs) {
+    $breadcrumbs->push('Home', url('home'));
+    $breadcrumbs->push('Kalender', route('admin.calendar.index'));
+});
