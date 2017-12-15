@@ -2,6 +2,8 @@
 
 namespace ActivismeBe\Http\Controllers\Backend;
 
+use ActivismeBe\Calendar;
+use ActivismeBe\Http\Requests\Backend\CalendarValidator;
 use ActivismeBe\Repositories\CalendarRepository;
 use Illuminate\Http\Request;
 use ActivismeBe\Http\Controllers\Controller;
@@ -65,5 +67,29 @@ class CalendarController extends Controller
     public function store(CalendarValidator $input): RedirectResponse
     {
 
+    }
+
+    /**
+     * @todo docblock
+     */
+    public function edit()
+    {
+
+    }
+
+    /**
+     * Update een evenement in het systeem.
+     *
+     * @param  CalendarValidator $input
+     * @param  Calendar          $calendar
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(CalendarValidator $input, Calendar $calendar): RedirectResponse
+    {
+        if ($this->calendarRepository->update($input->all(), $calendar->id)) {
+            flash('U hebt het item in de kalender succesvol aangepast.')->success();
+        }
+
+        return redirect()->route('admin.calendar.create');
     }
 }

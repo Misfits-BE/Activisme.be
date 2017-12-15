@@ -37,3 +37,9 @@ Breadcrumbs::register('calendar-index', function ($breadcrumbs) {
     $breadcrumbs->push('Home', url('home'));
     $breadcrumbs->push('Kalender', route('admin.calendar.index'));
 });
+
+Breadcrumbs::register('calendar-create', function ($breadcrumbs) {
+    $breadcrumbs->push('Home', url('home'));
+    $breadcrumbs->push('Kalender', route('admin.calendar.index'));
+    $breadcrumbs->push('Nieuw evenement', route('admin.calendar.create'));
+});
