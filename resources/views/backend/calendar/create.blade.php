@@ -30,10 +30,24 @@
                                     <input type="text" placeholder="Naam evenement" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" name="name">
 
                                     @if ($errors->has('name'))
-                                        <div class="is-invalid">
+                                        <div class="invalid-feedback">
                                             <strong>{{ $errors->first('name') }}</strong>
                                         </div>
                                     @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-lg-2 col-form-label text-lg-right">Status: <span class="text-danger">*</span></label>
+
+                                <div class="col-lg-10">
+                                    <select name="status" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }}">
+                                        <option value="">-- Selecteer de publicatie status --</option>
+
+                                        {{-- Publicatie statussen --}}
+                                        <option value="public" @if (old('status') == 'public') selected @endif>Publiceer evenement</option>
+                                        <option value="draft"  @if (old('status') == 'draft')  selected @endif>Klade versie van een evenement</option>
+                                    </select>
                                 </div>
                             </div>
 

@@ -24,7 +24,12 @@ class CalendarValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'       => 'required|max:191',
+            'status'     => 'required|max:10',
+            'start_date' => 'required|date|date_format:Y-m-d', 
+            'end_date'   => 'required|date|date_format:Y-m-d', 
+            'start_time' => 'required',
+            'end_time'   => 'required',
         ];
     }
 }

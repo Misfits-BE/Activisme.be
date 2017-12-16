@@ -59,29 +59,50 @@ class CalendarController extends Controller
     }
 
     /**
-     * Method voor de opslag van het evenement in de databank. 
+     * Methode voor de opslag van het evenement in de databank. 
      *
+     * @todo Opbouwen van de validator class. 
+     * @todo Schrijven van een unit test.
+     * @todo Implementatie activity logger.
+     * 
      * @param  CalendarValidator $input De gegeven gebruikers invoer. (Gevalideerd)
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CalendarValidator $input): RedirectResponse
     {
-        dd($input->all());
+        $input->merge(['author_id' => $input->user()->id]);
+
+        if ($this->calendarRepository->create($input->all())) {
+            flash('Het evenement is opgeslagen in de databank.')->success();
+        }
+
+        return redirect()->route('admin.calendar.index');
     }
 
     /**
-     * @todo docblock
+     * Formulier weergave voor het wijzigen van een evenement. 
+     * 
+     * @todo Implementeer routering 
+     * @todo Implementeer phpunit test. 
+     * @todo Opbouwen van de view. 
+     * @todo Implementatie activity logger. 
+     * 
+     * @param  Calendar $calender De database query voor het evenement. 
+     * @return \Illuminate\View\View
      */
-    public function edit()
+    public function edit(Calendar $calendar): View
     {
-
+        // TODO: Implementatie controller Logica
     }
 
     /**
      * Update een evenement in het systeem.
      *
-     * @param  CalendarValidator $input
-     * @param  Calendar          $calendar
+     * @todo Uitschrijven van unit test 
+     * @todo Implementatie activity logger.
+     * 
+     * @param  CalendarValidator $input     De gegeven gebruikers invoer. (Gevalideerd)
+     * @param  Calendar          $calendar  
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(CalendarValidator $input, Calendar $calendar): RedirectResponse
