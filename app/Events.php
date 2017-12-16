@@ -15,13 +15,6 @@ class Events extends Model
     protected $fillable = ['author_id', 'status', 'name', 'start_time', 'end_time'];
 
     /**
-     * Cast de datum naar een 'date' instantie dit is nodig voor Carbon.
-     *
-     * @var array
-     */
-    protected $dates = ['start_time', 'end_time'];
-
-    /**
      * Data relatie voor de gegevens van de autheur.
      *
      * @return BelongsTo

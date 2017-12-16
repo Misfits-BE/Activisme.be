@@ -2,6 +2,7 @@
 
 namespace ActivismeBe\Http\Controllers\Backend;
 
+use Carbon\Carbon;
 use ActivismeBe\Calendar;
 use ActivismeBe\Http\Requests\Backend\CalendarValidator;
 use ActivismeBe\Repositories\CalendarRepository;
@@ -46,7 +47,7 @@ class CalendarController extends Controller
     public function index(): View
     {
         return view('backend.calendar.index', [
-            'events' => $this->calendarRepository->entity()->simplePaginate(15),
+            'events' => $this->eventRepository->entity()->simplePaginate(15),
         ]);
     }
 
@@ -74,9 +75,16 @@ class CalendarController extends Controller
      */
     public function store(CalendarValidator $input): RedirectResponse
     {
-        $input->merge(['author_id' => $input->user()->id]);
+        $input->merge([
+            'author_id'  => $input->user()->id,
+            'start_time' => (new Carbon($input->start_time))->format('H:i'),
+            'end_time'   => (new Carbon($input->end_time))->format('H:i'),
+        ]);
 
-        if ($this->calendarRepository->create($input->all())) {
+        if ($date = $this->calendarRepository->create($input->all())) {
+            $event = $this->eventRepository->create($input->all());
+            $date->events()->attach($event->id); // Event attachment to the date
+
             flash('Het evenement is opgeslagen in de databank.')->success();
         }
 

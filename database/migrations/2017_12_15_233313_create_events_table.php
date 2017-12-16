@@ -18,8 +18,17 @@ class CreateEventsTable extends Migration
             $table->integer('author_id');
             $table->string('name'); 
             $table->string('status');
-            $table->date('start_time'); 
-            $table->date('end_time');
+            $table->string('start_time'); 
+            $table->string('end_time');
+            $table->timestamps();
+        });
+
+        Schema::create('calendar_events', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('calendar_id')->unsigned()->index();
+            $table->foreign('calendar_id')->references('id')->on('calendars')->onDelete('cascade');
+            $table->integer('events_id')->unsigned()->index();
+            $table->foreign('events_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +40,9 @@ class CreateEventsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints(); 
         Schema::dropIfExists('events');
+        Schema::dropIfExists('calendar_events');
+        Schema::enableForeignKeyConstraints(); 
     }
 }
