@@ -47,7 +47,7 @@ class CalendarController extends Controller
     public function index(): View
     {
         return view('backend.calendar.index', [
-            'events' => $this->eventRepository->entity()->simplePaginate(15),
+            'events' => $this->eventRepository->entity()->with(['dates'])->simplePaginate(15),
         ]);
     }
 

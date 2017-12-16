@@ -39,6 +39,38 @@
                                         <tr>
                                             <td><strong>#{{ $event->id }}</strong></td>
                                             <td>{{ $event->author->name }}</td>
+
+                                            <td> {{-- Status indicator --}}
+                                                 @if ($event->status == 'public')
+                                                    <span class="badge badge-success">Gepubliceerd</span>
+                                                 @elseif ($event->status == 'draft')
+                                                    <span class="badge badge-warning">Klad versie</span>
+                                                 @endif 
+                                            </td> {{-- /Status indicator --}}
+
+                                            <td> @foreach ($event->dates as $date) {{ $date->start_date->format('d/m/Y') }} @endforeach </td>
+                                            <td> {{ $event->start_time }}u - {{ $event->end_time }}u</td>
+                                            <td> {{ $event->name }}</td>
+
+                                            <td class="pull-right"> {{-- Opties --}}
+                                                <a href="" class="text-muted" data-toggle="tooltip" data-placement="bottom" title="Wijzig evenement">
+                                                    <i class="fa fa-fw fa-pencil"></i>
+                                                </a>
+
+                                                @if ($event->status == 'public') 
+                                                    <a href="" class="text-warning" data-toggle="tooltip" data-placement="bottom" title="Zet naar klad">
+                                                        <i class="fa fa-fw fa-undo"></i>
+                                                    </a> 
+                                                @elseIf($event->status == 'draft')
+                                                    <a href="" class="text-success" data-toggle="tooltip" data-placement="bottom" title="Publiceer">
+                                                        <i class="fa fa-fw fa-check"></i>
+                                                    </a> 
+                                                @endif
+
+                                                <a href="" class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Verwijder">
+                                                    <i class="fa fa-fw fa-close"></i>
+                                                </a>
+                                            </td> {{-- /Opties --}}
                                         </tr>
                                     @endforeach
                                 @else

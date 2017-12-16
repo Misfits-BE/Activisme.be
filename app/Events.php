@@ -23,4 +23,9 @@ class Events extends Model
     {
         return $this->belongsTo(User::class)->withDefault(['name' => 'verwijdere gebruiker']);
     }
+
+    public function dates() 
+    {
+        return $this->belongsToMany(Calendar::class)->withTimestamps();
+    }
 }
