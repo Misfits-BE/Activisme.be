@@ -3,7 +3,7 @@
 namespace ActivismeBe\Http\Controllers\Backend;
 
 use Carbon\Carbon;
-use ActivismeBe\Calendar;
+use ActivismeBe\Events;
 use ActivismeBe\Http\Requests\Backend\CalendarValidator;
 use ActivismeBe\Repositories\CalendarRepository;
 use ActivismeBe\Repositories\EventsRepository;
@@ -99,10 +99,10 @@ class CalendarController extends Controller
      * @todo Opbouwen van de view. 
      * @todo Implementatie activity logger. 
      * 
-     * @param  Calendar $calender De database query voor het evenement. 
+     * @param  Events $event De database query voor het evenement. 
      * @return \Illuminate\View\View
      */
-    public function edit(Calendar $calendar): View
+    public function edit(Events $event): View
     {
         // TODO: Implementatie controller Logica
     }
@@ -114,15 +114,20 @@ class CalendarController extends Controller
      * @todo Implementatie activity logger.
      * 
      * @param  CalendarValidator $input     De gegeven gebruikers invoer. (Gevalideerd)
-     * @param  Calendar          $calendar  
+     * @param  Events            $event     De controle query voor de database.   
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(CalendarValidator $input, Calendar $calendar): RedirectResponse
+    public function update(CalendarValidator $input, Events $event): RedirectResponse
     {
-        if ($this->calendarRepository->update($input->all(), $calendar->id)) {
+        if ($this->eventRepository->update($input->all(), $event->id)) {
             flash('U hebt het item in de kalender succesvol aangepast.')->success();
         }
 
         return redirect()->route('admin.calendar.create');
+    }
+
+    public function destroy() 
+    {
+
     }
 }
