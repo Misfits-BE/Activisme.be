@@ -126,8 +126,20 @@ class CalendarController extends Controller
         return redirect()->route('admin.calendar.create');
     }
 
-    public function destroy() 
+    /** 
+     * Verwijder een evenement uit de kalender. 
+     * 
+     * Geen detachering nodig van datiums. Dit gebeurd automatisch in de databank. 
+     * Doormiddel van foreign keys. 
+     * 
+     * @todo Registree routering. En koppel de routering in de backend index. 
+     * @todo Schrijf phpunit test.
+     * 
+     * @param  Events $event Query om het evenement op the halen in de databanK. 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Events $event): RedirectResponse 
     {
-
+        // 
     }
 }
