@@ -5,6 +5,7 @@ namespace ActivismeBe\Http\Controllers\Backend;
 use ActivismeBe\Calendar;
 use ActivismeBe\Http\Requests\Backend\CalendarValidator;
 use ActivismeBe\Repositories\CalendarRepository;
+use ActivismeBe\Repositories\EventsRepository;
 use Illuminate\Http\Request;
 use ActivismeBe\Http\Controllers\Controller;
 use Illuminate\View\View;
@@ -19,6 +20,7 @@ use Illuminate\Http\RedirectResponse;
 class CalendarController extends Controller
 {
     private $calendarRepository; /** @var CalendarRepository $calendarRepository */
+    private $eventRepository;    /** @var EventsRepository   $eventRepository    */
 
     /**
      * CalendarController constructor.
@@ -26,9 +28,11 @@ class CalendarController extends Controller
      * @param  CalendarRepository $calendarRepository
      * @return void
      */
-    public function __construct(CalendarRepository $calendarRepository)
+    public function __construct(CalendarRepository $calendarRepository, EventsRepository $eventRepository)
     {
         $this->middleware(['role:admin']);
+
+        $this->eventRepository    = $eventRepository;
         $this->calendarRepository = $calendarRepository;
     }
 
