@@ -80,6 +80,8 @@
                                 @endif
                             </tbody>
                         </table>
+
+                        {{ $events->links('vendor.pagination.simple-bootstrap-4') }} {{-- Pagination instance --}}
                     </div>
                 </div>
             </div>
