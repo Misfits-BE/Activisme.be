@@ -46,15 +46,21 @@
 
                                         {{-- Publicatie statussen --}}
                                         <option value="public" @if (old('status') == 'public') selected @endif>Publiceer evenement</option>
-                                        <option value="draft"  @if (old('status') == 'draft')  selected @endif>Klade versie van een evenement</option>
+                                        <option value="draft"  @if (old('status') == 'draft')  selected @endif>Klad versie van een evenement</option>
                                     </select>
+                                    
+                                    @if ($errors->has('status'))
+                                        <div class="invalid-feedback">
+                                            <strong>{{ $errors->first('status') }}</strong>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-lg-2 col-form-label text-lg-right">Start tijdstip: <span class="text-danger">*</span></label>
 
-                                <div class="col-lg-5">
+                                <div class="col-lg-10">
                                     <input type="date" name="start_date" class="form-control{{ $errors->has('start_date') ? ' is-invalid' : '' }}" value="{{ date("Y-m-d") }}">
 
                                     @if ($errors->has('start_date'))
@@ -65,6 +71,10 @@
                                         <small class="form-text text-muted"><span class="text-danger">*</span> Standaard formaat voor de datum = DD/MM/YYYY</small>
                                     @endif
                                 </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-lg-2 col-form-label text-lg-right">Uren: <span class="text-danger">*</span></label>
 
                                 <div class="col-lg-5">
                                     <input type="time" name="start_time" class="form-control{{ $errors->has('start_time' ? ' is-invalid' : '') }}" value="{{ date('H:i') }}">
@@ -74,23 +84,7 @@
                                             <strong>{{ $errors->first('start_time') }}</strong>
                                         </div>
                                     @else
-                                        {{-- TODO: Implement time help text --}}
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-lg-2 col-form-label text-lg-right">Eind tijdstip: <span class="text-danger">*</span></label>
-
-                                <div class="col-lg-5">
-                                    <input type="date" name="end_date" class="form-control{{ $errors->has('end_date' ? ' is-invalid' : '') }}" value="{{ date('Y-m-d') }}">
-
-                                    @if ($errors->has('end_date'))
-                                        <div class="invalid-feedback">
-                                            <strong>{{ $errors->first('end_date') }}</strong>
-                                        </div>
-                                    @else
-                                        <small class="form-text text-muted"><span class="text-danger">*</span> Standaard formaat voor de datum = DD/MM/YYYY</small>
+                                       <small class="form-text test-muted"><span class="text-danger">*</span> Start uur</small>
                                     @endif
                                 </div>
 
@@ -102,7 +96,7 @@
                                             <strong>{{ $errors->first('end_time') }}</strong>
                                         </div>
                                     @else
-                                        {{-- TODO: Implement time help test --}}
+                                        <small class="form-text test-muted"><span class="text-danger">*</span> Eind uur</small>
                                     @endif
                                 </div>
                             </div>

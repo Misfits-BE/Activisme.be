@@ -22,7 +22,7 @@ class Calendar extends Model
      *
      * @var array
      */
-    protected $fillable = ['start_date', 'end_date'];
+    protected $fillable = ['start_date'];
 
     /**
      * Cast de datum velden als een 'date'object

@@ -25,9 +25,9 @@ class CreateEventsTable extends Migration
 
         Schema::create('calendar_events', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('calendar_id')->unsigned()->index();
+            $table->integer('calendar_id')->unsigned();
             $table->foreign('calendar_id')->references('id')->on('calendars')->onDelete('cascade');
-            $table->integer('events_id')->unsigned()->index();
+            $table->integer('events_id')->unsigned();
             $table->foreign('events_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
         });

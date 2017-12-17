@@ -71,7 +71,7 @@
 
                     <li class="nav-item @if(Request::is('admin/kalender*')) active @endif">
                         {{-- Todo: todo register guest route for the calendar --}}
-                        <a href="@if (auth()->check() && auth()->user()->hasRole('admin')) {{ route('admin.calendar.index') }} @else @endif" class="nav-link">
+                        <a href="@if (auth()->check() && auth()->user()->hasRole('admin')) {{ route('admin.calendar.index') }} @else {{ route('calendar.index')}} @endif" class="nav-link">
                             <i class="fa fa-calendar"></i> Kalender
                         </a>
                     </li>

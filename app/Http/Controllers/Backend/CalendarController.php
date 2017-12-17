@@ -81,7 +81,7 @@ class CalendarController extends Controller
             'end_time'   => (new Carbon($input->end_time))->format('H:i'),
         ]);
 
-        if ($date = $this->calendarRepository->create($input->all())) {
+        if ($date = $this->calendarRepository->entity()->firstOrCreate(['start_date' => $input->start_date])) {
             $event = $this->eventRepository->create($input->all());
             $date->events()->attach($event->id); // Event attachment to the date
 
@@ -107,6 +107,11 @@ class CalendarController extends Controller
         // TODO: Implementatie controller Logica
     }
 
+    public function status($event) 
+    {
+        $event = $this->eventRepository->findOrFail($event); 
+    }
+
     /**
      * Update een evenement in het systeem.
      *
@@ -129,7 +134,7 @@ class CalendarController extends Controller
     /** 
      * Verwijder een evenement uit de kalender. 
      * 
-     * Geen detachering nodig van datiums. Dit gebeurd automatisch in de databank. 
+     * Geen detachering nodig van datums. Dit gebeurd automatisch in de databank. 
      * Doormiddel van foreign keys. 
      * 
      * @todo Schrijf phpunit test.
@@ -141,9 +146,10 @@ class CalendarController extends Controller
     public function destroy($event): RedirectResponse 
     {
         $event = $this->eventRepository->findOrFail($event);
-        $event->dates()->sync([]);
 
-        if ($event->delete()) { // Return true als waarde is verwijderd uit de databank.
+        if ($event->delete()) {         //! Return true als waarde is verwijderd uit de databank.
+            $event->dates()->delete();
+            $event->dates()->detach();  //! Detacheer de 1 op meerdere relatie. 
             flash("Het evenement is verwijderd uit het systeem.")->success();
         }
 
