@@ -4,6 +4,7 @@ namespace ActivismeBe;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Events extends Model
 {
@@ -24,7 +25,12 @@ class Events extends Model
         return $this->belongsTo(User::class)->withDefault(['name' => 'verwijdere gebruiker']);
     }
 
-    public function dates() 
+    /**
+     * Haal de datum op geassocieerd met het evenement. 
+     *
+     * @return BelongsToMany
+     */
+    public function dates(): BelongsToMany
     {
         return $this->belongsToMany(Calendar::class)->withTimestamps();
     }

@@ -132,14 +132,21 @@ class CalendarController extends Controller
      * Geen detachering nodig van datiums. Dit gebeurd automatisch in de databank. 
      * Doormiddel van foreign keys. 
      * 
-     * @todo Registree routering. En koppel de routering in de backend index. 
      * @todo Schrijf phpunit test.
+     * @todo Implement activity monitor
      * 
      * @param  Events $event Query om het evenement op the halen in de databanK. 
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Events $event): RedirectResponse 
+    public function destroy($event): RedirectResponse 
     {
-        // 
+        $event = $this->eventRepository->findOrFail($event);
+        $event->dates()->sync([]);
+
+        if ($event->delete()) { // Return true als waarde is verwijderd uit de databank.
+            flash("Het evenement is verwijderd uit het systeem.")->success();
+        }
+
+        return redirect()->route('admin.calendar.index');
     }
 }

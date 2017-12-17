@@ -67,7 +67,7 @@
                                                     </a> 
                                                 @endif
 
-                                                <a href="" class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Verwijder">
+                                                <a href="{{ route('admin.calendar.destroy', $event) }}" class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Verwijder">
                                                     <i class="fa fa-fw fa-close"></i>
                                                 </a>
                                             </td> {{-- /Opties --}}
