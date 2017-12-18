@@ -62,3 +62,12 @@ Route::get('/nieuws/{slug}', 'Frontend\ArticleController@show')->name('news.show
 
 // Article status routes
 Route::get('admin/article/status/{article}/{status}', 'Backend\ArticleStatusController@update')->name('admin.status.change');
+
+// Calendar routes
+Route::get('/kalender', 'Frontend\CalendarController@index')->name('calendar.index');
+
+Route::get('/admin/kalender/status/{event}/{status}', 'Backend\CalendarController@status')->name('admin.calendar.status');
+Route::get('/admin/kalender', 'Backend\CalendarController@index')->name('admin.calendar.index');
+Route::get('/admin/kalender/nieuw', 'Backend\CalendarController@create')->name('admin.calendar.create');
+Route::get('/admin/kalender/verwijder/{id}', 'Backend\CalendarController@destroy')->name('admin.calendar.destroy');
+Route::post('/admin/kalender/opslaan', 'Backend\CalendarController@store')->name('admin.calendar.store');

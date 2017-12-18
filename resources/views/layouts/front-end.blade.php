@@ -57,12 +57,6 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="fa fa-calendar"></i> Kalender
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
                             <a href="{{ route('visie.index') }}" class="nav-link @if (Request::is('visie*')) active @endif">
                                 <i class="fa fa-list"></i> Onze visie
                             </a>
@@ -74,6 +68,13 @@
                             </a>
                         </li>
                     @endif
+
+                    <li class="nav-item @if(Request::is('admin/kalender*')) active @endif">
+                        {{-- Todo: todo register guest route for the calendar --}}
+                        <a href="@if (auth()->check() && auth()->user()->hasRole('admin')) {{ route('admin.calendar.index') }} @else {{ route('calendar.index')}} @endif" class="nav-link">
+                            <i class="fa fa-calendar"></i> Kalender
+                        </a>
+                    </li>
                 </ul>
 
                 <ul class="navbar-nav">
@@ -102,7 +103,7 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                    <i class="fa fa-fw fa-power-off"></i> Afmelden
+                                    <i class="text-danger fa fa-fw fa-power-off"></i> Afmelden
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
