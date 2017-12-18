@@ -59,6 +59,17 @@
                             Aangezien we zonder enige subsidie of overheidssteun werken, is elke gift welkom. Het rekeningnummer om ons
                             vrijblijvend te steunen vind u hieronder.
                         </p>
+
+                        @if (env('MOLLIE_ACITVE', 'false'))
+                            <h3>Het rekeningnummer om ons vrijblijvend te steunen: </h3>
+
+                            <p>                            
+                                Belfius<br> 
+                                IBAN: BE61 0689 0830 7017<br> 
+                                BIC: GKCC BE BB<br> 
+                                Met vermelding: Ik steun activisme.be of Ik steun de vredescaravan<br>
+                            </p>
+                        @endif
                     </div>
                 </div>
             </div> {{-- /END content --}}
@@ -97,31 +108,33 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="list-group list-group-flush">
-                        <a href="{{ route('ondersteuning.create', ['plan' => 'brons']) }}" class="list-group-item list-group-item-action">
-                            <h4 class="mb-0 font-weight-bold"><i class="fa fa-fw fa-shield plan-bronze"></i> Brons</h4>
-                            <small>- Een gift van 7 euro.</small>
-                        </a>
+                @if (env('MOLLIE_ACTIVE', false))
+                    <div class="card">
+                        <div class="list-group list-group-flush">
+                            <a href="{{ route('ondersteuning.create', ['plan' => 'brons']) }}" class="list-group-item list-group-item-action">
+                                <h4 class="mb-0 font-weight-bold"><i class="fa fa-fw fa-shield plan-bronze"></i> Brons</h4>
+                                <small>- Een gift van 7 euro.</small>
+                            </a>
 
-                        <a href="{{ route('ondersteuning.create', ['plan' => 'zilver']) }}" class="list-group-item list-group-item-action">
-                            <h4 class="mb-0 font-weight-bold"><i class="fa fa-fw fa-shield plan-silver"></i> Zilver</h4>
-                            <small>- Een gift van 12 euro.</small>
-                        </a>
+                            <a href="{{ route('ondersteuning.create', ['plan' => 'zilver']) }}" class="list-group-item list-group-item-action">
+                                <h4 class="mb-0 font-weight-bold"><i class="fa fa-fw fa-shield plan-silver"></i> Zilver</h4>
+                                <small>- Een gift van 12 euro.</small>
+                            </a>
 
-                        <a href="{{ route('ondersteuning.create', ['plan' => 'goud']) }}" class="list-group-item list-group-item-action">
-                            <h4 class="mb-0 font-weight-bold"><i class="fa fa-fw fa-shield plan-gold"></i> Goud</h4>
-                            <small>- Een gift van 17 euro.</small>
-                        </a>
+                            <a href="{{ route('ondersteuning.create', ['plan' => 'goud']) }}" class="list-group-item list-group-item-action">
+                                <h4 class="mb-0 font-weight-bold"><i class="fa fa-fw fa-shield plan-gold"></i> Goud</h4>
+                                <small>- Een gift van 17 euro.</small>
+                            </a>
 
-                        <a href="{{ route('ondersteuning.create', ['plan' => 'diamant']) }}" class="list-group-item list-group-item-action">
-                            <h4 class="mb-0 font-weight-bold">
-                                <i class="fa fa-fw fa-shield plan-diamond"></i> Diamant
-                            </h4>
-                            <small>- Een gift van 22 euro.</small>
-                        </a>
-                    </div>
-                </div>
+                            <a href="{{ route('ondersteuning.create', ['plan' => 'diamant']) }}" class="list-group-item list-group-item-action">
+                                <h4 class="mb-0 font-weight-bold">
+                                    <i class="fa fa-fw fa-shield plan-diamond"></i> Diamant
+                                </h4>
+                                <small>- Een gift van 22 euro.</small>
+                            </a>
+                        </div>
+                    </div> 
+                @endif
             </div> {{-- /END social media --}}
         </div>
     </div>
