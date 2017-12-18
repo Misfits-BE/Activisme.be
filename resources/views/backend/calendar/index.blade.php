@@ -58,11 +58,11 @@
                                                 </a>
 
                                                 @if ($event->status == 'public') 
-                                                    <a href="" class="text-warning" data-toggle="tooltip" data-placement="bottom" title="Zet naar klad">
+                                                    <a href="{{ route('admin.calendar.status', ['event' => $event->id, 'status' => 'draft']) }}" class="text-warning" data-toggle="tooltip" data-placement="bottom" title="Zet naar klad">
                                                         <i class="fa fa-fw fa-undo"></i>
                                                     </a> 
                                                 @elseIf($event->status == 'draft')
-                                                    <a href="" class="text-success" data-toggle="tooltip" data-placement="bottom" title="Publiceer">
+                                                    <a href="{{ route('admin.calendar.status', ['event' => $event->id, 'status' => 'public']) }}" class="text-success" data-toggle="tooltip" data-placement="bottom" title="Publiceer">
                                                         <i class="fa fa-fw fa-check"></i>
                                                     </a> 
                                                 @endif

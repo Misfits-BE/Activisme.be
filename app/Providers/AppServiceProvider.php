@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        \Carbon\Carbon::setLocale(LC_TIME, 'nl_NL.utf-8');
     }
 }

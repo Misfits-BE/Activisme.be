@@ -3,6 +3,7 @@
 namespace ActivismeBe\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use ActivismeBe\Repositories\CalendarRepository;
 use ActivismeBe\Http\Controllers\Controller;
 
@@ -12,15 +13,15 @@ class CalendarController extends Controller
 
     public function __construct(CalendarRepository $calendarRepository) 
     {
-        $this->calpendarRepository = $calendarRepository;
+        $this->calendarRepository = $calendarRepository;
     }
 
-    public function index() 
+    public function index(): View
     {
-        $baseModel = $this->calendarRepository->entity();
-
         return view('frontend.calendar.index', [
-            'events' => $baseModel->simplePaginate(15)
+            'dates' => $this->calendarRepository->entity()->whereHas('events', $filter = function ($query) { 
+                $query->where('status', 'public'); 
+            })->with(['events' => $filter])->simplePaginate(15)
         ]);
     }
 }

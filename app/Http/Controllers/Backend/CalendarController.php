@@ -107,9 +107,24 @@ class CalendarController extends Controller
         // TODO: Implementatie controller Logica
     }
 
-    public function status($event) 
+    /**
+     * Verander de status van het evenement in de kalender. 
+     * 
+     * @todo write phpunit test.
+     * 
+     * @param  string  $status  De nieuwe status voor het evenement.
+     * @param  Events  $event   De collectie van het evenement in de databank. 
+     * @return \Illuminate\Http\RedirectResponse 
+     */
+    public function status($event, $status): RedirectResponse
     {
         $event = $this->eventRepository->findOrFail($event); 
+
+        if ($event->update(['status' => $status])) {
+            flash("U hebt het evenement de status {$status} gegeven.")->success();
+        }
+
+        return redirect()->route('admin.calendar.index');
     }
 
     /**
@@ -148,7 +163,7 @@ class CalendarController extends Controller
         $event = $this->eventRepository->findOrFail($event);
 
         if ($event->delete()) {         //! Return true als waarde is verwijderd uit de databank.
-            $event->dates()->delete();
+            $event->dates()->delete();  //! [BUGGED]: Verwijder record op het sub model niveau.
             $event->dates()->detach();  //! Detacheer de 1 op meerdere relatie. 
             flash("Het evenement is verwijderd uit het systeem.")->success();
         }

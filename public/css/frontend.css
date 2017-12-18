@@ -14024,3 +14024,34 @@ footer .form-control {
   text-shadow: 1px 1px 2px #d3f7ff;
 }
 
+/* Dates */
+
+.agenda .agenda-date {
+  width: 170px;
+}
+
+.agenda .agenda-date .dayofmonth {
+  width: 40px;
+  font-size: 36px;
+  line-height: 36px;
+  float: left;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.agenda .agenda-date .shortdate {
+  font-size: 0.75em;
+}
+
+/* Times */
+
+.agenda .agenda-time {
+  width: 180px;
+}
+
+.day-color {
+  color: #B9210C;
+}
+
+/* Events */
+
