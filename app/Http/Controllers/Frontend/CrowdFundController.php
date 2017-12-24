@@ -26,6 +26,7 @@ class CrowdFundController extends Controller
      */
     public function __construct(GiftRepository $giftRepository) 
     {
+        $this->middleware(['mollie-maintain'])->except(['index']);
         $this->giftRepository = $giftRepository; 
     }
 
