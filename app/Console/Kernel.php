@@ -25,7 +25,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('activitylog:clean')->daily();
-        $schedule->command('corwdfund:check-payments')->daily();
+        $schedule->command('crowdfund:check-payments')->daily();
+        $schedule->command('queue:work')->everyMinute()->withoutOverlapping();
     }
 
     /**

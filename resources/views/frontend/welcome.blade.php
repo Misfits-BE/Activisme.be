@@ -26,7 +26,7 @@
             <div class="col-lg-8"> {{-- Content --}}
             
                 @if (! is_null($article))
-                    <div class="card br-card card-shadow">
+                    <div class="card mb-4 br-card card-shadow">
                         <a href="{{ route('news.show', ['slug' => $article->slug]) }}">
                             <img class="card-img-top" style="border-top-left-radius: 3px; border-top-right-radius: 3px;" height="250" src="{{ $article->getFirstMediaUrl('images', 'thumb-image') }}" alt="{{ ucfirst($article->title) }}">
                         </a>
@@ -83,7 +83,7 @@
         
             <div class="col-lg-4"> {{-- Sidebar --}}
 
-                <div class="card"> {{-- Categories --}}
+                <div class="mb-4 card"> {{-- Categories --}}
                     <div class="card-header">Nieuws categorieen</div>
                     <div class="card-body">
                         @if (count($tags) > 0) 

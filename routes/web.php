@@ -29,10 +29,10 @@ Route::get('/visie', 'Frontend\VisieController@index')->name('visie.index');
 Route::get('/admin/logs', 'LogsController@index')->name('admin.logs.index');
 
 // User routes
-Route::get('/admin/users', 'usersController@index')->name('admin.users.index');
-Route::get('/admin/gebruiker/nieuw', 'usersController@create')->name('admin.users.create');
-Route::get('/admin/gebruiker/verwijder/{id}', 'usersController@destroy')->name('admin.users.delete');
-Route::post('/admin/gebruiker/opslaan', 'usersController@store')->name('admin.users.store');
+Route::get('/admin/users', 'UsersController@index')->name('admin.users.index');
+Route::get('/admin/gebruiker/nieuw', 'UsersController@create')->name('admin.users.create');
+Route::get('/admin/gebruiker/verwijder/{id}', 'UsersController@destroy')->name('admin.users.delete');
+Route::post('/admin/gebruiker/opslaan', 'UsersController@store')->name('admin.users.store');
 
 // Crowdfund routes
 Route::get('ondersteun-ons', 'Frontend\CrowdFundController@index')->name('ondersteuning.index');
@@ -61,4 +61,13 @@ Route::get('/nieuws', 'Frontend\ArticleController@index')->name('news.index');
 Route::get('/nieuws/{slug}', 'Frontend\ArticleController@show')->name('news.show');
 
 // Article status routes
-Route::get('admin/article/status/{article}/{status}', 'backend\ArticleStatusController@update')->name('admin.status.change');
+Route::get('admin/article/status/{article}/{status}', 'Backend\ArticleStatusController@update')->name('admin.status.change');
+
+// Calendar routes
+Route::get('/kalender', 'Frontend\CalendarController@index')->name('calendar.index');
+
+Route::get('/admin/kalender/status/{event}/{status}', 'Backend\CalendarController@status')->name('admin.calendar.status');
+Route::get('/admin/kalender', 'Backend\CalendarController@index')->name('admin.calendar.index');
+Route::get('/admin/kalender/nieuw', 'Backend\CalendarController@create')->name('admin.calendar.create');
+Route::get('/admin/kalender/verwijder/{id}', 'Backend\CalendarController@destroy')->name('admin.calendar.destroy');
+Route::post('/admin/kalender/opslaan', 'Backend\CalendarController@store')->name('admin.calendar.store');
