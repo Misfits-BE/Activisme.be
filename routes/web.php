@@ -29,10 +29,10 @@ Route::get('/visie', 'Frontend\VisieController@index')->name('visie.index');
 Route::get('/admin/logs', 'LogsController@index')->name('admin.logs.index');
 
 // User routes
-Route::get('/admin/users', 'usersController@index')->name('admin.users.index');
-Route::get('/admin/gebruiker/nieuw', 'usersController@create')->name('admin.users.create');
-Route::get('/admin/gebruiker/verwijder/{id}', 'usersController@destroy')->name('admin.users.delete');
-Route::post('/admin/gebruiker/opslaan', 'usersController@store')->name('admin.users.store');
+Route::get('/admin/users', 'UsersController@index')->name('admin.users.index');
+Route::get('/admin/gebruiker/nieuw', 'UsersController@create')->name('admin.users.create');
+Route::get('/admin/gebruiker/verwijder/{id}', 'UsersController@destroy')->name('admin.users.delete');
+Route::post('/admin/gebruiker/opslaan', 'UsersController@store')->name('admin.users.store');
 
 // Crowdfund routes
 Route::get('ondersteun-ons', 'Frontend\CrowdFundController@index')->name('ondersteuning.index');
