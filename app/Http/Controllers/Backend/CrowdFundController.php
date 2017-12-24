@@ -38,6 +38,8 @@ class CrowdFundController extends Controller
      */
     public function __construct(UserRepository $userRepository, GiftRepository $giftRepository, BackerRepository $backerRepository)
     {
+        $this->middleware(['mollie-maintain'])->only(['store']);
+
         $this->userRepository   = $userRepository;
         $this->giftRepository   = $giftRepository;
         $this->backerRepository = $backerRepository;
