@@ -1,5 +1,13 @@
 @extends('layouts.front-end')
 
+@section('openGraph')
+    <meta property="og:url"                content="{{ config('app.url') }}" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="{{ ucfirst($article->title) }}" />
+    <meta property="og:description"        content="{{ str_limit(strip_tags(ucfirst($article->message))) }}" />
+    <meta property="og:image"              content="{{ asset('img/seo.png') }}" />
+@endsection
+
 @section('content')
     <div class="container">
         @include('flash::message')

@@ -1,5 +1,17 @@
 @extends('layouts.front-end')
 
+@section('openGraph')
+    <meta property="og:url"                content="{{ config('app.url') }}" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="{{ config('app.name') }} - Nieuws" />
+    <meta property="og:description"        content="Blijf op de hoogte omtrent de acties die wij ondernemen." />
+    <meta property="og:image"              content="{{ asset('img/seo.png') }}" />     
+@endsection
+
+@section('twitter-card')
+
+@endsection
+
 @section('content')
     <div class="jumbotron jumbotron-fluid">
         <div class="container">

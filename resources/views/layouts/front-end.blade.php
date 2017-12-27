@@ -10,6 +10,10 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    {{-- Social media SEO --}}
+    @yield('twitter-card')
+    @yield('openGraph')
+
     <!-- Styles -->
     <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
 </head>

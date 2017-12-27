@@ -1,5 +1,14 @@
 @extends('layouts.front-end')
 
+@section('open-graph')
+    <meta property="og:url"                content="{{ config('app.url') }}" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="{{ config('app.name') }} - Ondersteun ons" />
+    <meta property="og:description"        content="Bedankt alvast voor je intresse, hieronder vind je het formulier om je gift te vervolledigen. Uw gift zal gebruikt
+                                                    om de organisatie verder uit te bouwen, mensen in armoede helpen, enz..." />
+    <meta property="og:image"              content="{{ asset('img/seo.png') }}" />
+@endsection
+
 @section('content')
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
