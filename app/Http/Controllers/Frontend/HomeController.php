@@ -43,7 +43,7 @@ class HomeController extends Controller
     public function index(): View 
     {
         $articles = $this->articleRepository->entity()
-            ->whereDate('publish_date', '>=', Carbon::today()->toDateString())
+            // ->whereDate('publish_date', '>=', Carbon::today()->toDateString())
             ->where('is_published', 'Y')
             ->orderBy('created_at', 'desc');
             
