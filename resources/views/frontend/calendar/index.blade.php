@@ -83,7 +83,7 @@
                     </div>
                 @else 
                     <div class="alert alert-info" role="alert">
-                    
+                        <strong><i class="fa fa-info-circle"></i> Info:</strong> Activisme_be organiseerd or participeerd momenteel niet aan evenementen.
                     </div>
                 @endif
 
