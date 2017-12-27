@@ -48,10 +48,10 @@
                         </div>
                     </div>
                 @endif
-                
-                <hr> {{-- Breakline below are smaller news content items. --}}
 
                 @if (count($articles) > 0)
+                    <hr> {{-- Needed breakline between sub messages and head message --}} 
+
                     <div class="card mb-4">
                         <div class="card-body">
                             <ul class="list-unstyled">
