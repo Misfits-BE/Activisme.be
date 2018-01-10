@@ -15,7 +15,7 @@
                                 <i class="fa fa-search"></i> Zoek contact
                             </a>
 
-                            <a href="" class="badge badge-link">
+                            <a href="{{ route('admin.contacts.create') }}" class="badge badge-link">
                                 <i class="fa fa-plus"></i> Contact toevoegen
                             </a>
                         </div>

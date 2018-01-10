@@ -23,7 +23,9 @@ Route::get('/admin/home', 'HomeController@index')->name('home');
 
 // Address book routes
 Route::get('/admin/contacten', 'Backend\ContactsController@index')->name('admin.contacts.index');
+Route::get('/admin/create', 'Backend\ContactsController@create')->name('admin.contacts.create');
 Route::get('/admin/contacten/verwijder/{id}', 'Backend\ContactsController@destroy')->name('admin.contacts.delete');
+Route::post('/admin/contacten/opslaan', 'Backend\ContactsController@store')->name('admin.contacts.store');
 
 // Frontend
 Route::get('/disclaimer', 'DisclaimerController@index')->name('disclaimer.index');

@@ -59,7 +59,9 @@ class ContactsController extends Controller
     }
 
     /**
-     * @param  Contact $contact
+     * Weergave voor een contact persoon te wijzigen/
+     *
+     * @param  Contact $contact De databank entiteit van de contact persoon.
      * @return \Illuminate\View\View
      */
     public function edit(Contact $contact): View
@@ -68,8 +70,10 @@ class ContactsController extends Controller
     }
 
     /**
-     * @param  ContactsValidator $input
-     * @param  Contact           $contact
+     * Wijzig een contact persoon in de databank.
+     *
+     * @param  ContactsValidator $input   De gegeven gebruikers invoer. (Gevalideerd).
+     * @param  Contact           $contact De databank entiteit van de contact persoon.
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ContactsValidator $input, Contact $contact): RedirectResponse
