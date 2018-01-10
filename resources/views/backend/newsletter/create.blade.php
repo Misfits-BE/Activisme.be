@@ -60,10 +60,6 @@
                                     @endif
                                 </div>
                             </div>
-
-                            <hr>
-                            {{-- @todo: Implementatie checkbox als vraag voor het versturen van de nieuwsbrief.  --}}
-
                         </form>
                     </div> {{-- /// Card body --}}
 
