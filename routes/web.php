@@ -63,6 +63,7 @@ Route::get('nieuwsbrief/uitschrijven/{uuid}', 'Frontend\NewsLetterController@uns
 
 // Newsletter routes (backend) 
 Route::get('admin/nieuwsbrief/index', 'Backend\NewsLetterController@index')->name('admin.nieuwsbrief.index');
+Route::get('admin/nieuwsbrief/nieuws', 'Backend\NewsLetterController@create')->name('admin.nieuwsbrief.create');
 
 // Contact route 
 Route::post('/contact', 'Frontend\ContactController@send')->name('contact.send');

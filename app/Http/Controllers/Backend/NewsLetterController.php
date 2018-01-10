@@ -75,6 +75,16 @@ class NewsLetterController extends Controller
     }
 
     /**
+     * Creatie weergave voor een nieuwe nieuwsbericht.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create(): View
+    {
+
+    }
+
+    /**
      * Slaag een nieuwsbrief op in het systeem. 
      * ---
      * Na de opslag word ook de nieuwsbrief verzonden naar de gebruikers.
