@@ -46,6 +46,12 @@
                             </a>
                         </li>
 
+                        <li class="nav-item @if (Request::is('admin/contacten*')) active @endif">
+                            <a href="" class="nav-link">
+                                <i class="fa fa-address-book"></i> Contacten
+                            </a>
+                        </li>
+
                         <li class="nav-item dropdown @if (Request::is('admin/artikels*')) active @endif">
                             <a class="nav-link dropdown-toggle" href="#" id="newsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-newspaper-o"></i> Nieuws
