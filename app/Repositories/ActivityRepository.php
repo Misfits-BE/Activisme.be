@@ -13,7 +13,6 @@ use Spatie\Activitylog\Models\Activity;
  */
 class ActivityRepository extends Repository
 {
-
     /**
      * Set the eloquent model class for the repository.
      *
