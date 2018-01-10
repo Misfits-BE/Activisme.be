@@ -58,14 +58,23 @@ class ContactsController extends Controller
         return view('backend.contacts.create');
     }
 
+    /**
+     * @param  Contact $contact
+     * @return \Illuminate\View\View
+     */
     public function edit(Contact $contact): View
     {
-
+        return view('backend.contacts.edit', compact('contact'));
     }
 
+    /**
+     * @param  ContactsValidator $input
+     * @param  Contact           $contact
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(ContactsValidator $input, Contact $contact): RedirectResponse
     {
-
+        return redirect()->route('admin.contacts.index');
     }
 
     /**
