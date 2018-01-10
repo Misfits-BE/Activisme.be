@@ -100,6 +100,8 @@ class NewsLetterController extends Controller
      */
     public function store(NewsMailValidator $input): RedirectResponse
     {
+        $input->merge(['author_id' => $input->user()->id]);
+
         dd($input->all());
     }
 

@@ -15,7 +15,9 @@ class CreateNewsMailingsTable extends Migration
     {
         Schema::create('news_mailings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id'); 
+            $table->integer('author_id');
+            $table->boolean('is_send');
+            $table->string('status');
             $table->string('titel'); 
             $table->text('content');
             $table->timestamps();

@@ -31,7 +31,19 @@ class NewsMailValidator extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'titel'     => 'string|required|max:255',
+            'content'   => 'string|required',
+            'author_id' => 'required',
+            'is_send'   => 'required',
+            'status'    => 'required|string'
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function messages(): array
+    {
+        return ['is_send' => 'U moet aangeven of u het bericht wilt verzenden of niet.'];
     }
 }
