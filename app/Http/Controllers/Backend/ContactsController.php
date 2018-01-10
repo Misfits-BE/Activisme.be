@@ -65,6 +65,8 @@ class ContactsController extends Controller
     /**
      * Methode voor het opslaan de de persoon in de databank.
      *
+     * @todo Uitwerken phpunit test (success, validatie errors, niet aangemeld, geen rechten)
+     *
      * @param  ContactsValidator $input De gegegeven gebruikers invoer (Gevalideerd)
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -75,6 +77,8 @@ class ContactsController extends Controller
 
     /**
      * Methode voor het verwijderen van een contact persoon uit het systeem.
+     *
+     * @todo Uitwerken phpunit test (invalid id, success, geen rechten, niet aangemeld)
      *
      * @param  Contact $contact De databank entiteit voor de contacten.
      * @return \Illuminate\Http\RedirectResponse
