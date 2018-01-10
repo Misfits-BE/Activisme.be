@@ -48,7 +48,7 @@
                                                 </a>
 
                                                 <a href="{{ route('admin.contacts.delete', $contact) }}" class="text-danger">
-                                                    <i class="fa fa-fw-close"></i>
+                                                    <i class="fa fa-fw fa-close"></i>
                                                 </a>
                                             </td> {{-- /// Beheers functies. --}}
                                         </tr>
