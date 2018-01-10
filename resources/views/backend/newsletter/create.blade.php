@@ -34,7 +34,7 @@
                                 <label class="col-lg-2 col-form-label text-lg-right">Status: <span class="text-danger">*</span></label>
 
                                 <div class="col-lg-10">
-                                    <select name="" class="form-control{{ $errors->has('status') ? 'invalid' : '' }}" id="">
+                                    <select name="status" class="form-control{{ $errors->has('status') ? 'invalid' : '' }}">
                                         <option value="draft"  @if (old('status') === 'draft')  selected @endif>Klad versie</option>
                                         <option value="public" @if (old('status') === 'public') selected @endif>Publiceer</option>
                                     </select>
@@ -46,6 +46,27 @@
                                     @endif
                                 </div>
                             </div>
+
+                            <hr>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-2 col-form-label text-lg-right">Verzenden: <span class="text-danger">*</span></label>
+
+                                    <div class="col-lg-10">
+                                        <select name="is_send" class="form-control{{ $errors->has('is_send') ? 'invalid' : '' }}">
+                                            <option value="false" @if (old('is_send') == 'true')  selected @endif>Nee, ik wil deze nog niet verzenden.</option>
+                                            <option value="true"  @if (old('is_send') == 'false') selected @endif>Ja, ik wil deze verzenden.</option>
+                                        </select>
+
+                                        @if ($errors->has('is_send'))
+                                            <div class="invalid-feedback">
+                                                <strong>{{ $errors->first('is_send') }}</strong>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+
+                            <hr>
 
                             <div class="form-group row">
                                 <label class="col-lg-2 col-form-label text-lg-right">Nieuwsbericht: <span class="text-danger">*</span></label>
