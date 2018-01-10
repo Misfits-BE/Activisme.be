@@ -39,8 +39,6 @@ class ContactsController extends Controller
     /**
      * Index weergave voor de contacten console in de applicatie.
      *
-     * @todo Uitwerken phpunit test (Success, geen rechten, niet aangemeld)
-     *
      * @return \Illuminate\View\View
      */
     public function index(): View
@@ -51,9 +49,7 @@ class ContactsController extends Controller
     }
 
     /**
-     * Creatie weergave voor een nieuw contact
-     *
-     * @todo Uitwerken phpunit test (Success, geen rechten, niet aangemeld)
+     * Creatie weergave voor een nieuw contact.
      *
      * @return \Illuminate\View\View
      */
@@ -62,29 +58,47 @@ class ContactsController extends Controller
         return view('backend.contacts.create');
     }
 
+    public function edit(Contact $contact): View
+    {
+
+    }
+
+    public function update(ContactsValidator $input, Contact $contact): RedirectResponse
+    {
+
+    }
+
     /**
      * Methode voor het opslaan de de persoon in de databank.
-     *
-     * @todo Uitwerken phpunit test (success, validatie errors, niet aangemeld, geen rechten)
      *
      * @param  ContactsValidator $input De gegegeven gebruikers invoer (Gevalideerd)
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ContactsValidator $input): RedirectResponse
     {
-        //
+        if ($contact = $this->contactRepository->create($input->except('_token'))) {
+            flash(trans('contacts.flash-create', ['name' => $contact->naam]))->success();
+        }
+
+        return redirect()->route('admin.contacts.index');
     }
 
     /**
      * Methode voor het verwijderen van een contact persoon uit het systeem.
      *
-     * @todo Uitwerken phpunit test (invalid id, success, geen rechten, niet aangemeld)
-     *
      * @param  Contact $contact De databank entiteit voor de contacten.
+     *
+     * @throws \Exception
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Contact $contact): RedirectResponse
     {
-        return redirect()->back(/** TODO: registratie index url */);
+        if ($contact->delete()) {
+            flash(trans('contacts.flash-delete', ['name' => $contact->naam]))->success();
+        }
+
+        return redirect()->back('admin.contacts.index');
     }
 }
