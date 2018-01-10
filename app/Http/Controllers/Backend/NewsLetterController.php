@@ -65,7 +65,8 @@ class NewsLetterController extends Controller
      * 
      * @todo Registratie routering 
      * @todo Registratie en opbouwen view 
-     * 
+     *
+     * @param  string $slug De unieke identificatie waarde van het nieuwsbericht.
      * @return \Illuminate\View\View
      */
     public function show(string $slug): View 
@@ -77,11 +78,13 @@ class NewsLetterController extends Controller
     /**
      * Creatie weergave voor een nieuwe nieuwsbericht.
      *
-     * @return \Illuminate\View\View
+     * @todo opbouwen view.
+     *
+     * @return\Illuminate\View\View
      */
     public function create(): View
     {
-
+        return view('backend.newsletter.create');
     }
 
     /**
