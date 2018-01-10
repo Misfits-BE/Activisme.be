@@ -39,7 +39,7 @@ class Tag extends Model
     /**
      * Relatie om de nieuws artikelen per tag op te halen.
      *
-     * @return \Illuminate\Database\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function articles(): BelongsToMany
     {
@@ -49,7 +49,7 @@ class Tag extends Model
     /**
      * Autheurs data relatie.
      *
-     * @return \Illuminate\Database\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function author(): BelongsTo
     {
