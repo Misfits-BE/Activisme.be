@@ -37,6 +37,10 @@ class GiftRepository extends Repository
         return false;
     }
 
+    /**
+     * @todo docblock
+     * @todo typehint
+     */
     public function prefillPlan($plan) 
     {
         switch ($plan) { // Bepaal het bedrag en opslag in variable voor te laten passeren naar form.
