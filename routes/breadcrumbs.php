@@ -59,3 +59,9 @@ Breadcrumbs::register('newsletter-index', function ($breadcrumbs): void {
     $breadcrumbs->push('Home', url('home'));
     $breadcrumbs->push('Nieuwsbrieven', route('admin.nieuwsbrief.index'));
 });
+
+Breadcrumbs::register('newsletter-create', function ($breadcrumbs): void {
+    $breadcrumbs->push('Home', url('home'));
+    $breadcrumbs->push('Nieuwsbrieven', route('admin.nieuwsbrief.index'));
+    $breadcrumbs->push('Creer nieuwsbrief', route('admin.nieuwsbrief.create'));
+});
