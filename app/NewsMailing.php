@@ -17,7 +17,7 @@ class NewsMailing extends Model
      * 
      * @var array 
      */
-    protected $fillable = ['author_id', 'title', 'content'];
+    protected $fillable = ['author_id', 'titel', 'content', 'is_send', 'status'];
 
     /**
      * Data relatie voor de autheur van de nieuwsbrief. 

@@ -90,10 +90,8 @@ class NewsLetterController extends Controller
     /**
      * Slaag een nieuwsbrief op in het systeem. 
      * ---
-     * Na de opslag word ook de nieuwsbrief verzonden naar de gebruikers.
-     *
-     * @todo implementatie validator 
-     * @todo implementatie activiteiten logger. 
+     * Na de opslag word ook de nieuwsbrief verzonden naar de gebruikers
+     * als dat is aangegeven.
      *
      * @param  NewsMailValidator $input   De gegeven gebruikers invoer. (Gevalideerd)
      * @return \Illuminate\Http\RedirectResponse
@@ -102,7 +100,19 @@ class NewsLetterController extends Controller
     {
         $input->merge(['author_id' => $input->user()->id]);
 
-        dd($input->all());
+        if ($newsletter = $this->newsMailingRepository->create($input->except('_token'))) {
+            if ((bool) $input->is_send) {   // Men wilt de nieuwsbrief verzenden.
+                $this->subscribers->send(); // Zend de nieuwsbrief naar de ingeschreven leden.
+
+                $this->writeActivity(
+                    'nieuwsbrief', $newsletter, 'Heeft een nieuwsbrief verzonden naar de leden.'
+                );
+            }
+
+            flash('Heeft een nieuwsbrief aangemaakt')->success();
+        }
+
+        return redirect()->route('admin.nieuwsbrief.index');
     }
 
     /**
@@ -129,8 +139,7 @@ class NewsLetterController extends Controller
      * INFO: De wijzigingen aan een nieuwsbrief kunnen alleen opgeslagen worden als 
      *       de nieuwsbrief een klad status heeft en nog niet gepubliceerd en verzonden is. 
      * 
-     * @todo Registratie routering 
-     * @todo Implementatie validator
+     * @todo Registratie routering
      * @todo Implementatie activiteiten logger.
      * @todo Implementatie queue worker die de mail zend naar de subscribers.
      *

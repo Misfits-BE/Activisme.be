@@ -33,7 +33,6 @@ class NewsMailValidator extends FormRequest
         return [
             'titel'     => 'string|required|max:255',
             'content'   => 'string|required',
-            'author_id' => 'required',
             'is_send'   => 'required',
             'status'    => 'required|string'
         ];
