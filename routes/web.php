@@ -21,6 +21,10 @@ Route::patch('/admin/account/instellingen/beveiliging', 'Auth\AccountSettingsCon
 Route::get('/', 'Frontend\HomeController@index')->name('home.front');
 Route::get('/admin/home', 'HomeController@index')->name('home');
 
+// Address book routes
+Route::get('/admin/contacten', 'Backend\ContactsController@index')->name('admin.contacts.index');
+Route::get('/admin/contacten/verwijder/{id}', 'Backend\ContactsController@destroy')->name('admin.contacts.delete');
+
 // Frontend
 Route::get('/disclaimer', 'DisclaimerController@index')->name('disclaimer.index');
 Route::get('/visie', 'Frontend\VisieController@index')->name('visie.index');
