@@ -13,7 +13,7 @@
                     </div> {{-- /// End card header --}}
 
                     <div class="card-body"> {{-- Card body --}}
-                        <form id="create" method="POST" action="">
+                        <form id="create" method="POST" action="{{ route('admin.nieuwsbrief.store') }}">
                             {{ csrf_field() }} {{-- Form field protection --}}
 
                             <div class="form-group row">

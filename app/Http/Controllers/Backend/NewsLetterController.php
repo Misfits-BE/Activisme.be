@@ -91,9 +91,7 @@ class NewsLetterController extends Controller
      * Slaag een nieuwsbrief op in het systeem. 
      * ---
      * Na de opslag word ook de nieuwsbrief verzonden naar de gebruikers.
-     * 
-     * @todo Registratie routering
-     * @todo Implementatie van een breadcrumb in de view. 
+     *
      * @todo implementatie validator 
      * @todo implementatie activiteiten logger. 
      *
