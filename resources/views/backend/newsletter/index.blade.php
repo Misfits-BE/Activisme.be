@@ -14,7 +14,7 @@
                         <span class="pull-right">
                             @if (count($letters) >= 10) {{-- Meer dan 10 brieven dus zoekfunctie beschikbaar --}}
                                 <a href="" class="badge badge-link">
-                                    <i class="fa fa-search"></i> Zoek nieuwsbrief
+                                    <i class="fa fa-search"></i> Zoek nieuwsbriefgit
                                  </a>
                             @endif
 
