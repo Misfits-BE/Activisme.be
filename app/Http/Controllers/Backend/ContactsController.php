@@ -32,7 +32,7 @@ class ContactsController extends Controller
      */
     public function __construct(ContactRepository $contactRepository)
     {
-        $this->middleware(['role:admin']);
+        $this->middleware(['role:admin', 'forbid-banned-user']);
         $this->contactRepository = $contactRepository;
     }
 

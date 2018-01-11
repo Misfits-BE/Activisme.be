@@ -31,7 +31,7 @@ class CalendarController extends Controller
      */
     public function __construct(CalendarRepository $calendarRepository, EventsRepository $eventRepository)
     {
-        $this->middleware(['role:admin']);
+        $this->middleware(['role:admin', 'forbid-banned-user']);
 
         $this->eventRepository    = $eventRepository;
         $this->calendarRepository = $calendarRepository;

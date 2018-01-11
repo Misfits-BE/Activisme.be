@@ -31,7 +31,7 @@ class BanController extends Controller
      */
     public function __construct(UserRepository $userRepository) 
     {
-        $this->middleware(['role:admin']); 
+        $this->middleware(['role:admin', 'forbid-banned-user']); 
         $this->userRepository = $userRepository;
     }
 
@@ -61,9 +61,6 @@ class BanController extends Controller
 
     /**
      * Verwijder een blokkering van een gebruiker. 
-     * 
-     * @todo routering 
-     * @todo activiteiten logger
      * 
      * @param  int $user De unieke waarde van de gebruiker in de databank.
      * @return \Illuminate\Http\RedirectResponse
