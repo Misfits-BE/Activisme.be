@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('activitylog:clean')->daily();
         $schedule->command('crowdfund:check-payments')->daily();
+        $schedule->command('ban:delete-expired')->everyMinute();
         $schedule->command('queue:work')->everyMinute()->withoutOverlapping();
     }
 
