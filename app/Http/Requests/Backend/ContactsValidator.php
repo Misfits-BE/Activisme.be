@@ -13,7 +13,7 @@ class ContactsValidator extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check() && auth()->user()->hasRole('admin');
     }
 
     /**
