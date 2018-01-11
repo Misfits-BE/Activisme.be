@@ -4,6 +4,12 @@ namespace ActivismeBe;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Databnak model voor de ondersteuners an Activisme_BE 
+ * 
+ * @author      Tim Joosten <tim@ctivisme.be>
+ * @copyright   2018 Tim Joosten 
+ */
 class Backer extends Model
 {
     /**
