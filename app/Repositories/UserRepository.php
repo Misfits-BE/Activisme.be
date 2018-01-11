@@ -13,7 +13,6 @@ use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
  */
 class UserRepository extends Repository
 {
-
     /**
      * Set the eloquent model class for the repository.
      *

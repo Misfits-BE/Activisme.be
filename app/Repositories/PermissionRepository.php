@@ -13,7 +13,6 @@ use Spatie\Permission\Models\Permission;
  */
 class PermissionRepository extends Repository
 {
-
     /**
      * Set the eloquent model class for the repository.
      *
