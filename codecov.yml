@@ -2,4 +2,3 @@ ignore:
   - "app/Providers/BroadcastServiceProvider.php"          # Word genegeerd wegens geen gebruik. 
   - "app/Http/Controllers/Auth/*.php"                     # Word genegeerd wegens testing in framework.
   - "app/Http/Controllers/Backend/GithubController.php "  # Word genegeerd wegens de GitHub Hooks.
-  
