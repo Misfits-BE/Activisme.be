@@ -55,7 +55,19 @@
                                                 {{ $user->created_at->diffForHumans() }}
                                             </td>
 
-                                            <td class="text-center"> {{-- Options --}}
+                                            <td class="text-right"> {{-- Options --}}
+                                                @can ('auth-user', $user) {{-- Check of de gebruiker niet de zelfde is dan de aangemelde gebruiker --}}
+                                                    @if ($user->isBanned()) {{-- De gebruiker is geblokkeerd in het systeem. --}}
+                                                        <a class="text-success" href="">
+                                                            <i class="fa fa-unlock"></i>
+                                                        </a> 
+                                                    @else {{-- Gebruiker is actief in het systeem. --}}
+                                                        <a class="text-warning" href="{{ route('admin.users.lock', $user) }}">
+                                                            <i class="fa fa-lock"></i>
+                                                        </a>
+                                                    @endif 
+                                                @endcan
+
                                                 <a href="{{ route('admin.users.delete', $user) }}" class="text-danger">
                                                     <i class="fa fa-fw fa-close"></i>
                                                 </a>

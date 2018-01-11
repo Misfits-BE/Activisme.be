@@ -13,6 +13,11 @@
 
 // Authencation related routes.
 Auth::routes();
+
+// Ban routes 
+Route::get('/admin/users/blokkeer/{id}', 'Auth\BanController@store')->name('admin.users.lock');
+
+// Account instellingen (routes)
 Route::get('/admin/account/instellingen/{type}', 'Auth\AccountSettingsController@index')->name('account.settings');
 Route::patch('/admin/account/instellingen/info', 'Auth\AccountSettingsController@updateInformation')->name('account.settings.info');
 Route::patch('/admin/account/instellingen/beveiliging', 'Auth\AccountSettingsController@updateSecurity')->name('account.settings.security');
