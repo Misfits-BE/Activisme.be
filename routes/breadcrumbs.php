@@ -43,3 +43,14 @@ Breadcrumbs::register('calendar-create', function ($breadcrumbs) {
     $breadcrumbs->push('Kalender', route('admin.calendar.index'));
     $breadcrumbs->push('Nieuw evenement', route('admin.calendar.create'));
 });
+
+Breadcrumbs::register('contacts-index', function ($breadcrumbs): void {
+    $breadcrumbs->push('Home', url('home'));
+    $breadcrumbs->push('Contacten', route('admin.contacts.index'));
+});
+
+Breadcrumbs::register('contacts-create', function ($breadcrumbs): void {
+    $breadcrumbs->push('Home', url('home'));
+    $breadcrumbs->push('Contacten', route('admin.contacts.index'));
+    $breadcrumbs->push('Contact toevoegen', route('admin.contacts.create'));
+});
