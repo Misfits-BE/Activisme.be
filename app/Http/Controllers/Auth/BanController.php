@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use ActivismeBe\Http\Controllers\Controller;
 use ActivismeBe\Repositories\UserRepository;
+use ActivismeBe\Traits\ActivityLog;
 
 /**
  * BanController 
@@ -18,6 +19,8 @@ use ActivismeBe\Repositories\UserRepository;
  */
 class BanController extends Controller
 {
+    use ActivityLog;
+
     /**
      * @var UserRepository $userRepository
      */
@@ -49,15 +52,23 @@ class BanController extends Controller
 
         if (Gate::allows('auth-user', $user)) {
             // De gegeven gebruiker is niet dezelfde dan de aangemelde gebruiker. 
-            dd(true); 
+            $this->userRepository->lockUser($user->id);
+            $this->writeActivity('acl-activities', $user, "Heeft {$user->name} geblokkeer in het systeem.");
+
+            flash("{$user->name} is geblokkeerd in het systeem.")->success();
+        } else {
+            // De gegeven gebruiker is dezelfde gebruiker als de aangemelde gebruiker.
+            flash("Helaas jij kan jezelf niet blokkeren in het systeem.")->danger();
         }
 
-        // De gegeven gebruiker is dezelfde gebruiker als de aangemelde gebruiker. 
-        dd(false);
+        return redirect()->route('admin.users.index');
     }
 
     /**
      * Verwijder een blokkering van een gebruiker. 
+     * 
+     * @todo routering 
+     * @todo activiteiten logger
      * 
      * @param  int $user De unieke waarde van de gebruiker in de databank.
      * @return \Illuminate\Http\RedirectResponse

@@ -3,6 +3,7 @@
 @section('content')
     <div class="container my-4">
         {{ Breadcrumbs::render('users-index') }}
+        @include('flash::message')
 
         <div class="row">
             <div class="col-md-12">
