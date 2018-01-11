@@ -5,3 +5,4 @@
 
 CHANGELOG.md export-ignore
 codecov.yml  export-ignore
+.travis.yml  export-ignore
