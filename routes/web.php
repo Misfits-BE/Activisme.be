@@ -25,6 +25,8 @@ Route::get('/admin/home', 'HomeController@index')->name('home');
 Route::get('/admin/contacten', 'Backend\ContactsController@index')->name('admin.contacts.index');
 Route::get('/admin/create', 'Backend\ContactsController@create')->name('admin.contacts.create');
 Route::get('/admin/contacten/verwijder/{id}', 'Backend\ContactsController@destroy')->name('admin.contacts.delete');
+Route::get('/admin/contacten/wijzig/{id}', 'Backend\ContactsController@edit')->name('admin.contacts.edit');
+Route::patch('/admin/contacten/wijzig/{id}', 'Backend\ContactsController@update')->name('admin.contacts.update');
 Route::post('/admin/contacten/opslaan', 'Backend\ContactsController@store')->name('admin.contacts.store');
 
 // Frontend

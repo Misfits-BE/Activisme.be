@@ -61,11 +61,12 @@ class ContactsController extends Controller
     /**
      * Weergave voor een contact persoon te wijzigen/
      *
-     * @param  Contact $contact De databank entiteit van de contact persoon.
+     * @param  int $contact De databank entiteit van de contact persoon.
      * @return \Illuminate\View\View
      */
-    public function edit(Contact $contact): View
+    public function edit(int $contact): View
     {
+        $contact = $this->contactRepository->findOrFail($contact);
         return view('backend.contacts.edit', compact('contact'));
     }
 
@@ -73,11 +74,17 @@ class ContactsController extends Controller
      * Wijzig een contact persoon in de databank.
      *
      * @param  ContactsValidator $input   De gegeven gebruikers invoer. (Gevalideerd).
-     * @param  Contact           $contact De databank entiteit van de contact persoon.
+     * @param  int               $contact De databank entiteit van de contact persoon.
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ContactsValidator $input, Contact $contact): RedirectResponse
+    public function update(ContactsValidator $input, int $contact): RedirectResponse
     {
+        $contact = $this->contactRepository->findOrFail($contact);
+
+        if ($contact->update($input->except('_token'))) {
+            flash("{$contact->naam} is aangepast in het systeem.")->success(); 
+        }
+
         return redirect()->route('admin.contacts.index');
     }
 
@@ -99,19 +106,21 @@ class ContactsController extends Controller
     /**
      * Methode voor het verwijderen van een contact persoon uit het systeem.
      *
-     * @param  Contact $contact De databank entiteit voor de contacten.
+     * @param  int $contact De databank entiteit voor de contacten.
      *
      * @throws \Exception
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Contact $contact): RedirectResponse
+    public function destroy(int $contact): RedirectResponse
     {
+        $contact = $this->contactRepository->findOrFail($contact);
+
         if ($contact->delete()) {
             flash(trans('contacts.flash-delete', ['name' => $contact->naam]))->success();
         }
 
-        return redirect()->back('admin.contacts.index');
+        return redirect()->route('admin.contacts.index');
     }
 }

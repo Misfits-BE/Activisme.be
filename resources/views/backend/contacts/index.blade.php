@@ -3,10 +3,11 @@
 @section('content')
     <div class="container my-4">
         {{ Breadcrumbs::render('contacts-index') }}
+        @include('flash::message')
 
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="mb-4 card br-card card-shadow">
                     <div class="card-header">
                         <i class="fa fa-fw fa-address-book"></i> Contacten
 
@@ -41,13 +42,11 @@
                                             <td>{{ $contact->created_at->format('d/m/Y') }}</td>
 
                                             <td class="text-center"> {{-- Beheers functies --}}
-                                                {{-- TODO: Implement tooltips --}}
-
-                                                <a href="" class="text-warning"> {{-- TODO: register edit routes --}}
+                                                <a href="{{ route('admin.contacts.edit', $contact) }}" class="text-warning" data-toggle="tooltip" data-placement="bottom" title="Wijzig">
                                                     <i class="fa fa-fw fa-pencil"></i>
                                                 </a>
 
-                                                <a href="{{ route('admin.contacts.delete', $contact) }}" class="text-danger">
+                                                <a href="{{ route('admin.contacts.delete', $contact) }}" class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Verwijder">
                                                     <i class="fa fa-fw fa-close"></i>
                                                 </a>
                                             </td> {{-- /// Beheers functies. --}}
