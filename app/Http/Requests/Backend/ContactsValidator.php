@@ -24,7 +24,10 @@ class ContactsValidator extends FormRequest
     public function rules()
     {
         return [
-            //
+            'naam'        => 'required|string|max:120', 
+            'email'       => 'required|string|max:120', 
+            'telefoon_nr' => 'required|string|max:20', 
+            'organisatie' => 'required|string|max:200', 
         ];
     }
 }

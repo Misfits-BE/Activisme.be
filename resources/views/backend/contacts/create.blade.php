@@ -23,7 +23,7 @@
 
                                     @if ($errors->has('naam'))
                                         <div class="invalid-feedback">
-                                            <strong>{{ $errors->has('naam') }}</strong>
+                                            <strong>{{ $errors->first('naam') }}</strong>
                                         </div>
                                     @endif 
                                 </div>
@@ -51,7 +51,7 @@
                                 
                                     @if ($errors->has('telefoon_nr'))
                                         <div class="invalid-feedback">
-                                            <strong>{{ $errors->has('telefoon_nr') }}</strong>
+                                            <strong>{{ $errors->first('telefoon_nr') }}</strong>
                                         </div>
                                     @endif
                                 </div>
@@ -65,7 +65,7 @@
 
                                     @if ($errors->has('organisatie'))
                                         <div class="invalid-feedback">
-                                            <strong>{{ $errors->has('organisatie') }}</strong>
+                                            <strong>{{ $errors->first('organisatie') }}</strong>
                                         </div>
                                     @endif
                                 </div>
