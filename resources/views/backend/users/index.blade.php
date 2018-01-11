@@ -63,7 +63,7 @@
                                             <td class="text-right"> {{-- Options --}}
                                                 @can ('auth-user', $user) {{-- Check of de gebruiker niet de zelfde is dan de aangemelde gebruiker --}}
                                                     @if ($user->isBanned()) {{-- De gebruiker is geblokkeerd in het systeem. --}}
-                                                        <a class="text-success" href="">
+                                                        <a class="text-success" href="{{ route('admin.users.activate', $user) }}">
                                                             <i class="fa fa-unlock"></i>
                                                         </a> 
                                                     @else {{-- Gebruiker is actief in het systeem. --}}

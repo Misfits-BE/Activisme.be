@@ -41,8 +41,25 @@ class UserRepository extends Repository
         return $this->findOrFail($user);
     }
 
+    /**
+     * Blokkeer een gebruiker in het systeem/databank. 
+     * 
+     * @param  int $user De unieke waarde van de gebruiker in de databank. 
+     * @return \Cog\Laravel\Ban\Models\Ban
+     */
     public function lockUser(int $user): Ban
     {
         return $this->find($user)->ban(['expired_at' => '+2 weeks']);
+    }
+
+    /**
+     * Activeer terug een gebruiker in het systeem/databank.
+     * 
+     * @param  int $user De unieke waarde van de gebruiker in de databank.
+     * @return null|int
+     */
+    public function activateUser(int $user): ?int
+    {
+        return $this->find($user)->unban();
     }
 }

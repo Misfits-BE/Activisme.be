@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use ActivismeBe\Http\Controllers\Controller;
 use ActivismeBe\Repositories\UserRepository;
-use ActivismeBe\Traits\ActivityLog;
 
 /**
  * BanController 
@@ -19,8 +18,6 @@ use ActivismeBe\Traits\ActivityLog;
  */
 class BanController extends Controller
 {
-    use ActivityLog;
-
     /**
      * @var UserRepository $userRepository
      */
@@ -41,8 +38,6 @@ class BanController extends Controller
     /**
      * Blokkeer een gebruiker in het systeem. 
      * 
-     * @todo Implementatie activiteiten logger. 
-     * 
      * @param  int $user De unieke waarde van de gebruiker in de databank. 
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -51,15 +46,14 @@ class BanController extends Controller
         $user = $this->userRepository->getUser($user);
 
         // GATE:  De gebruiker heeft niet dezelfde id dan de aangemelde gebruiker. 
-        // $user: De user is niet geblokker in het systeem.
+        // $user: De user is niet geblokkeerd in het systeem.
         if (Gate::allows('auth-user', $user) && $user->isNotBanned()) {
             $this->userRepository->lockUser($user->id);
             $this->writeActivity('acl-activities', $user, "Heeft {$user->name} geblokkeer in het systeem.");
 
             flash("{$user->name} is geblokkeerd in het systeem.")->success()->important();
-        } else {
-            // De gegeven gebruiker is dezelfde gebruiker als de aangemelde gebruiker.
-            flash("Helaas jij kan jezelf niet blokkeren in het systeem.")->danger();
+        } else { // De gegeven gebruiker is dezelfde gebruiker als de aangemelde gebruiker. of deze is al geblokkeerd. 
+            flash("Er iets misgelopen tijdens het blokkeren van de gebruiker.")->danger()->important();
         }
 
         return redirect()->route('admin.users.index');
@@ -76,6 +70,19 @@ class BanController extends Controller
      */
     public function destroy(int $user): RedirectResponse
     {
-        // 
+        $user = $this->userRepository->getUser($user); 
+
+        // GATE:  De gebruiker heeft niet dezelfde id dan de aangemelder gebruiker. 
+        // $user: De user is geblokkeerd in het systeem.
+        if (Gate::allows('auth-user', $user) && $user->isBanned()) {
+            $this->userRepository->activateUser($user->id);
+            $this->writeActivity('acl-activities', $user, "Heeft {$user->name} terug geactiveerd in het systeem."); 
+
+            flash("{$user->name} is terug geactiveerd in het systeem.")->success()->important();
+        } else { // De gegeven gebruiker is dezelfde gebruiker als de aangemelde gebruiker. Of deze is al actief. 
+            flash("Er is iets misgelopen tijdens het activeren van de gebruiker")->error()->important();
+        }
+
+        return redirect()->route('admin.users.index');
     }
 }
