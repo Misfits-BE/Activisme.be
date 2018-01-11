@@ -3,6 +3,7 @@
 namespace ActivismeBe\Repositories;
 
 use ActivismeBe\User;
+use Cog\Laravel\Ban\Models\Ban;
 use ActivismeBE\DatabaseLayering\Repositories\Contracts\RepositoryInterface;
 use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
 
@@ -40,8 +41,8 @@ class UserRepository extends Repository
         return $this->findOrFail($user);
     }
 
-    public function lockUser(int $user): void  
+    public function lockUser(int $user): Ban
     {
-
+        return $this->find($user)->ban(['expired_at' => '+2 weeks']);
     }
 }

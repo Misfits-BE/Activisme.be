@@ -50,12 +50,13 @@ class BanController extends Controller
     {
         $user = $this->userRepository->getUser($user);
 
-        if (Gate::allows('auth-user', $user)) {
-            // De gegeven gebruiker is niet dezelfde dan de aangemelde gebruiker. 
+        // GATE:  De gebruiker heeft niet dezelfde id dan de aangemelde gebruiker. 
+        // $user: De user is niet geblokker in het systeem.
+        if (Gate::allows('auth-user', $user) && $user->isNotBanned()) {
             $this->userRepository->lockUser($user->id);
             $this->writeActivity('acl-activities', $user, "Heeft {$user->name} geblokkeer in het systeem.");
 
-            flash("{$user->name} is geblokkeerd in het systeem.")->success();
+            flash("{$user->name} is geblokkeerd in het systeem.")->success()->important();
         } else {
             // De gegeven gebruiker is dezelfde gebruiker als de aangemelde gebruiker.
             flash("Helaas jij kan jezelf niet blokkeren in het systeem.")->danger();

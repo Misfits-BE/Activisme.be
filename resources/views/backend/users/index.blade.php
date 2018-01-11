@@ -42,6 +42,10 @@
                                         <tr>
                                             <td><strong>#{{ $user->id }}</strong></td>
                                             <td>
+                                                @if ($user->isBanned())
+                                                    <span class="badge badge-danger">Geblokkeerd</span>
+                                                @endif  
+
                                                 @if ($user->isOnline())
                                                     <span class="badge badge-success">Online</span>
                                                 @else
@@ -64,7 +68,7 @@
                                                         </a> 
                                                     @else {{-- Gebruiker is actief in het systeem. --}}
                                                         <a class="text-warning" href="{{ route('admin.users.lock', $user) }}">
-                                                            <i class="fa fa-lock"></i>
+                                                            <i class="fa fa-fw fa-lock"></i>
                                                         </a>
                                                     @endif 
                                                 @endcan

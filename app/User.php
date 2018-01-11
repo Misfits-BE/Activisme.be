@@ -16,7 +16,7 @@ use Cog\Laravel\Ban\Traits\Bannable;
  * @author      Tim Joosten <tim@activisme.be> 
  * @copyright   2018 Tim Joosten 
  */
-class User extends Authenticatable
+class User extends Authenticatable implements BannableContract
 {
     use Notifiable, HasRoles, Bannable;
 
