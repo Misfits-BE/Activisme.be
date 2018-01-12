@@ -63,17 +63,17 @@
                                             <td class="text-right"> {{-- Options --}}
                                                 @can ('auth-user', $user) {{-- Check of de gebruiker niet de zelfde is dan de aangemelde gebruiker --}}
                                                     @if ($user->isBanned()) {{-- De gebruiker is geblokkeerd in het systeem. --}}
-                                                        <a class="text-success" href="{{ route('admin.users.activate', $user) }}">
+                                                        <a class="text-success" href="{{ route('admin.users.activate', $user) }}" data-toggle="tooltip" data-placement="bottom" title="Activeer gebruiker">
                                                             <i class="fa fa-unlock"></i>
                                                         </a> 
                                                     @else {{-- Gebruiker is actief in het systeem. --}}
-                                                        <a class="text-warning" href="{{ route('admin.users.lock', $user) }}">
+                                                        <a class="text-warning" href="{{ route('admin.users.lock', $user) }}" data-toggle="tooltip" data-placement="bottom" title="Blokkeer gebruiker">
                                                             <i class="fa fa-fw fa-lock"></i>
                                                         </a>
                                                     @endif 
                                                 @endcan
 
-                                                <a href="{{ route('admin.users.delete', $user) }}" class="text-danger">
+                                                <a href="{{ route('admin.users.delete', $user) }}" class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Verwijder">
                                                     <i class="fa fa-fw fa-close"></i>
                                                 </a>
                                             </td>
