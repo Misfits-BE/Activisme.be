@@ -5,6 +5,7 @@ namespace ActivismeBe\Http\Controllers;
 use ActivismeBe\Repositories\ActivityRepository;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use ActivismeBe\Http\Requests\Backend\ActivitySearchValidator;
 
 /**
  * LogsController 
@@ -37,11 +38,21 @@ class LogsController extends Controller
      */
     public function index(): View
     {
-        return view('backend.logs.index', ['logs' => $this->activityRepository->entity()->simplePaginate(20)]);
+        return view('backend.logs.index', ['logs' => 
+            $this->activityRepository->entity()->simplePaginate(20)
+        ]);
     }
 
-    public function search(): View
+    /**
+     * Zoek voor een specifieke activiteit in de logs. 
+     * 
+     * @param  ActivitySearchValidator $input De gegeven gebruikers invoer. 
+     * @return \Illuminate\View\View
+     */
+    public function search(ActivitySearchValidator $input): View
     {
-
+        return view('backend.logs.index', ['logs' => 
+            $this->activityRepository->searchLogs($input->term, 20)
+        ]);
     }
 }
