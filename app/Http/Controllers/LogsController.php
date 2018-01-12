@@ -26,7 +26,7 @@ class LogsController extends Controller
      */
     public function __construct(ActivityRepository $activityRepository)
     {
-        $this->middleware(['role:admin']);
+        $this->middleware(['role:admin', 'forbid-banned-user']);
         $this->activityRepository = $activityRepository;
     }
 

@@ -8,7 +8,8 @@
     @else
         <div class="alert
                     alert-{{ $message['level'] }}
-                    {{ $message['important'] ? 'alert-important' : '' }}"
+                    {{ $message['important'] ? 'alert-important' : '' }}
+                    alert-dismissible fade show"
                     role="alert"
         >
             @if ($message['important'])

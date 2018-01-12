@@ -3,6 +3,7 @@
 @section('content')
     <div class="container my-4">
         {{ Breadcrumbs::render('users-index') }}
+        @include('flash::message')
 
         <div class="row">
             <div class="col-md-12">
@@ -41,6 +42,10 @@
                                         <tr>
                                             <td><strong>#{{ $user->id }}</strong></td>
                                             <td>
+                                                @if ($user->isBanned())
+                                                    <span class="badge badge-danger">Geblokkeerd</span>
+                                                @endif  
+
                                                 @if ($user->isOnline())
                                                     <span class="badge badge-success">Online</span>
                                                 @else
@@ -55,7 +60,19 @@
                                                 {{ $user->created_at->diffForHumans() }}
                                             </td>
 
-                                            <td class="text-center"> {{-- Options --}}
+                                            <td class="text-right"> {{-- Options --}}
+                                                @can ('auth-user', $user) {{-- Check of de gebruiker niet de zelfde is dan de aangemelde gebruiker --}}
+                                                    @if ($user->isBanned()) {{-- De gebruiker is geblokkeerd in het systeem. --}}
+                                                        <a class="text-success" href="{{ route('admin.users.activate', $user) }}">
+                                                            <i class="fa fa-unlock"></i>
+                                                        </a> 
+                                                    @else {{-- Gebruiker is actief in het systeem. --}}
+                                                        <a class="text-warning" href="{{ route('admin.users.lock', $user) }}">
+                                                            <i class="fa fa-fw fa-lock"></i>
+                                                        </a>
+                                                    @endif 
+                                                @endcan
+
                                                 <a href="{{ route('admin.users.delete', $user) }}" class="text-danger">
                                                     <i class="fa fa-fw fa-close"></i>
                                                 </a>

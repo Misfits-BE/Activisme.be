@@ -7,6 +7,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Traits\HasRoles;
+use Cog\Contracts\Ban\Bannable as BannableContract;
+use Cog\Laravel\Ban\Traits\Bannable;
 
 /**
  * Databank model voor de gebruikers 
@@ -14,9 +16,9 @@ use Spatie\Permission\Traits\HasRoles;
  * @author      Tim Joosten <tim@activisme.be> 
  * @copyright   2018 Tim Joosten 
  */
-class User extends Authenticatable
+class User extends Authenticatable implements BannableContract
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, Bannable;
 
     /**
      * The attributes that are mass assignable.

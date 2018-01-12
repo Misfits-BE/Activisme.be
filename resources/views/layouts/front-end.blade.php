@@ -214,7 +214,15 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-<script>$(function () {$('[data-toggle="tooltip"]').tooltip()})</script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+
+        setTimeout(function() {
+            $('div.alert').not('.alert-important').alert('close');
+        }, 4000);
+    });
+</script>
 @stack('scripts')
 </body>
 </html>
