@@ -41,6 +41,7 @@ Route::get('/visie', 'Frontend\VisieController@index')->name('visie.index');
 
 // Logs routes
 Route::get('/admin/logs', 'LogsController@index')->name('admin.logs.index');
+Route::get('logs/zoek', 'LogsController@search')->name('admin.logs.search');
 
 // User routes
 Route::get('/admin/users', 'UsersController@index')->name('admin.users.index');

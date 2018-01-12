@@ -39,4 +39,9 @@ class LogsController extends Controller
     {
         return view('backend.logs.index', ['logs' => $this->activityRepository->entity()->simplePaginate(20)]);
     }
+
+    public function search(): View
+    {
+
+    }
 }
