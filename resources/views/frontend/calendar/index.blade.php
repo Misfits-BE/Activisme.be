@@ -51,7 +51,7 @@
                                                     </td>
                                                 @endforeach
                                             </tr>
-                                        @else <!-- Multiple events in a single day (note the rowspan) -->
+                                        @else {{-- Multiple events in a single day (note the rowspan) --}}
                                             <tr>
                                                 <td class="agenda-date" class="active" rowspan="{{ count($date->events) }}">
                                                     <div class="dayofmonth day-color">{{ $datum->format('d') }}</div>
