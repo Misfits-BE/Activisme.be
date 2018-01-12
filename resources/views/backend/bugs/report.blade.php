@@ -17,7 +17,7 @@
 
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <div class="alert alert-warning">
+                                    <div class="alert alert-warning alert-important">
                                         <i class="fa fa-warning"></i> <strong>Waarschuwing:</strong>
                                         Uw gegeven invoer word publiekelijk in GitHub geplaatst.
                                     </div>
