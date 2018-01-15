@@ -15,6 +15,8 @@ class CreateNewslettersTable extends Migration
     {
         Schema::create('newsletters', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('email', 120);
+            $table->uuid('unsubscribe_token');
             $table->timestamps();
         });
     }

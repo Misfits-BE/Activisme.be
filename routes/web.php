@@ -42,6 +42,9 @@ Route::get('ondersteun-ons/gift/bedankt/{uuid}', 'Frontend\CrowdFundController@s
 // gift routes
 Route::post('/gift/opslaan', 'Backend\CrowdfundController@store')->name('gift.save');
 
+// Newsletter routes 
+Route::post('nieuwsbrief/inschrijven', 'Backend\NewsLetterController@store')->name('nieuwsbrief.inschrijven');
+
 // Contact route 
 Route::post('/contact', 'Frontend\ContactController@send')->name('contact.send');
 

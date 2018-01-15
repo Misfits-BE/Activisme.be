@@ -82,7 +82,7 @@
             </div> {{-- /END content --}}
         
             <div class="col-lg-4"> {{-- Sidebar --}}
-                <form action="" method="POST">
+                <form action="{{ route('nieuwsbrief.inschrijven') }}" method="POST">
                     {{ csrf_field() }} {{-- Form field protection --}}
 
                     <div class="card mb-4">

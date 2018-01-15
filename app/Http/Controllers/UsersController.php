@@ -2,11 +2,11 @@
 
 namespace ActivismeBe\Http\Controllers;
 
+use Carbon\Carbon;
 use ActivismeBe\Http\Requests\Backend\UserValidator;
 use ActivismeBe\Notifications\NewUser;
 use ActivismeBe\Repositories\RoleRepository;
 use ActivismeBe\Repositories\UserRepository;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
