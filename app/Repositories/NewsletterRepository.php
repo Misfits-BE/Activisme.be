@@ -23,4 +23,18 @@ class NewsletterRepository extends Repository
     {
         return Newsletter::class;
     }
+
+    /**
+     * Vind een specifiek email adres in de databank en haal deze op. 
+     * ---
+     * Deze functie geeft ook een HTTP/1 404 - Not Found terug. 
+     * Als er geen email adres onder de uuid word gevonden. 
+     * 
+     * @param  string $uuidde unieke identificatie van het email adres.
+     * @return \ActivismeBe\NewsLetter
+     */
+    public function findEmail(string $uuid): NewsLetter 
+    {
+        return $this->entity()->where('uuid', $uuid)->firstOrFail();
+    }
 }

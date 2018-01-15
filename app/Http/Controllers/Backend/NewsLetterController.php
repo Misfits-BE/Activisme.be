@@ -42,7 +42,7 @@ class NewsLetterController extends Controller
     /**
      * Slaag de gegevens van de gast gebruiker op in de databank. 
      * 
-     * @todo registratie flash message in de view(s).
+     * @todo registratie flash message in de view(s).é""!oç
      * 
      * @param  NewsLetterValidator $input De gegevens gebruikers invoer (gevalideerd)  
      * @return \Illuminate\View\View
@@ -57,5 +57,22 @@ class NewsLetterController extends Controller
         }
 
         return back(302); // Stuur de gast gebruiker terug naar de vorige pagina. 
+    }
+
+    /**
+     * Verwijder een persoon uit de ontvangers voor de nieuwsbrief. 
+     * 
+     * @param  string $uuid The unieke identificatie van de gebruiker.
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unsubscribe(string $uuid): RedirectResponse 
+    {
+        $person = $this->newsletterRepository->findEmail($uuid);
+
+        if ($person->delete()) {
+            flash('We hebben je verwijderd uit de mailinglijst voor onze nieuwsbrief.')->success();
+        }
+
+        return redirect()->route('home.front');
     }
 }
