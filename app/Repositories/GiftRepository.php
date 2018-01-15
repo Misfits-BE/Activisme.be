@@ -13,7 +13,6 @@ use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
  */
 class GiftRepository extends Repository
 {
-
     /**
      * Set the eloquent model class for the repository.
      *
@@ -37,6 +36,10 @@ class GiftRepository extends Repository
         return false;
     }
 
+    /**
+     * @todo docblock
+     * @todo typehint
+     */
     public function prefillPlan($plan) 
     {
         switch ($plan) { // Bepaal het bedrag en opslag in variable voor te laten passeren naar form.

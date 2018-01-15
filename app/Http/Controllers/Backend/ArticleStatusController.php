@@ -29,7 +29,7 @@ class ArticleStatusController extends Controller
      */
     public function __construct(ArticleRepository $articleRepository)
     {
-        $this->middleware('role:admin');
+        $this->middleware(['role:admin', 'forbid-banned-user']);
         $this->articleRepository = $articleRepository;
     }
 

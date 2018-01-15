@@ -13,6 +13,12 @@
 
 // Authencation related routes.
 Auth::routes();
+
+// Ban routes 
+Route::get('/admin/users/blokkeer/{id}', 'Auth\BanController@store')->name('admin.users.lock');
+Route::get('/admin/users/activeer/{id}', 'Auth\BanController@destroy')->name('admin.users.activate');
+
+// Account instellingen (routes)
 Route::get('/admin/account/instellingen/{type}', 'Auth\AccountSettingsController@index')->name('account.settings');
 Route::patch('/admin/account/instellingen/info', 'Auth\AccountSettingsController@updateInformation')->name('account.settings.info');
 Route::patch('/admin/account/instellingen/beveiliging', 'Auth\AccountSettingsController@updateSecurity')->name('account.settings.security');
@@ -21,12 +27,21 @@ Route::patch('/admin/account/instellingen/beveiliging', 'Auth\AccountSettingsCon
 Route::get('/', 'Frontend\HomeController@index')->name('home.front');
 Route::get('/admin/home', 'HomeController@index')->name('home');
 
+// Address book routes
+Route::get('/admin/contacten', 'Backend\ContactsController@index')->name('admin.contacts.index');
+Route::get('/admin/create', 'Backend\ContactsController@create')->name('admin.contacts.create');
+Route::get('/admin/contacten/verwijder/{id}', 'Backend\ContactsController@destroy')->name('admin.contacts.delete');
+Route::get('/admin/contacten/wijzig/{id}', 'Backend\ContactsController@edit')->name('admin.contacts.edit');
+Route::patch('/admin/contacten/wijzig/{id}', 'Backend\ContactsController@update')->name('admin.contacts.update');
+Route::post('/admin/contacten/opslaan', 'Backend\ContactsController@store')->name('admin.contacts.store');
+
 // Frontend
 Route::get('/disclaimer', 'DisclaimerController@index')->name('disclaimer.index');
 Route::get('/visie', 'Frontend\VisieController@index')->name('visie.index');
 
 // Logs routes
 Route::get('/admin/logs', 'LogsController@index')->name('admin.logs.index');
+Route::get('logs/zoek', 'LogsController@search')->name('admin.logs.search');
 
 // User routes
 Route::get('/admin/users', 'UsersController@index')->name('admin.users.index');

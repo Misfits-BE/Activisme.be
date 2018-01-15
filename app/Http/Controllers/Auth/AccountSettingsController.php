@@ -24,7 +24,7 @@ class AccountSettingsController extends Controller
 
     public function __construct(UserRepository $userRepository) 
     {
-        $this->middleware('auth'); 
+        $this->middleware(['forbid-banned-user', 'auth']); 
         $this->userRepository = $userRepository;
     }
 

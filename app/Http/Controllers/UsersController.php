@@ -28,7 +28,7 @@ class UsersController extends Controller
      */
     public function __construct(UserRepository $userRepository)
     {
-        $this->middleware(['role:admin'])->except('destroy');
+        $this->middleware(['role:admin', 'forbid-banned-user'])->except('destroy');
         $this->userRepository = $userRepository;
     }
 

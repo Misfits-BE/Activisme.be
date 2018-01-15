@@ -46,6 +46,12 @@
                             </a>
                         </li>
 
+                        <li class="nav-item @if (Request::is('admin/contacten*')) active @endif">
+                            <a href="{{ route('admin.contacts.index') }}" class="nav-link">
+                                <i class="fa fa-address-book"></i> Contacten
+                            </a>
+                        </li>
+
                         <li class="nav-item dropdown @if (Request::is('admin/artikels*')) active @endif">
                             <a class="nav-link dropdown-toggle" href="#" id="newsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-newspaper-o"></i> Nieuws
@@ -208,7 +214,15 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-<script>$(function () {$('[data-toggle="tooltip"]').tooltip()})</script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+
+        setTimeout(function() {
+            $('div.alert').not('.alert-important').alert('close');
+        }, 4000);
+    });
+</script>
 @stack('scripts')
 </body>
 </html>
