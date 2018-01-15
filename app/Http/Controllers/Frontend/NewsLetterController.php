@@ -1,6 +1,6 @@
 <?php
 
-namespace ActivismeBe\Http\Controllers\Backend;
+namespace ActivismeBe\Http\Controllers\Frontend;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,10 +14,11 @@ use ActivismeBe\Notifications\RegisterNewsLetter;
 /**
  * NewsLetterController 
  * 
- * De controller voor het nieuws berichten systeem. Deze staat bij in de backend 
- * omdat het aanmaken voor 1 functie een frontend controller te zot is. 
+ * De controller voor het nieuws berichten systeem. Deze laat toe dat gebruikers zich
+ * kunnen inschrijven en uitschrijven. 
  * 
  * @todo registratie flash session in de nieuws en frontend welcome view.
+ * @todo Uitwerken van phpunit tests.
  * 
  * @author      Tim Joosten <tim@activisme.be>
  * @copyright   2018 Tim Joosten

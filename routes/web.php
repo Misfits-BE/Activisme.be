@@ -43,8 +43,8 @@ Route::get('ondersteun-ons/gift/bedankt/{uuid}', 'Frontend\CrowdFundController@s
 Route::post('/gift/opslaan', 'Backend\CrowdfundController@store')->name('gift.save');
 
 // Newsletter routes 
-Route::post('nieuwsbrief/inschrijven', 'Backend\NewsLetterController@store')->name('nieuwsbrief.inschrijven');
-Route::get('nieuwsbrief/uitschrijven/{uuid}', 'Backend\NewsLetterController@unsubscribe')->name('nieuwsbrief.uitschrijven');
+Route::post('nieuwsbrief/inschrijven', 'Frontend\NewsLetterController@store')->name('nieuwsbrief.inschrijven');
+Route::get('nieuwsbrief/uitschrijven/{uuid}', 'Frontend\NewsLetterController@unsubscribe')->name('nieuwsbrief.uitschrijven');
 
 // Contact route 
 Route::post('/contact', 'Frontend\ContactController@send')->name('contact.send');
