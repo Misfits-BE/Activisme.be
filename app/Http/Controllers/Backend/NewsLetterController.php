@@ -17,6 +17,8 @@ use ActivismeBe\Notifications\RegisterNewsLetter;
  * De controller voor het nieuws berichten systeem. Deze staat bij in de backend 
  * omdat het aanmaken voor 1 functie een frontend controller te zot is. 
  * 
+ * @todo registratie flash session in de nieuws en frontend welcome view.
+ * 
  * @author      Tim Joosten <tim@activisme.be>
  * @copyright   2018 Tim Joosten
  */
@@ -35,14 +37,12 @@ class NewsLetterController extends Controller
      */
     public function __construct(NewsletterRepository $newsletterRepository) 
     {
-        $this->middleware(['auth', 'forbid-banned-user', 'role:admin'])->except(['store']);
+        $this->middleware(['auth', 'forbid-banned-user', 'role:admin'])->except(['store', 'unsubscribe']);
         $this->newsletterRepository = $newsletterRepository;
     }
 
     /**
      * Slaag de gegevens van de gast gebruiker op in de databank. 
-     * 
-     * @todo registratie flash message in de view(s).é""!oç
      * 
      * @param  NewsLetterValidator $input De gegevens gebruikers invoer (gevalideerd)  
      * @return \Illuminate\View\View
@@ -52,8 +52,8 @@ class NewsLetterController extends Controller
         $input->merge(['unsubscribe_token' => Uuid::uuid4()]); 
 
         if ($user = $this->newsletterRepository->create($input->except('_token'))) {
-            $user->notify((new RegisterNewsLetter($input))->delay(Carbon::now()->addMinute(1)));-
-            flash("We hebben jouw ingeschreven op de nieuwsbrief. ")->success(); 
+            $user->notify((new RegisterNewsLetter($user))->delay(Carbon::now()->addMinute(1)));
+            flash("We hebben jouw ingeschreven op de nieuwsbrief.")->success(); 
         }
 
         return back(302); // Stuur de gast gebruiker terug naar de vorige pagina. 
@@ -61,6 +61,8 @@ class NewsLetterController extends Controller
 
     /**
      * Verwijder een persoon uit de ontvangers voor de nieuwsbrief. 
+     * 
+     * @todo registratie mail notificatie dat de gebruiker is uitgeschreven.
      * 
      * @param  string $uuid The unieke identificatie van de gebruiker.
      * @return \Illuminate\Http\RedirectResponse

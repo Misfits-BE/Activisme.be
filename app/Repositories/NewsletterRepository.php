@@ -35,6 +35,6 @@ class NewsletterRepository extends Repository
      */
     public function findEmail(string $uuid): NewsLetter 
     {
-        return $this->entity()->where('uuid', $uuid)->firstOrFail();
+        return $this->entity()->where('unsubscribe_token', $uuid)->firstOrFail();
     }
 }

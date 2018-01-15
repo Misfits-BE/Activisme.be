@@ -44,6 +44,7 @@ Route::post('/gift/opslaan', 'Backend\CrowdfundController@store')->name('gift.sa
 
 // Newsletter routes 
 Route::post('nieuwsbrief/inschrijven', 'Backend\NewsLetterController@store')->name('nieuwsbrief.inschrijven');
+Route::get('nieuwsbrief/uitschrijven/{uuid}', 'Backend\NewsLetterController@unsubscribe')->name('nieuwsbrief.uitschrijven');
 
 // Contact route 
 Route::post('/contact', 'Frontend\ContactController@send')->name('contact.send');

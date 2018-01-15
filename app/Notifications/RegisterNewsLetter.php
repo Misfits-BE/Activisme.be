@@ -14,6 +14,14 @@ class RegisterNewsLetter extends Notification implements ShouldQueue
     /**
      * @var $input
      */
+    public $input;
+
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 5;
 
     /**
      * Create a new notification instance.
@@ -47,6 +55,6 @@ class RegisterNewsLetter extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject('Bedankt om je te registreren op onze nieuwsbrief.')
-            ->markdown('mail.newsletter.register');
+            ->markdown('mail.newsletter.register', ['input' => $this->input]);
     }
 }
