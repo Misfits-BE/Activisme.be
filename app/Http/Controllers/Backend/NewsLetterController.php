@@ -107,10 +107,12 @@ class NewsLetterController extends Controller
      * Opslag method voor de wijzigingen aan een nieuwsbrief
      * ---- 
      * INFO: De wijzigingen aan een nieuwsbrief kunnen alleen opgeslagen worden als 
-     *       de nieuwsbrief een klad status heeft en nog niet gepubliceerd is. 
+     *       de nieuwsbrief een klad status heeft en nog niet gepubliceerd en verzonden is. 
      * 
      * @todo Registratie routering 
      * @todo Implementatie validator
+     * @todo Implementatie activiteiten logger.
+     * @todo Implementatie queue worker die de mail zend naar de subscribers.
      * 
      * @param  string $slug De unieke identificatie van de nieuwsbrief in het systeem. 
      * @return \Illuminate\Http\RedirectResponse
@@ -120,15 +122,20 @@ class NewsLetterController extends Controller
         $repository = $this->newsMailingRepository; 
         $letter     = $repository->findLetter($slug);
 
-        if ($repository->isNotPublished($letter) && $repository->isDraftVersion($letter)) {
+        if ($repository->isNotPublished($letter) && $repository->isDraftVersion($letter) && $repository->isNotSend($letter)) { // @see docblock 'INFO' section
+            if ($input->send) { // De nieuwsbrief heeft in de wijzigingen een 'verzenden status gekreken'. 
+                $input->merge(['is_send' => 1]); // Indicatie 1 = true | Nieuwsbrief moet verzonden verzonden worden.
+                // TODO: Aparte log message nodig voor de verzending. 
+                // TODO: queue worker voor de verzending
+            }
+
             if ($repository->updateNewsLetter($letter->id, $input->except('_token'))) { // De nieuwsbrief is aangepast in het systeem.
-                if ($input->status == 'send') {                                         // De nieuwsbrief heeft in de wijzigingen een 'verzenden status gekreken'. 
-                    // TODO: implementatie queue worker die de mail zend naar de subscribers.
-                }
 
                 flash('De nieuwsbrief is aangepast. En mogelijks ook verzonden.')->success()->important();
             }
-        } 
+        }
+
+        return redirect()->route('admin.nieuwsbrief.index');
     }
 
     /**
