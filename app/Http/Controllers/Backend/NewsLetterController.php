@@ -15,7 +15,10 @@ use Illuminate\View\View;
  * 
  * @todo Implementatie PHPUnit tests.
  * @todo Implementatie functie repository ->deleteLetter($slug); | HTTP/1 404 - Not Found respons wanneer niet gevonden
- * @todo Implementatie functie repository ->findLetter($slug);   | HTTP/1 404 - Not Found respons wanneer niet gevonden
+ * @todo Implementatie functie repository ->findLetter($slug);   | HTTP/1 404 - Not Found respons wanneer niet gevonden. 
+ * @todo Implementatie functie repository ->updateNewsLetter((int) $nieuwsbriefId, (array) $input)
+ * @todo Implementatie functie repository ->isNotPublished($letter)
+ * @todo Implementatie functie repository ->isDraftVersion($letter)
  * 
  * @author      Tim Joosten <tim@activisme.be>
  * @copyright   2018 Tim Joosten
@@ -114,13 +117,25 @@ class NewsLetterController extends Controller
      */
     public function update(string $slug): RedirectResponse 
     {
-        //
+        $repository = $this->newsMailingRepository; 
+        $letter     = $repository->findLetter($slug);
+
+        if ($repository->isNotPublished($letter) && $repository->isDraftVersion($letter)) {
+            if ($repository->updateNewsLetter($letter->id, $input->except('_token'))) { // De nieuwsbrief is aangepast in het systeem.
+                if ($input->status == 'send') {                                         // De nieuwsbrief heeft in de wijzigingen een 'verzenden status gekreken'. 
+                    // TODO: implementatie queue worker die de mail zend naar de subscribers.
+                }
+
+                flash('De nieuwsbrief is aangepast. En mogelijks ook verzonden.')->success()->important();
+            }
+        } 
     }
 
     /**
      * Verwijder een nieuwsbvrief in het systeem. 
      * 
      * @todo Registratie routering 
+     * @todo Activiteiten logger.
      * 
      * @param  string $slug De unieke indentificatie van de nieuwsbrief in het systeem. 
      * @return \Illuminate\Http\RedirectResponse 
