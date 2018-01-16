@@ -14,6 +14,8 @@ use Illuminate\View\View;
  * Backend controller voor het beheer van de nieuwsbrieven. 
  * 
  * @todo Implementatie PHPUnit tests.
+ * @todo Implementatie functie repository ->deleteLetter($slug); | HTTP/1 404 - Not Found respons wanneer niet gevonden
+ * @todo Implementatie functie repository ->findLetter($slug);   | HTTP/1 404 - Not Found respons wanneer niet gevonden
  * 
  * @author      Tim Joosten <tim@activisme.be>
  * @copyright   2018 Tim Joosten
@@ -47,6 +49,20 @@ class NewsLetterController extends Controller
         return view('backend.newsletter.index', [
             'letters' => $this->newsMailingRepository->getAllpaginate('simple', 15)
         ]);
+    }
+
+    /**
+     * Geef een voorbeeld weergave weer van de nieuwsbrief. 
+     * 
+     * @todo Registratie routering 
+     * @todo Registratie en opbouwen view 
+     * 
+     * @return \Illuminate\View\View
+     */
+    public function show(string $slug): View 
+    {
+        $letter = $this->newsMailingRepository->findLetter($slug);
+        return view('mail.newsletter.email', compact('letter'));
     }
 
     /**
@@ -101,8 +117,20 @@ class NewsLetterController extends Controller
         //
     }
 
+    /**
+     * Verwijder een nieuwsbvrief in het systeem. 
+     * 
+     * @todo Registratie routering 
+     * 
+     * @param  string $slug De unieke indentificatie van de nieuwsbrief in het systeem. 
+     * @return \Illuminate\Http\RedirectResponse 
+     */
     public function destroy(string $slug): RedirectResponse
     {
-        //
+        if ($this->newsMailingRepository->deleteLetter($slug)) {
+            flash('De nieuwsbrief is verwijderd uit het systeem.')->success();
+        }
+
+        return redirect()->route('admin.nieuwsbrief.index');
     }
 }
