@@ -73,7 +73,7 @@ class NewsLetterController extends Controller
         $person = $this->newsletterRepository->findEmail($uuid);
 
         if ($person->delete()) {
-            flash('We hebben je verwijderd uit de mailinglijst voor onze nieuwsbrief.')->success();
+            flash('We hebben je verwijderd uit de mailinglijst voor onze nieuwsbrief.')->success()->important();
         }
 
         return redirect()->route('home.front');
