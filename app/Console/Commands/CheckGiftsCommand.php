@@ -40,7 +40,7 @@ class CheckGiftsCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Synchronize the gift on mollie wioth our database';
 
     /**
      * Create a new command instance.
