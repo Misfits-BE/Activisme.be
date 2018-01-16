@@ -57,9 +57,12 @@ Route::get('ondersteun-ons/gift/bedankt/{uuid}', 'Frontend\CrowdFundController@s
 // gift routes
 Route::post('/gift/opslaan', 'Backend\CrowdfundController@store')->name('gift.save');
 
-// Newsletter routes 
+// Newsletter routes (frontend)
 Route::post('nieuwsbrief/inschrijven', 'Frontend\NewsLetterController@store')->name('nieuwsbrief.inschrijven');
 Route::get('nieuwsbrief/uitschrijven/{uuid}', 'Frontend\NewsLetterController@unsubscribe')->name('nieuwsbrief.uitschrijven');
+
+// Newsletter routes (backend) 
+Route::get('admin/nieuwsbrief/index', 'Backend\NewsLetterController@index')->name('admin.nieuwsbrief.index');
 
 // Contact route 
 Route::post('/contact', 'Frontend\ContactController@send')->name('contact.send');
