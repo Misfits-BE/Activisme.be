@@ -5,6 +5,7 @@ namespace ActivismeBe\Http\Controllers\Backend;
 use ActivismeBe\Repositories\NewsMailingRepository;
 use ActivismeBe\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 /**
@@ -44,5 +45,17 @@ class NewsLetterController extends Controller
         return view('backend.newsletter.index', [
             'letters' => $this->newsMailingRepository->getAllpaginate('simple', 15)
         ]);
+    }
+
+    /**
+     * Slaag een nieuwsbrief op in het systeem. 
+     * ---
+     * Na de opslag word ook de nieuwsbrief verzonden naar de gebruikers.
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(): RedirectResponse 
+    {
+        //
     }
 }
