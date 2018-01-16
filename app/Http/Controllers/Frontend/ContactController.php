@@ -25,7 +25,7 @@ class ContactController extends Controller
      */
     public function send(ContactValidator $input): RedirectResponse
     {
-        Mail::to('tom@activisme.be')->send(new sendContactForm($input->all()));
+        Mail::to(config('platform.contact.email'))->send(new sendContactForm($input->all()));
         
         return back(302); // Herleid de gebruiker terug naar de vorige pagina. 
     }
