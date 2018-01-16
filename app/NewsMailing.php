@@ -5,6 +5,11 @@ namespace ActivismeBe;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @todo registratie publicatie_datum 
+ * @todo (bool field) 'gepubliceerd' - Nodig voor de publicatie of klad status te bepalen.
+ * @todo Implementatie slug veld (nodig voor identificatie van de nieuwsbrief) 
+ */
 class NewsMailing extends Model
 {
     /**
