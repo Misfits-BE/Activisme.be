@@ -2,6 +2,8 @@
 
 namespace ActivismeBe\Http\Controllers\Backend;
 
+use ActivismeBe\Http\Requests\Frontend\NewsLetterValidator;
+use ActivismeBe\Repositories\NewsletterRepository;
 use ActivismeBe\Repositories\NewsMailingRepository;
 use ActivismeBe\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -25,21 +27,25 @@ use Illuminate\View\View;
  */
 class NewsLetterController extends Controller
 {
-    /**
-     * @var NewsMailingRepository $newsletterRepository
-     */
-    private $newsMailingRepository; 
+    /* @var \ActivismeBe\Repositories\NewsMailingRepository */
+    private $newsMailingRepository;
+
+    /** @var \ActivismeBe\Repositories\NewsletterRepository */
+    private $subscribers;
 
     /**
-     * NewsLetterController constructor 
-     * 
-     * @param  NewsMailingRepository $newsletterRepository Abstractie laag tussen logica, controller, databank.
+     * NewsLetterController constructor
+     *
+     * @param  NewsMailingRepository $newsMailingRepository Abstractie laag tussen controller, logica, database
+     * @param  NewsletterRepository  $subscribers           Abstractie laag tussen controller, logica, database
      * @return void
      */
-    public function __construct(NewsMailingRepository $newsMailingRepository) 
+    public function __construct(NewsMailingRepository $newsMailingRepository, NewsletterRepository $subscribers)
     {
         $this->middleware(['auth', 'role:admin', 'forbid-banned-user']);
+
         $this->newsMailingRepository = $newsMailingRepository;
+        $this->subscribers           = $subscribers;
     }
 
     /**
@@ -77,10 +83,11 @@ class NewsLetterController extends Controller
      * @todo Implementatie van een breadcrumb in de view. 
      * @todo implementatie validator 
      * @todo implementatie activiteiten logger. 
-     * 
+     *
+     * @param  NewsLetterValidator $input   De gegeven gebruikers invoer. (Gevalideerd)
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(): RedirectResponse 
+    public function store(NewsLetterValidator $input): RedirectResponse
     {
         //
     }
@@ -113,11 +120,12 @@ class NewsLetterController extends Controller
      * @todo Implementatie validator
      * @todo Implementatie activiteiten logger.
      * @todo Implementatie queue worker die de mail zend naar de subscribers.
-     * 
-     * @param  string $slug De unieke identificatie van de nieuwsbrief in het systeem. 
+     *
+     * @param  NewsLetterValidator $input   De gegeven gebruikers invoer. (gevalideerd)
+     * @param  string              $slug    De unieke identificatie van de nieuwsbrief in het systeem.
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(string $slug): RedirectResponse 
+    public function update(NewsLetterValidator $input, string $slug): RedirectResponse
     {
         $repository = $this->newsMailingRepository; 
         $letter     = $repository->findLetter($slug);
