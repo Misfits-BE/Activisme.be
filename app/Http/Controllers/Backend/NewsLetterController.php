@@ -2,7 +2,7 @@
 
 namespace ActivismeBe\Http\Controllers\Backend;
 
-use ActivismeBe\Http\Requests\Frontend\NewsLetterValidator;
+use ActivismeBe\Http\Requests\NewsMailValidator;
 use ActivismeBe\Repositories\NewsletterRepository;
 use ActivismeBe\Repositories\NewsMailingRepository;
 use ActivismeBe\Http\Controllers\Controller;
@@ -97,12 +97,12 @@ class NewsLetterController extends Controller
      * @todo implementatie validator 
      * @todo implementatie activiteiten logger. 
      *
-     * @param  NewsLetterValidator $input   De gegeven gebruikers invoer. (Gevalideerd)
+     * @param  NewsMailValidator $input   De gegeven gebruikers invoer. (Gevalideerd)
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(NewsLetterValidator $input): RedirectResponse
+    public function store(NewsMailValidator $input): RedirectResponse
     {
-        //
+        dd($input->all());
     }
 
     /**
@@ -134,20 +134,21 @@ class NewsLetterController extends Controller
      * @todo Implementatie activiteiten logger.
      * @todo Implementatie queue worker die de mail zend naar de subscribers.
      *
-     * @param  NewsLetterValidator $input   De gegeven gebruikers invoer. (gevalideerd)
+     * @param  NewsMailValidator $input   De gegeven gebruikers invoer. (gevalideerd)
      * @param  string              $slug    De unieke identificatie van de nieuwsbrief in het systeem.
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(NewsLetterValidator $input, string $slug): RedirectResponse
+    public function update(NewsMailValidator $input, string $slug): RedirectResponse
     {
         $repository = $this->newsMailingRepository; 
         $letter     = $repository->findLetter($slug);
 
         if ($repository->isNotPublished($letter) && $repository->isDraftVersion($letter) && $repository->isNotSend($letter)) { // @see docblock 'INFO' section
-            if ($input->send) { // De nieuwsbrief heeft in de wijzigingen een 'verzenden status gekreken'. 
+            if ($input->is_send) { // De nieuwsbrief heeft in de wijzigingen een 'verzenden status gekreken'.
                 $input->merge(['is_send' => 1]); // Indicatie 1 = true | Nieuwsbrief moet verzonden verzonden worden.
-                // TODO: Aparte log message nodig voor de verzending. 
-                // TODO: queue worker voor de verzending
+
+                $this->subscribers->send($input->all());
+                // TODO: Aparte log message nodig voor de verzending.
             }
 
             if ($repository->updateNewsLetter($letter->id, $input->except('_token'))) { // De nieuwsbrief is aangepast in het systeem.
