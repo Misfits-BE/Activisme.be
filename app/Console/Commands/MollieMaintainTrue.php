@@ -18,7 +18,7 @@ class MollieMaintainTrue extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Haal het molllie betalings systeem uit onderhoud.';
 
     /**
      * Create a new command instance.
