@@ -33,7 +33,7 @@ class CheckGiftsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'crowdfund:check-payments';
+    protected $signature = 'mollie:check-payments';
 
     /**
      * The console command description.

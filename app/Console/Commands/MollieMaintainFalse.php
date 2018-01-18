@@ -4,14 +4,14 @@ namespace ActivismeBe\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class MollieMaintain extends Command
+class MollieMaintainFalse extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'mollie:down';
 
     /**
      * The console command description.

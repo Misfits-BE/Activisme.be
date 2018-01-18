@@ -13,8 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \ActivismeBe\Console\Commands\CheckGiftsCommand::class, 
-        \ActivismeBe\Console\Commands\MollieMaintain::class,
+        \ActivismeBe\Console\Commands\CheckGiftsCommand::class,
+        \ActivismeBe\Console\Commands\MollieMaintainTrue::class, 
+        \ActivismeBe\Console\Commands\MollieMaintainFalse::class,
     ];
 
     /**
