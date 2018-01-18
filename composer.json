@@ -8,6 +8,7 @@
         "php": ">=7.0.0",
         "activismebe/database-layering": "^0.29.0",
         "activismebe/share": "^5.2",
+        "brotzka/laravel-dotenv-editor": "^2.0",
         "cybercog/laravel-ban": "^3.0",
         "davejamesmiller/laravel-breadcrumbs": "^4.2",
         "fideloper/proxy": "~3.3",
