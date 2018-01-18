@@ -54,8 +54,8 @@
 
                                     <div class="col-lg-10">
                                         <select name="is_send" class="form-control{{ $errors->has('is_send') ? 'invalid' : '' }}">
-                                            <option value="false" @if (old('is_send') == 'true')  selected @endif>Nee, ik wil deze nog niet verzenden.</option>
-                                            <option value="true"  @if (old('is_send') == 'false') selected @endif>Ja, ik wil deze verzenden.</option>
+                                            <option value="0" @if (old('is_send') == 0)  selected @endif>Nee, ik wil deze nog niet verzenden.</option>
+                                            <option value="1" @if (old('is_send') == 1) selected @endif>Ja, ik wil deze verzenden.</option>
                                         </select>
 
                                         @if ($errors->has('is_send'))
