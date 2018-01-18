@@ -46,6 +46,20 @@
                                             <td><code>#NB{{ $letter->id }}</code></td>
                                             <td>{{ $letter->status }}</td>
                                             <td>{{ $letter->author->name }}</td>
+                                            <td>{{ $letter->titel  }}</td>
+                                            <td>00/00/00</td>
+
+                                            <td class="pull-right"> {{-- Opties --}}
+                                                @if (! $letter->is_send)
+                                                    <a href="" class="text-warning">
+                                                        <i class="fa fa-fw fa-envelope"></i>
+                                                    </a>
+                                                @endif
+
+                                                <a href="" class="text-danger">
+                                                    <i class="fa fa-fw fa-close"></i>
+                                                </a>
+                                            </td> {{-- /Opties --}}
                                         </tr>
                                     @endforeach {{-- /// end loop --}}
                                 @endif
