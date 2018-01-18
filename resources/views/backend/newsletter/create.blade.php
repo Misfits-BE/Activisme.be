@@ -35,8 +35,8 @@
 
                                 <div class="col-lg-10">
                                     <select name="status" class="form-control{{ $errors->has('status') ? 'invalid' : '' }}">
-                                        <option value="draft"  @if (old('status') === 'draft')  selected @endif>Klad versie</option>
-                                        <option value="public" @if (old('status') === 'public') selected @endif>Publiceer</option>
+                                        <option value="publicatie"  @if (old('status') === 'publicatie')  selected @endif>Klad versie</option>
+                                        <option value="klad versie" @if (old('status') === 'klad versie') selected @endif>Publiceer</option>
                                     </select>
 
                                     @if ($errors->has('status'))

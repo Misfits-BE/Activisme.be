@@ -43,7 +43,9 @@
                                 @else {{-- Nieuwsbrieven gevonden in het systeem.  --}}
                                     @foreach ($letters as $letter) {{-- Loop voor de nieuwsbrieven --}}
                                         <tr>
-                                            <th><code>#NB{{ $letter->id }}</code></th>
+                                            <td><code>#NB{{ $letter->id }}</code></td>
+                                            <td>{{ $letter->status }}</td>
+                                            <td>{{ $letter->author->name }}</td>
                                         </tr>
                                     @endforeach {{-- /// end loop --}}
                                 @endif
