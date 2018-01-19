@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-/**
- * @todo Implementatie slug veld (nodig voor identificatie van de nieuwsbrief) 
- */
 class NewsMailing extends Model
 {
     use HasSlug;
