@@ -2,7 +2,10 @@
 
 namespace ActivismeBe\Repositories;
 
+use Carbon\Carbon;
+use ActivismeBe\NewsMailing;
 use ActivismeBe\Newsletter;
+use ActivismeBe\Notifications\SendNewsletter;
 use ActivismeBE\DatabaseLayering\Repositories\Contracts\RepositoryInterface;
 use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
 
@@ -13,7 +16,6 @@ use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
  */
 class NewsletterRepository extends Repository
 {
-
     /**
      * Set the eloquent model class for the repository.
      *
@@ -36,5 +38,17 @@ class NewsletterRepository extends Repository
     public function findEmail(string $uuid): NewsLetter 
     {
         return $this->entity()->where('unsubscribe_token', $uuid)->firstOrFail();
+    }
+
+    /**
+     * Registreer de nieuwsbrieven in de queue waar vervolgens de worker ze kan versturen 
+     * 
+     * @return void
+     */
+    public function send(NewsMailing $data): void
+    {
+        foreach($this->all() as $person) {
+            $person->notify((new SendNewsletter($message)))->delay(Carbon::now()->addMinute(1)));
+        }
     }
 }

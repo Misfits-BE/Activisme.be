@@ -2,6 +2,7 @@
 
 namespace ActivismeBe\Http\Controllers\Backend;
 
+use Carbon\Carbon;
 use ActivismeBe\Http\Requests\NewsMailValidator;
 use ActivismeBe\Repositories\NewsletterRepository;
 use ActivismeBe\Repositories\NewsMailingRepository;
@@ -102,8 +103,11 @@ class NewsLetterController extends Controller
 
         if ($newsletter = $this->newsMailingRepository->create($input->except('_token'))) {
             if ((bool) $input->is_send) {   // Men wilt de nieuwsbrief verzenden.
-                $this->subscribers->send(); // Zend de nieuwsbrief naar de ingeschreven leden.
-
+                $this->newsMailingRepository->findLetter($newsletter->slug)->update([
+                    'status' => 'publicatie', 'send_at' => Carbon::now()
+                ]);
+                
+                $this->subscribers->send($newsletter); // Zend de nieuwsbrief naar de ingeschreven leden.
                 $this->writeActivity('nieuwsbrief', $newsletter, 'Heeft een nieuwsbrief verzonden naar de leden.');
             }
 

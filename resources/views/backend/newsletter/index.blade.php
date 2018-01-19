@@ -55,24 +55,27 @@
                                                 @endif
                                             </td>
 
-                                            <td class="pull-right"> {{-- Opties --}}
+                                            <td> {{-- Opties --}}
                                                 {{-- TODO: Implementatie tooltips. --}}
-                                                <a href="{{ route('admin.nieuwsbrief.show', ['slug' => $letter->slug]) }}" class="text-muted">
-                                                    <i class="fa fa-fw fa-file-text-o"></i>
-                                                </a>
-                                                <a href="" class="text-muted">
-                                                    <i class="fa fa-fw fa-pencil"></i>
-                                                </a>
-
-                                                @if (! $letter->is_send)
-                                                    <a href="" class="text-warning">
-                                                        <i class="fa fa-fw fa-envelope"></i>
+                                                
+                                                <span class="pull-right">
+                                                    <a href="{{ route('admin.nieuwsbrief.show', ['slug' => $letter->slug]) }}" class="text-muted">
+                                                        <i class="fa fa-fw fa-file-text-o"></i>
                                                     </a>
-                                                @endif
+                                                    <a href="" class="text-muted">
+                                                        <i class="fa fa-fw fa-pencil"></i>
+                                                    </a>
 
-                                                <a href="{{ route('admin.nieuwsbrief.destroy', ['slug' => $letter->slug]) }}" class="text-danger">
-                                                    <i class="fa fa-fw fa-close"></i>
-                                                </a>
+                                                    @if (! $letter->is_send)
+                                                        <a href="" class="text-warning">
+                                                            <i class="fa fa-fw fa-envelope"></i>
+                                                        </a>
+                                                    @endif
+
+                                                    <a href="{{ route('admin.nieuwsbrief.destroy', ['slug' => $letter->slug]) }}" class="text-danger">
+                                                        <i class="fa fa-fw fa-close"></i>
+                                                    </a>
+                                                </span>
                                             </td> {{-- /Opties --}}
                                         </tr>
                                     @endforeach {{-- /// end loop --}}
