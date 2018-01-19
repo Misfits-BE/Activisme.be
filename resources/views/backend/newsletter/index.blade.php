@@ -47,9 +47,23 @@
                                             <td>{{ $letter->status }}</td>
                                             <td>{{ $letter->author->name }}</td>
                                             <td>{{ $letter->titel  }}</td>
-                                            <td>00/00/00</td>
+                                            <td>
+                                                @if (is_null($letter->send_at))
+                                                    <code>N.V.T</code>
+                                                @else
+                                                    {{ $letter->send_at->format('d/m/Y') }}
+                                                @endif
+                                            </td>
 
                                             <td class="pull-right"> {{-- Opties --}}
+                                                {{-- TODO: Implementatie tooltips. --}}
+                                                <a href="{{ route('admin.nieuwsbrief.show', $letter) }}" class="text-muted">
+                                                    <i class="fa fa-fw fa-file-text-o"></i>
+                                                </a>
+                                                <a href="" class="text-muted">
+                                                    <i class="fa fa-fw fa-pencil"></i>
+                                                </a>
+
                                                 @if (! $letter->is_send)
                                                     <a href="" class="text-warning">
                                                         <i class="fa fa-fw fa-envelope"></i>

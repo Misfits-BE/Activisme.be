@@ -20,6 +20,7 @@ class CreateNewsMailingsTable extends Migration
             $table->string('status');
             $table->string('titel'); 
             $table->text('content');
+            $table->timestamp('send_at')->nullable();
             $table->timestamps();
         });
     }
