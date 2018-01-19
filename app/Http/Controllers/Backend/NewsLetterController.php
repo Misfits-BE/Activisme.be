@@ -62,8 +62,7 @@ class NewsLetterController extends Controller
 
     /**
      * Geef een voorbeeld weergave weer van de nieuwsbrief. 
-     * 
-     * @todo Registratie routering 
+     *
      * @todo Registratie en opbouwen view 
      *
      * @param  string $slug De unieke identificatie waarde van het nieuwsbericht.
@@ -71,8 +70,9 @@ class NewsLetterController extends Controller
      */
     public function show(string $slug): View 
     {
-        $letter = $this->newsMailingRepository->findLetter($slug);
-        return view('mail.newsletter.email', compact('letter'));
+        return view('mail.newsletter.email', [
+            'letter' => $this->newsMailingRepository->findLetter($slug)
+        ]);
     }
 
     /**
@@ -104,9 +104,7 @@ class NewsLetterController extends Controller
             if ((bool) $input->is_send) {   // Men wilt de nieuwsbrief verzenden.
                 $this->subscribers->send(); // Zend de nieuwsbrief naar de ingeschreven leden.
 
-                $this->writeActivity(
-                    'nieuwsbrief', $newsletter, 'Heeft een nieuwsbrief verzonden naar de leden.'
-                );
+                $this->writeActivity('nieuwsbrief', $newsletter, 'Heeft een nieuwsbrief verzonden naar de leden.');
             }
 
             flash('Heeft een nieuwsbrief aangemaakt')->success();
@@ -119,14 +117,17 @@ class NewsLetterController extends Controller
      * Verwijder een nieuwsbvrief in het systeem. 
      * 
      * @todo Registratie routering 
-     * @todo Activiteiten logger.
      * 
      * @param  string $slug De unieke indentificatie van de nieuwsbrief in het systeem. 
      * @return \Illuminate\Http\RedirectResponse 
      */
     public function destroy(string $slug): RedirectResponse
     {
-        if ($this->newsMailingRepository->deleteLetter($slug)) {
+        $letter = $this->newsMailingRepository->findLetter($slug); 
+
+        if ($letter->delete()) {
+            $this->writeActivity('nieuwsbrief', $letter, 'Heeft een nieuwsbrief verwijderd.');
+
             flash('De nieuwsbrief is verwijderd uit het systeem.')->success();
         }
 

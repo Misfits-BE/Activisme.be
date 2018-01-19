@@ -70,7 +70,7 @@
                                                     </a>
                                                 @endif
 
-                                                <a href="" class="text-danger">
+                                                <a href="{{ route('admin.nieuwsbrief.destroy', ['slug' => $letter->slug]) }}" class="text-danger">
                                                     <i class="fa fa-fw fa-close"></i>
                                                 </a>
                                             </td> {{-- /Opties --}}

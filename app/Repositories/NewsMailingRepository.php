@@ -39,4 +39,15 @@ class NewsMailingRepository extends Repository
             default: return $this->paginate($perPage);
         }
     }
+
+    /** 
+     * Find een nieuwsbrief op basis van zijn unieke identificatie slug. 
+     * 
+     * @param  string $slug  De unieke identificatie string in de databank.
+     * @return \ActivismeBe\NewsMailing
+     */
+    public function findLetter(string $slug): NewsMailing
+    {
+        return $this->entity()->whereSlug($slug)->firstOrFail();
+    }
 }

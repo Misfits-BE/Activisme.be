@@ -65,6 +65,7 @@ Route::get('nieuwsbrief/uitschrijven/{uuid}', 'Frontend\NewsLetterController@uns
 Route::get('admin/nieuwsbrief/index', 'Backend\NewsLetterController@index')->name('admin.nieuwsbrief.index');
 Route::get('admin/nieuwsbrief/nieuws', 'Backend\NewsLetterController@create')->name('admin.nieuwsbrief.create');
 Route::get('admin/nieuwsbrief/{slug}', 'Backend\NewsLetterController@show')->name('admin.nieuwsbrief.show');
+Route::get('admin/nieuwsbrief/verwijder/{slug}', 'Backend\NewsLetterController@destroy')->name('admin.nieuwsbrief.destroy');
 Route::post('admin/nieuwsbrief/opslaan', 'Backend\NewsLetterController@store')->name('admin.nieuwsbrief.store');
 
 // Contact route 
