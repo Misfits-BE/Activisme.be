@@ -17,6 +17,7 @@ class CreateNewsMailingsTable extends Migration
             $table->increments('id');
             $table->integer('author_id');
             $table->boolean('is_send');
+            $table->string('slug');
             $table->string('status');
             $table->string('titel'); 
             $table->text('content');

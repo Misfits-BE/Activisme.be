@@ -57,7 +57,7 @@
 
                                             <td class="pull-right"> {{-- Opties --}}
                                                 {{-- TODO: Implementatie tooltips. --}}
-                                                <a href="{{ route('admin.nieuwsbrief.show', $letter) }}" class="text-muted">
+                                                <a href="{{ route('admin.nieuwsbrief.show', ['slug' => $letter->slug]) }}" class="text-muted">
                                                     <i class="fa fa-fw fa-file-text-o"></i>
                                                 </a>
                                                 <a href="" class="text-muted">
