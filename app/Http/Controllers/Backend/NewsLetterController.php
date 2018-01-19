@@ -116,60 +116,6 @@ class NewsLetterController extends Controller
     }
 
     /**
-     * De formulier weergave om een nieuwsbràief te wijzigen. 
-     * ----
-     * INFO: De nieuwsbrief kan alleen gewijzigd worden wanneer hij een kladstatus heeft
-     *       en nog niet gepubliceerd is.  
-     * 
-     * @todo Registratie routering
-     * @todo Registratie van een breadcrumb in de view. 
-     * @todo Implementatie validator.
-     * 
-     * @param  string $slug De unieke identificatie van de nieuwsbrief in het systeem. 
-     * @return \Illuminate\View\View
-     */
-    public function edit(string $slug): View 
-    {
-        //
-    } 
-
-    /**
-     * Opslag method voor de wijzigingen aan een nieuwsbrief
-     * ---- 
-     * INFO: De wijzigingen aan een nieuwsbrief kunnen alleen opgeslagen worden als 
-     *       de nieuwsbrief een klad status heeft en nog niet gepubliceerd en verzonden is. 
-     * 
-     * @todo Registratie routering
-     * @todo Implementatie activiteiten logger.
-     * @todo Implementatie queue worker die de mail zend naar de subscribers.
-     *
-     * @param  NewsMailValidator $input   De gegeven gebruikers invoer. (gevalideerd)
-     * @param  string              $slug    De unieke identificatie van de nieuwsbrief in het systeem.
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(NewsMailValidator $input, string $slug): RedirectResponse
-    {
-        $repository = $this->newsMailingRepository; 
-        $letter     = $repository->findLetter($slug);
-
-        if ($repository->isNotPublished($letter) && $repository->isDraftVersion($letter) && $repository->isNotSend($letter)) { // @see docblock 'INFO' section
-            if ($input->is_send) { // De nieuwsbrief heeft in de wijzigingen een 'verzenden status gekreken'.
-                $input->merge(['is_send' => 1]); // Indicatie 1 = true | Nieuwsbrief moet verzonden verzonden worden.
-
-                $this->subscribers->send($input->all());
-                // TODO: Aparte log message nodig voor de verzending.
-            }
-
-            if ($repository->updateNewsLetter($letter->id, $input->except('_token'))) { // De nieuwsbrief is aangepast in het systeem.
-
-                flash('De nieuwsbrief is aangepast. En mogelijks ook verzonden.')->success()->important();
-            }
-        }
-
-        return redirect()->route('admin.nieuwsbrief.index');
-    }
-
-    /**
      * Verwijder een nieuwsbvrief in het systeem. 
      * 
      * @todo Registratie routering 
