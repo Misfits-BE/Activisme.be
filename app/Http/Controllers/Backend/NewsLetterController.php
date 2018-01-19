@@ -118,6 +118,27 @@ class NewsLetterController extends Controller
     }
 
     /**
+     * @todo opbouwen docblock
+     * @todo opbouwen controller 
+     * @todo registratie routering 
+     * @todo opbouwen van de view.
+     */ 
+    public function edit(string $slug): View
+    {
+        // TODO 
+    }
+
+    /**
+     * @todo opbouwen docblock
+     * @todo registratie routering
+     * @todo opbouwen controller logica
+     */
+    public function update(NewsMailValidator $input, string $slug): RedirectResponse
+    {
+        // TODO
+    }
+
+    /**
      * Verwijder een nieuwsbvrief in het systeem. 
      * 
      * @todo Registratie routering 

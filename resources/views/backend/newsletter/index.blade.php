@@ -44,7 +44,17 @@
                                     @foreach ($letters as $letter) {{-- Loop voor de nieuwsbrieven --}}
                                         <tr>
                                             <td><code>#NB{{ $letter->id }}</code></td>
-                                            <td>{{ $letter->status }}</td>
+                                            <td>
+                                                @if ($letter->is_send) {{-- Nieuwsbrief is verzonden --}}
+                                                    <span class="badge badge-info">Verzonden</span> 
+                                                @else 
+                                                    @if ($letter->status == 'publicatie')
+                                                        <span class="badge badge-success">{{ $letter->status }}</span>  
+                                                    @else {{-- Nieuwsbrief status == klad versie --}}
+                                                        <span class="badge badge-warning"> {{ $letter->status }} </span>
+                                                    @endif 
+                                                @endif
+                                            </td>
                                             <td>{{ $letter->author->name }}</td>
                                             <td>{{ $letter->titel  }}</td>
                                             <td>
@@ -59,20 +69,21 @@
                                                 {{-- TODO: Implementatie tooltips. --}}
                                                 
                                                 <span class="pull-right">
-                                                    <a href="{{ route('admin.nieuwsbrief.show', ['slug' => $letter->slug]) }}" class="text-muted">
+                                                    <a href="{{ route('admin.nieuwsbrief.show', ['slug' => $letter->slug]) }}" class="text-muted" data-toggle="tooltip" data-placement="bottom" title="Bekijk voorbeeld">
                                                         <i class="fa fa-fw fa-file-text-o"></i>
-                                                    </a>
-                                                    <a href="" class="text-muted">
-                                                        <i class="fa fa-fw fa-pencil"></i>
                                                     </a>
 
                                                     @if (! $letter->is_send)
-                                                        <a href="" class="text-warning">
+                                                        <a href="" class="text-muted" data-toggle="tooltip" data-placement="bottom" title="Wijzig nieuwsbrief">
+                                                            <i class="fa fa-fw fa-pencil"></i>
+                                                        </a>
+
+                                                        <a href="" class="text-warning" data-toggle="tooltip" data-placement="bottom" title="Verzend nieuwsbrief">
                                                             <i class="fa fa-fw fa-envelope"></i>
                                                         </a>
                                                     @endif
 
-                                                    <a href="{{ route('admin.nieuwsbrief.destroy', ['slug' => $letter->slug]) }}" class="text-danger">
+                                                    <a href="{{ route('admin.nieuwsbrief.destroy', ['slug' => $letter->slug]) }}" class="text-danger" data-toggle="tooltip" data-placement="bottom" title="Verwijder nieuwsbrief">
                                                         <i class="fa fa-fw fa-close"></i>
                                                     </a>
                                                 </span>

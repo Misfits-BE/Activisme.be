@@ -57,6 +57,6 @@ class SendNewsletter extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject($this->message->titel)
-            ->markdown('mail.newsletter.email', ['message' => $this->message]);
+            ->view('mail.newsletter.email', ['message' => $this->message]);
     }
 }
