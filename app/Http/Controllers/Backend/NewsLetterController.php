@@ -131,17 +131,60 @@ class NewsLetterController extends Controller
             return view('backend.newsletter.edit', ['letter' => $letter]);
         }
         
-        flash('Helaas! Je kunt de nieuwsbrief net meer wijzigen omdat deze al verzonden is.')->warning();
+        flash('Helaas! Je kunt de nieuwsbrief niet meer wijzigen omdat deze al verzonden is.')->warning();
         return redirect()->route('admin.nieuwsbrief.index');
     }
 
     /**
+     * Update een nieuwsbrief in de databank. 
+     * 
+     * @param NewsMailEditValidator $input  De door de gebruikers gegeven data. (Gevalideerd)
+     * @param string                $slug   De unieke identificatie van het nieuwsbericht in de databank. 
+     * 
+     * @throws ModelNotFoundException Deze resulteerd in een 404 pagina als het bericht niet word gevonden in de db. 
      * 
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(NewsMailEditValidator $input, string $slug): RedirectResponse
     {
-        // TODO
+        $letter = $this->newsMailingRepository->findLetter($slug);
+
+        if (Gate::denies('isSend', $letter)) { // Check met de acl of de nieuwsbrief nog niet verzonden is.
+            if ($letter->update($input->except('_token'))) { // Nieuwsbrief is aangepast.
+                flash('De nieuwsbrief is aangepast in het systeem.')->success();
+                $this->writeActivity('nieuwsbrief', $letter, 'Heeft een nieuwsberief aangepast');
+                
+                return redirect()->route('admin.nieuwsbrief.index');
+            }
+        }
+
+        flash('Helaas! Je kunt de nieuwsbrief niet meer wijzigen omdat deze al verzonden is.')->warning();
+        return redirect()->route('admin.nieuwsbrief.index');
+    }
+
+    /**
+     * Verzend een nieuwsbrief naar de ingeschreven leden. 
+     * 
+     * @param  string $slug     De unieke identificatie inj de databank.
+     * @throws ModelNotFoundException Deze resulteerd in een 404 pagina als het bericht niet word gevonden in de databank.  
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function send(string $slug): RedirectResponse 
+    {
+        $letter = $this->newsMailingRepository->findLetter($slug);
+
+        if (Gate::denies('isSend', $letter)) { // Check met de acl of de nieuwsbrief nog niet verzonden is.
+            if ($letter->update(['status' => 'publicatie', 'is_send' => 1, 'sender_id' => auth()->user()->id, 'send_at' => Carbon::now()])) { // UPDATE = OK
+                $this->subscribers->send($letter); // Zend de nieuwsbrief naar de ingeschreven leden.
+                $this->writeActivity('nieuwsbrief', $letter, 'Heeft een nieuwsbrief verzonden naar de leden.');
+            
+                flash('de nieuwsbiref is verzonden naar de ingeschreven leden.')->success();
+                return redirect()->route('admin.nieuwsbrief.index');
+            }
+        }
+
+        flash('Helaas! Wij konden de nieuwsbrief niet verzenden.')->danger();
+        return redirect()->route('admin.nieuwsbrief.index');
     }
 
     /**

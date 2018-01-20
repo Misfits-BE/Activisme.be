@@ -68,6 +68,7 @@ Route::get('admin/nieuwsbrief/{slug}', 'Backend\NewsLetterController@show')->nam
 Route::get('admin/nieuwsbrief/verwijder/{slug}', 'Backend\NewsLetterController@destroy')->name('admin.nieuwsbrief.destroy');
 Route::get('admin/nieuwsbrief/wijzig/{slug}', 'Backend\NewsLetterController@edit')->name('admin.nieuwsbrief.edit');
 Route::post('admin/nieuwsbrief/opslaan', 'Backend\NewsLetterController@store')->name('admin.nieuwsbrief.store');
+Route::get('admin/nieuwsbrief/zend/{slug}', 'Backend\NewsLetterController@send')->name('admin.nieuwsbrief.zend');
 Route::patch('admin/nieuwsbrief/{slug}', 'Backend\NewsLetterController@update')->name('admin.nieuwsbrief.update');
 
 // Contact route 

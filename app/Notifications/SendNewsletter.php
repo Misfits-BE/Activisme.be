@@ -23,7 +23,7 @@ class SendNewsletter extends Notification implements ShouldQueue
      *
      * @return NewsMailing $message
      */
-    public $message 
+    public $message;
 
     /**
      * Create a new notification instance.

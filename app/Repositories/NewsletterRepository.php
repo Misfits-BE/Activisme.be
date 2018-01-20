@@ -45,7 +45,7 @@ class NewsletterRepository extends Repository
      * 
      * @return void
      */
-    public function send(NewsMailing $data): void
+    public function send(NewsMailing $message): void
     {
         foreach($this->all() as $person) {
             $person->notify((new SendNewsletter($message))->delay(Carbon::now()->addMinute(1)));

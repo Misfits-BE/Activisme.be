@@ -16,7 +16,7 @@ class CreateNewsMailingsTable extends Migration
         Schema::create('news_mailings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('author_id')->unsigned();
-            $table->integer('sender_id')->unsigned();
+            $table->integer('sender_id')->nullable()->unsigned();
             $table->boolean('is_send');
             $table->string('slug');
             $table->string('status');

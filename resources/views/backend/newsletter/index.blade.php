@@ -66,10 +66,8 @@
                                             </td>
 
                                             <td> {{-- Opties --}}
-                                                {{-- TODO: Implementatie tooltips. --}}
-                                                
                                                 <span class="pull-right">
-                                                    <a href="{{ route('admin.nieuwsbrief.show', ['slug' => $letter->slug]) }}" class="text-muted" data-toggle="tooltip" data-placement="bottom" title="Bekijk voorbeeld">
+                                                    <a href="{{ route('admin.nieuwsbrief.show', ['slug' => $letter->slug]) }}" target="_blank" class="text-muted" data-toggle="tooltip" data-placement="bottom" title="Bekijk voorbeeld">
                                                         <i class="fa fa-fw fa-file-text-o"></i>
                                                     </a>
 
@@ -78,7 +76,7 @@
                                                             <i class="fa fa-fw fa-pencil"></i>
                                                         </a>
 
-                                                        <a href="" class="text-warning" data-toggle="tooltip" data-placement="bottom" title="Verzend nieuwsbrief">
+                                                        <a href="{{ route('admin.nieuwsbrief.zend', ['slug' => $letter->slug]) }}" class="text-warning" data-toggle="tooltip" data-placement="bottom" title="Verzend nieuwsbrief">
                                                             <i class="fa fa-fw fa-envelope"></i>
                                                         </a>
                                                     @endif
