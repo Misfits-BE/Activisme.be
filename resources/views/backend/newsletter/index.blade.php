@@ -74,7 +74,7 @@
                                                     </a>
 
                                                     @if (! $letter->is_send)
-                                                        <a href="" class="text-muted" data-toggle="tooltip" data-placement="bottom" title="Wijzig nieuwsbrief">
+                                                        <a href="{{ route('admin.nieuwsbrief.edit', ['slug' => $letter->slug]) }}" class="text-muted" data-toggle="tooltip" data-placement="bottom" title="Wijzig nieuwsbrief">
                                                             <i class="fa fa-fw fa-pencil"></i>
                                                         </a>
 

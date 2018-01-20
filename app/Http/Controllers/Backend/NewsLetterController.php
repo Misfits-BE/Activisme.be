@@ -2,6 +2,7 @@
 
 namespace ActivismeBe\Http\Controllers\Backend;
 
+use Gate;
 use Carbon\Carbon;
 use ActivismeBe\Http\Requests\NewsMailValidator;
 use ActivismeBe\Repositories\NewsletterRepository;
@@ -17,11 +18,6 @@ use Illuminate\View\View;
  * Backend controller voor het beheer van de nieuwsbrieven. 
  * 
  * @todo Implementatie PHPUnit tests.
- * @todo Implementatie functie repository ->deleteLetter($slug); | HTTP/1 404 - Not Found respons wanneer niet gevonden
- * @todo Implementatie functie repository ->findLetter($slug);   | HTTP/1 404 - Not Found respons wanneer niet gevonden. 
- * @todo Implementatie functie repository ->updateNewsLetter((int) $nieuwsbriefId, (array) $input)
- * @todo Implementatie functie repository ->isNotPublished($letter)
- * @todo Implementatie functie repository ->isDraftVersion($letter)
  * 
  * @author      Tim Joosten <tim@activisme.be>
  * @copyright   2018 Tim Joosten
@@ -118,14 +114,22 @@ class NewsLetterController extends Controller
     }
 
     /**
-     * @todo opbouwen docblock
-     * @todo opbouwen controller 
-     * @todo registratie routering 
-     * @todo opbouwen van de view.
+     * Edit weergave voor de nieuwsbrief. 
+     * 
+     * @param  string $slug De unieke identificatie van de nieuwsbrief in de databank. 
+     * @throws ModelNotFoundException Deze resulteerd in een 404 pagina als het bericht niet word gevonden in de db.
+     * @return View|RedirectReponse
      */ 
-    public function edit(string $slug): View
+    public function edit(string $slug)
     {
-        // TODO 
+        $letter = $this->newsMailingRepository->findLetter($slug);
+        
+        if (Gate::denies('isSend', $letter)) { // GATE: 'isNotSend' zou een false moeten returnen
+            return view('admin.nieuwsbrief.edit', ['letter' => $letter]);
+        }
+        
+        flash('Helaas! Je kunt de nieuwsbrief net meer wijzigen omdat deze al verzonden is.')->warning();
+        return redirect()->route('admin.nieuwsbrief.index');
     }
 
     /**
