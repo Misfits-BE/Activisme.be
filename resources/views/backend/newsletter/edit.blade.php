@@ -7,7 +7,7 @@
 
         <div class="row"> {{-- Content --}}
             <div class="col-lg-12"> {{-- Card content --}}
-                <div class="card card-shadow br-card"> {{-- Card --}}
+                <div class="card card-shadow br-card mb-4"> {{-- Card --}}
                     <div class="card-header"> {{-- Card heading --}}
                         <i class="fa fa-pencil"></i> <strong>Wijzig:</strong> {{ $letter->titel }}
                     </div> {{-- /// Card heading --}}
