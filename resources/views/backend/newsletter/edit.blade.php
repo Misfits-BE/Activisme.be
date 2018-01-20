@@ -13,9 +13,28 @@
                     </div> {{-- /// Card heading --}}
 
                     <div class="card-body"> {{-- Card body --}}
-                        <form id="edit" action="" method="POST">
+                        <form id="edit" action="{{ route('admin.nieuwsbrief.update', ['slug' => $letter->slug]) }}" method="POST">
+                            @form($letter) {{-- Bind database data to the form --}}
+
                             {{ csrf_field() }}          {{-- Form field protection --}}
                             {{ method_field('PATCH') }} {{-- Indicatie the HTTP/1 method --}}
+
+                            <div class="form-group row">
+                                <label class="col-lg-2 col-form-label text-lg-right">Titel: <span class="text-danger">*</span></label>
+                            
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="De titel van de nieuwsbrief" class="form-control @error('titel', 'is-invalid')" @input('titel')>
+                                    @error('titel')
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-lg col-form-label text-lg-right">Nieuwsbericht: <span class="text-danger">*</span></label>
+
+                                <div class="col-lg-10">
+                                    <textarea name="content" rows="7" class="form-control @error('content', 'is-invalid')" placeholder="Het nieuwsbericht">{{ $letter->content }}</textarea>
+                                </div>
+                            </div>
                         </form>
                     </div> {{-- /// Card body --}}
 

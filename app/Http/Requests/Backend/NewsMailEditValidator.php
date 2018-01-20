@@ -4,16 +4,16 @@ namespace ActivismeBe\Http\Requests\Backend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NewsUpdateValidator extends FormRequest
+class NewsMailEditValidator extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return auth()->user()->hasRole('admin');
     }
 
     /**
@@ -21,10 +21,8 @@ class NewsUpdateValidator extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-        return [
-            //
-        ];
+        return ['titel' => 'string|required|max:255', 'content' => 'string|required'];
     }
 }

@@ -7,6 +7,7 @@
     "require": {
         "php": ">=7.0.0",
         "activismebe/database-layering": "^0.29.0",
+        "activismebe/laravel-form-helpers": "^1.2",
         "activismebe/share": "^5.2",
         "cybercog/laravel-ban": "^3.0",
         "davejamesmiller/laravel-breadcrumbs": "^4.2",

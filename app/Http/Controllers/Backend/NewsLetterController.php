@@ -5,6 +5,7 @@ namespace ActivismeBe\Http\Controllers\Backend;
 use Gate;
 use Carbon\Carbon;
 use ActivismeBe\Http\Requests\NewsMailValidator;
+use ActivismeBe\Http\Requests\Backend\NewsMailEditValidator;
 use ActivismeBe\Repositories\NewsletterRepository;
 use ActivismeBe\Repositories\NewsMailingRepository;
 use ActivismeBe\Http\Controllers\Controller;
@@ -139,7 +140,7 @@ class NewsLetterController extends Controller
      * @todo registratie routering
      * @todo opbouwen controller logica
      */
-    public function update(NewsMailValidator $input, string $slug): RedirectResponse
+    public function update(NewsMailEditValidator $input, string $slug): RedirectResponse
     {
         // TODO
     }
