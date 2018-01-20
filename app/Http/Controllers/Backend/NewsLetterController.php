@@ -101,7 +101,7 @@ class NewsLetterController extends Controller
         if ($newsletter = $this->newsMailingRepository->create($input->except('_token'))) {
             if ((bool) $input->is_send) {   // Men wilt de nieuwsbrief verzenden.
                 $this->newsMailingRepository->findLetter($newsletter->slug)->update([
-                    'status' => 'publicatie', 'send_at' => Carbon::now()
+                    'status' => 'publicatie', 'sender_id' => $input->user()->id, 'send_at' => Carbon::now()
                 ]);
                 
                 $this->subscribers->send($newsletter); // Zend de nieuwsbrief naar de ingeschreven leden.
@@ -117,10 +117,10 @@ class NewsLetterController extends Controller
     /**
      * Edit weergave voor de nieuwsbrief. 
      * 
-     * @todo  Opbouwen view.
-     * 
-     * @param  string $slug De unieke identificatie van de nieuwsbrief in de databank. 
+     * @param  string $slug De unieke identificatie van de nieuwsbrief in de databank.
+     *  
      * @throws ModelNotFoundException Deze resulteerd in een 404 pagina als het bericht niet word gevonden in de db.
+     * 
      * @return View|RedirectReponse
      */ 
     public function edit(string $slug)
@@ -136,9 +136,8 @@ class NewsLetterController extends Controller
     }
 
     /**
-     * @todo opbouwen docblock
-     * @todo registratie routering
-     * @todo opbouwen controller logica
+     * 
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(NewsMailEditValidator $input, string $slug): RedirectResponse
     {

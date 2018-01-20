@@ -16,7 +16,7 @@ class NewsMailing extends Model
      * 
      * @var array 
      */
-    protected $fillable = ['author_id', 'titel', 'content', 'is_send', 'send_at', 'status', 'slug'];
+    protected $fillable = ['author_id', 'sender_id', 'titel', 'content', 'is_send', 'send_at', 'status', 'slug'];
 
     /**
      * Indicator voor het bepalen welke velden datum velden zijn.
