@@ -116,6 +116,8 @@ class NewsLetterController extends Controller
     /**
      * Edit weergave voor de nieuwsbrief. 
      * 
+     * @todo  Opbouwen view.
+     * 
      * @param  string $slug De unieke identificatie van de nieuwsbrief in de databank. 
      * @throws ModelNotFoundException Deze resulteerd in een 404 pagina als het bericht niet word gevonden in de db.
      * @return View|RedirectReponse
@@ -124,8 +126,8 @@ class NewsLetterController extends Controller
     {
         $letter = $this->newsMailingRepository->findLetter($slug);
         
-        if (Gate::denies('isSend', $letter)) { // GATE: 'isNotSend' zou een false moeten returnen
-            return view('admin.nieuwsbrief.edit', ['letter' => $letter]);
+        if (Gate::denies('isSend', $letter)) { // Check met de acl of de nieuwsbrief nog niet is verzonden.
+            return view('backend.newsletter.edit', ['letter' => $letter]);
         }
         
         flash('Helaas! Je kunt de nieuwsbrief net meer wijzigen omdat deze al verzonden is.')->warning();
@@ -143,7 +145,7 @@ class NewsLetterController extends Controller
     }
 
     /**
-     * Verwijder een nieuwsbvrief in het systeem. 
+     * Verwijder een nieuwsbrief in het systeem. 
      * 
      * @todo Registratie routering 
      * 
