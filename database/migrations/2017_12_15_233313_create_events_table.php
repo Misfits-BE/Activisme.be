@@ -15,21 +15,26 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id');
+            $table->integer('author_id')->unsigned();
             $table->string('name'); 
             $table->string('status');
             $table->string('start_time'); 
             $table->string('end_time');
             $table->timestamps();
+
+            // Foreign keys 
+            $table->foreign('author_id')->references('id')->on('users');
         });
 
         Schema::create('calendar_events', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('calendar_id')->unsigned();
-            $table->foreign('calendar_id')->references('id')->on('calendars')->onDelete('cascade');
             $table->integer('events_id')->unsigned();
-            $table->foreign('events_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
+
+            // Foreign keys 
+            $table->foreign('events_id')->references('id')->on('events')->onDelete('cascade');
+            $table->foreign('calendar_id')->references('id')->on('calendars')->onDelete('cascade');
         });
     }
 
