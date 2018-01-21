@@ -17,11 +17,14 @@ class CreateGiftsTable extends Migration
             $table->increments('id');
             $table->string('uuid');
             $table->string('processed')->default('N');
-            $table->integer('backer_id'); 
-            $table->string('transaction_id');
+            $table->integer('backer_id')->unsigned(); 
+            $table->string('transaction_id')->commend('Transaction id in the payment provide Mollie.');
             $table->string('amount');
             $table->string('status');
             $table->timestamps();
+
+            // Foreign keys
+            $table->foreign('backer_id')->references('id')->on('gifts');
         });
     }
 

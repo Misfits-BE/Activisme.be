@@ -15,13 +15,16 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id');
+            $table->integer('author_id')->unsigned();
             $table->string('is_published');
             $table->string('slug');
             $table->string('title');
             $table->text('message');
             $table->timestamp('publish_date');
             $table->timestamps();
+
+            // Foreign keys 
+            $table->foreign('author_id')->references('id')->on('users');
         });
     }
 
@@ -32,6 +35,8 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints(); 
         Schema::dropIfExists('articles');
+        Schema::enableForeignKeyConstraints(); 
     }
 }
