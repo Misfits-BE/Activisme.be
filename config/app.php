@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
         Chencha\Share\ShareServiceProvider::class,
+        Brotzka\DotenvEditor\DotenvEditorServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,7 +228,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /**
+         * 3th party package providers. 
+         */
         'Share' => Chencha\Share\ShareFacade::class,
+        'DotenvEditor' => Brotzka\DotenvEditor\DotenvEditorFacade::class,
 
     ],
 
