@@ -83,7 +83,7 @@ class UsersController extends Controller
      * @param  int $user de unieke identifier in de opslag.
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($user): RedirectResponse
+    public function destroy(int $user): RedirectResponse
     {
         $user = $this->userRepository->findOrFail($user);
 
