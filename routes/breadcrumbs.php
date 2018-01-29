@@ -54,3 +54,15 @@ Breadcrumbs::register('contacts-create', function ($breadcrumbs): void {
     $breadcrumbs->push('Contacten', route('admin.contacts.index'));
     $breadcrumbs->push('Contact toevoegen', route('admin.contacts.create'));
 });
+
+Breadcrumbs::register('newsletter-create', function ($breadcrumbs): void {
+    $breadcrumbs->push('Home', url('home'));
+    $breadcrumbs->push('Nieuwsbrieven', route('admin.nieuwsbrief.index'));
+    $breadcrumbs->push('Creer nieuwsbrief', route('admin.nieuwsbrief.create'));
+});
+
+Breadcrumbs::register('newsletter-edit', function ($breadcrumbs): void {
+    $breadcrumbs->push('Home', url('home'));
+    $breadcrumbs->push('Nieuwsbrieven', route('admin.nieuwsbrief.index')); 
+    $breadcrumbs->push('Wijzig nieuwsbrief', route('admin.nieuwsbrief.index'));
+});

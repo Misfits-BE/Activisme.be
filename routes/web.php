@@ -57,6 +57,20 @@ Route::get('ondersteun-ons/gift/bedankt/{uuid}', 'Frontend\CrowdFundController@s
 // gift routes
 Route::post('/gift/opslaan', 'Backend\CrowdfundController@store')->name('gift.save');
 
+// Newsletter routes (frontend)
+Route::post('nieuwsbrief/inschrijven', 'Frontend\NewsLetterController@store')->name('nieuwsbrief.inschrijven');
+Route::get('nieuwsbrief/uitschrijven/{uuid}', 'Frontend\NewsLetterController@unsubscribe')->name('nieuwsbrief.uitschrijven');
+
+// Newsletter routes (backend) 
+Route::get('admin/nieuwsbrief/index', 'Backend\NewsLetterController@index')->name('admin.nieuwsbrief.index');
+Route::get('admin/nieuwsbrief/nieuws', 'Backend\NewsLetterController@create')->name('admin.nieuwsbrief.create');
+Route::get('admin/nieuwsbrief/{slug}', 'Backend\NewsLetterController@show')->name('admin.nieuwsbrief.show');
+Route::get('admin/nieuwsbrief/verwijder/{slug}', 'Backend\NewsLetterController@destroy')->name('admin.nieuwsbrief.destroy');
+Route::get('admin/nieuwsbrief/wijzig/{slug}', 'Backend\NewsLetterController@edit')->name('admin.nieuwsbrief.edit');
+Route::post('admin/nieuwsbrief/opslaan', 'Backend\NewsLetterController@store')->name('admin.nieuwsbrief.store');
+Route::get('admin/nieuwsbrief/zend/{slug}', 'Backend\NewsLetterController@send')->name('admin.nieuwsbrief.zend');
+Route::patch('admin/nieuwsbrief/{slug}', 'Backend\NewsLetterController@update')->name('admin.nieuwsbrief.update');
+
 // Contact route 
 Route::post('/contact', 'Frontend\ContactController@send')->name('contact.send');
 

@@ -7,22 +7,33 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class NewUser extends Notification implements ShouldQueue
+/**
+ * De notificatie om de nieuwsbrief bij de ingeschreven leden te krijgen. 
+ * 
+ * @author      Tim Joosten <tim@activisme.be>
+ * @copyright   2018 Tim Joosten
+ * @package     \ActivismeBe\Notifications
+ */ 
+class SendNewsletter extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $user;
-    public $password;
+    /**
+     * De nieuwsbrief meta. 
+     *
+     * @return NewsMailing $message
+     */
+    public $message;
 
     /**
      * Create a new notification instance.
      *
+     * @param  $message   De nieuwsbrief data vanuit de databank.  
      * @return void
      */
-    public function __construct($user, $password)
+    public function __construct($message)
     {
-        $this->user = $user;
-        $this->password = $password;
+        $this->message = $message;
     }
 
     /**
@@ -31,7 +42,7 @@ class NewUser extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
@@ -45,10 +56,7 @@ class NewUser extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Er is een login op activisme.be voor u aangemaakt.')
-                    ->greeting('Geachte,')
-                    ->line('Een adminstrator heeft voor jouw een login aangemaakt op activisme.be')
-                    ->line("U kunt zich aanmelden met uw email adres en het volgende wachtwoord ( {$this->password} ).")
-                    ->action('Ga naar de website', config('app.url'));
+            ->subject($this->message->titel)
+            ->view('mail.newsletter.email', ['message' => $this->message]);
     }
 }

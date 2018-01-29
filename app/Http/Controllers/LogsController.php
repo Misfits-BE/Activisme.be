@@ -51,8 +51,8 @@ class LogsController extends Controller
      */
     public function search(ActivitySearchValidator $input): View
     {
-        return view('backend.logs.index', ['logs' => 
-            $this->activityRepository->searchLogs($input->term, 20)
+        return view('backend.logs.index', [
+            'logs' => $this->activityRepository->searchLogs($input->term, 20)
         ]);
     }
 }

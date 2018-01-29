@@ -7,22 +7,31 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class NewUser extends Notification implements ShouldQueue
+class RegisterNewsLetter extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $user;
-    public $password;
+    /**
+     * @var $input
+     */
+    public $input;
+
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 5;
 
     /**
      * Create a new notification instance.
      *
+     * @param  array $input De gegeven gebruiker invoer vanuit de input. 
      * @return void
      */
-    public function __construct($user, $password)
+    public function __construct($input)
     {
-        $this->user = $user;
-        $this->password = $password;
+        $this->input = $input;
     }
 
     /**
@@ -45,10 +54,7 @@ class NewUser extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Er is een login op activisme.be voor u aangemaakt.')
-                    ->greeting('Geachte,')
-                    ->line('Een adminstrator heeft voor jouw een login aangemaakt op activisme.be')
-                    ->line("U kunt zich aanmelden met uw email adres en het volgende wachtwoord ( {$this->password} ).")
-                    ->action('Ga naar de website', config('app.url'));
+            ->subject('Bedankt om je te registreren op onze nieuwsbrief.')
+            ->markdown('mail.newsletter.register', ['input' => $this->input]);
     }
 }

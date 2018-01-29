@@ -13,6 +13,8 @@ use Illuminate\View\View;
 /**
  * Class ContactsController
  *
+ * @todo implementatie activiteiten logger.
+ * 
  * @author      Tim Joosten <tim@activisme.be>
  * @copyright   2018 Tim Joosten
  * @package     ActivismeBe\Http\Controllers\Backend
