@@ -29,6 +29,7 @@ class sendContactForm extends Mailable
     public function build()
     {
         return $this->markdown('frontend.contact.email')
+            ->subject('Er is contact opgenomen doormiddel van de website')
             ->with('input', $this->input);
     }
 }

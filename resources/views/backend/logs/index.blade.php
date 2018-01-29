@@ -10,6 +10,12 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-fw fa-list"></i> Applicatie logs
+
+                        <span class="pull-right">
+                            <a href="#" class="badge badge-link" data-toggle="modal" data-target="#searchModal">
+                                <i class="fa fa-search"></i> Zoek activiteit
+                            </a>
+                        </span>
                     </div>
 
                     <div class="card-body">
@@ -48,4 +54,6 @@
 
         </div>
     </div>
+
+    @include('backend.logs.search') {{-- Search model --}}
 @endsection

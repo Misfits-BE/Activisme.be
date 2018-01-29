@@ -20,7 +20,7 @@ use ActivismeBe\Http\Controllers\Controller;
 class HomeController extends Controller
 {
     private $tagRepository;     /** @var TagRepository     $tagRepository     */
-    private $articlerepository; /** @var ArticleRepository $articleRepository */
+    private $articleRepository; /** @var ArticleRepository $articleRepository */
 
     /**
      * HomeController Constructor

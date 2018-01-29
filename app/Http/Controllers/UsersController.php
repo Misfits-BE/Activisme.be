@@ -28,7 +28,7 @@ class UsersController extends Controller
      */
     public function __construct(UserRepository $userRepository)
     {
-        $this->middleware(['role:admin'])->except('destroy');
+        $this->middleware(['role:admin', 'forbid-banned-user'])->except('destroy');
         $this->userRepository = $userRepository;
     }
 
@@ -83,7 +83,7 @@ class UsersController extends Controller
      * @param  int $user de unieke identifier in de opslag.
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($user): RedirectResponse
+    public function destroy(int $user): RedirectResponse
     {
         $user = $this->userRepository->findOrFail($user);
 

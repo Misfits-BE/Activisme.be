@@ -34,7 +34,7 @@
                                     @foreach ($dates as $date)
                                         @php ($datum = new \Jenssegers\Date\Date($date->start_date))
 
-                                        @if (count($date->events) == 1) <!-- Single event in a single day -->
+                                        @if (count($date->events) == 1) {{-- Single event in a single day --}}
                                             <tr>
                                                 <td class="agenda-date" class="active" rowspan="{{ count($date->events) }}">
                                                     <div class="dayofmonth day-color">{{ $datum->format('d') }}</div>
@@ -51,7 +51,7 @@
                                                     </td>
                                                 @endforeach
                                             </tr>
-                                        @else <!-- Multiple events in a single day (note the rowspan) -->
+                                        @else {{-- Multiple events in a single day (note the rowspan) --}}
                                             <tr>
                                                 <td class="agenda-date" class="active" rowspan="{{ count($date->events) }}">
                                                     <div class="dayofmonth day-color">{{ $datum->format('d') }}</div>

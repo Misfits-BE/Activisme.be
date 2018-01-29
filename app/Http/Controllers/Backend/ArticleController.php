@@ -33,7 +33,7 @@ class ArticleController extends Controller
      */
     public function __construct(ArticleRepository $articleRepository, TagRepository $tagRepository)
     {
-        $this->middleware(['role:admin']);
+        $this->middleware(['role:admin', 'forbid-banned-user']);
 
         $this->articleRepository = $articleRepository;
         $this->tagRepository     = $tagRepository;

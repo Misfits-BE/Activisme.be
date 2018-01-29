@@ -8,6 +8,7 @@
         "php": ">=7.0.0",
         "activismebe/database-layering": "^0.29.0",
         "activismebe/share": "^5.2",
+        "cybercog/laravel-ban": "^3.0",
         "davejamesmiller/laravel-breadcrumbs": "^4.2",
         "fideloper/proxy": "~3.3",
         "jenssegers/date": "^3.2",
@@ -27,6 +28,8 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
+        "barryvdh/laravel-ide-helper": "^2.4",
+        "doctrine/dbal": "^2.6",
         "filp/whoops": "~2.0",
         "friendsofphp/php-cs-fixer": "^2.9",
         "fzaninotto/faker": "~1.4",

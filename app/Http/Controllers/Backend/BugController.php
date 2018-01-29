@@ -28,7 +28,7 @@ class BugController extends Controller
      */
     public function __construct(Client $github) 
     {
-        $this->middleware(['auth']);
+        $this->middleware(['auth', 'forbid-banned-user']);
 
         $github->authenticate(config('github.user.name'), config('github.user.pass'), $github::AUTH_HTTP_PASSWORD); 
         $this->github = $github;
