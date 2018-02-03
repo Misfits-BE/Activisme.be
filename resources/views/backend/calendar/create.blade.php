@@ -68,7 +68,7 @@
                                             <strong>{{ $errors->first('start_date') }}</strong>
                                         </div>
                                     @else {{-- Geen errors gevonden geef gewoon de help text weer. --}}
-                                        <small class="form-text text-muted"><span class="text-danger">*</span> Standaard formaat voor de datum = DD/MM/YYYY</small>
+                                        <small class="form-text text-muted"><span class="text-danger">*</span> Standaard formaat voor de datum = MM/DD/YYYY</small>
                                     @endif
                                 </div>
                             </div>
