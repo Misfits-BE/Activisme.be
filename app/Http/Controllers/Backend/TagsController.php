@@ -37,7 +37,6 @@ class TagsController extends Controller
      * De index weergave voor het beheers overzicht van de nieuws categorieen. 
      * 
      * @todo Plaatsen van pagination view instantie (index view)
-     * @todo opbouwen blade index view.
      * @todo Implementatie tooltips voor de opties
      * @todo Implementatie phpunit test (no auth, wrong permissions, correct permission, banned user)
      * 
@@ -122,7 +121,6 @@ class TagsController extends Controller
     /**
      * Verwijder een categorie uit het databank systeem. 
      * 
-     * @todo Implement sync null operatie voor de nieuwsberichten. 
      * @todo Implementatie phpunit test (no auth, permission = OK, permission = NOK, banned useer, ID = OK, ID = NOK)
      * 
      * @param  int $tag     De unieke identicatie van de categorie in de databank. 
@@ -133,6 +131,8 @@ class TagsController extends Controller
         $tag = $this->tagRepository->findOrFail($tag);
 
         if ($tag->delete()) {
+            $tag->articles()->sync([]);
+
             $this->writeActivity('categories', $tag, 'heeft een nieuws categorie verwijderd uit het systeem');
             flash("Je hebt de categorie {$tag->name} verwijderd uit het systeem.")->success()->success();
         } 
