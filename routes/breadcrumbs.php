@@ -66,3 +66,9 @@ Breadcrumbs::register('newsletter-edit', function ($breadcrumbs): void {
     $breadcrumbs->push('Nieuwsbrieven', route('admin.nieuwsbrief.index')); 
     $breadcrumbs->push('Wijzig nieuwsbrief', route('admin.nieuwsbrief.index'));
 });
+
+Breadcrumbs::register('categories-index', function ($breadcrumbs): void {
+    $breadcrumbs->push('Home', url('home')); 
+    $breadcrumbs->push('Nieuws artikelen', route('admin.articles.index'));
+    $breadcrumbs->push('Categorieen', route('admin.categories.index'));
+});

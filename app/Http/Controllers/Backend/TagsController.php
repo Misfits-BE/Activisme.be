@@ -4,6 +4,7 @@ namespace ActivismeBe\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use ActivismeBe\Http\Controllers\Controller;
 use ActivismeBe\Repositories\TagRepository;
 use ActivismeBe\Http\Requests\Backend\TagValidator;
@@ -35,9 +36,9 @@ class TagsController extends Controller
     /** 
      * De index weergave voor het beheers overzicht van de nieuws categorieen. 
      * 
-     * @todo Registratie routering (web.php)
-     * @todo Registratie routering (blade layout)
+     * @todo Plaatsen van pagination view instantie (index view)
      * @todo opbouwen blade index view.
+     * @todo Implementatie tooltips voor de opties
      * @todo Implementatie phpunit test (no auth, wrong permissions, correct permission, banned user)
      * 
      * @return \Illuminate\View\View
@@ -70,7 +71,7 @@ class TagsController extends Controller
      * @todo Registratie routering (web.php)
      * @todo Registratie routering (create view)
      * @todo Opbouwen van de validator
-     * @todo Opbouwen controller logic
+     * @todo Opbouwen controller logic (Activiteiten logger niet vergeten)
      * @todo Implementatie phpunit test (no auth, wrong permissions, correct permissions, banned user, request OK, request validation errors)
      * 
      * @param  TagValidator $input  De invoer van de gebruiker (gevalideerd).
@@ -105,7 +106,7 @@ class TagsController extends Controller
      * @todo Implementatie routering (web.php)
      * @todo implementatie routering (edit weergave)
      * @todo Opbouwen van de validator
-     * @todo Opbouwen controller logic
+     * @todo Opbouwen controller logic (activiteiten logger niet vergeten)
      * @todo implementatie phpunit test (no auth, permission = OK, permission = NOK, banned user, Request OK, Request Validation error)
      * 
      * @param  TagValidator $input      De gegeven gebruikers invoer (gevalideerd)
@@ -121,16 +122,21 @@ class TagsController extends Controller
     /**
      * Verwijder een categorie uit het databank systeem. 
      * 
-     * @todo Registratie routering (web.php)
-     * @todo Registratie routering (index view)
-     * @todo Opbouwen controller logic
+     * @todo Implement sync null operatie voor de nieuwsberichten. 
      * @todo Implementatie phpunit test (no auth, permission = OK, permission = NOK, banned useer, ID = OK, ID = NOK)
      * 
-     * @param  int $tag     De unieke identicatàie van de categorie in de databank. 
+     * @param  int $tag     De unieke identicatie van de categorie in de databank. 
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(int $tag): RedirectResponse
     {
-        //
+        $tag = $this->tagRepository->findOrFail($tag);
+
+        if ($tag->delete()) {
+            $this->writeActivity('categories', $tag, 'heeft een nieuws categorie verwijderd uit het systeem');
+            flash("Je hebt de categorie {$tag->name} verwijderd uit het systeem.")->success()->success();
+        } 
+
+        return redirect()->route('admin.categories.index');
     }
 }
