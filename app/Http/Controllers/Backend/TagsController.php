@@ -123,7 +123,7 @@ class TagsController extends Controller
      * 
      * @todo Registratie routering (web.php)
      * @todo Registratie routering (index view)
-     * @todo Opbouwen validator logic.
+     * @todo Opbouwen controller logic
      * @todo Implementatie phpunit test (no auth, permission = OK, permission = NOK, banned useer, ID = OK, ID = NOK)
      * 
      * @param  int $tag     De unieke identicatàie van de categorie in de databank. 
