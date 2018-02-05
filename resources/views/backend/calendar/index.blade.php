@@ -3,6 +3,7 @@
 @section('content')
     <div class="container my-4">
         {{ Breadcrumbs::render('calendar-index') }}
+        @include('flash::message')
 
         <div class="row">
             <div class="col-md-12">
@@ -53,7 +54,7 @@
                                             <td> {{ $event->name }}</td>
 
                                             <td class="pull-right"> {{-- Opties --}}
-                                                <a href="" class="text-muted" data-toggle="tooltip" data-placement="bottom" title="Wijzig evenement">
+                                                <a href="{{ route('admin.calendar.edit', $event) }}" class="text-muted" data-toggle="tooltip" data-placement="bottom" title="Wijzig evenement">
                                                     <i class="fa fa-fw fa-pencil"></i>
                                                 </a>
 

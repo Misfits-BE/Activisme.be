@@ -94,18 +94,19 @@ class CalendarController extends Controller
     /**
      * Formulier weergave voor het wijzigen van een evenement. 
      * 
-     * @todo Implementeer routering 
      * @todo Implementeer phpunit test. 
      * @todo Opbouwen van de view. 
      * @todo opbouwen controller logic. 
      * @todo Implementatie activity logger. 
      * 
-     * @param  Events $event De database query voor het evenement. 
+     * @param  int $event De database query voor het evenement. 
      * @return \Illuminate\View\View
      */
-    public function edit(Events $event): View
+    public function edit(int $event): View
     {
-        //
+        return view('backend.calendar.edit', [
+            'event' => $this->eventRepository->with(['dates'])->findOrFail($event)
+        ]); 
     }
 
     /**
@@ -119,14 +120,21 @@ class CalendarController extends Controller
      */
     public function update(CalendarValidator $input, int $event): RedirectResponse
     {
-        $event = $this->eventRepository->findOrFail($event)
+        $event = $this->eventRepository->findOrFail($event);
+        $date  = $this->calendarRepository->entity()->firstOrCreate(['start_date' => $input->start_date]);
+        $input->merge([
+            'start_time' => (new Carbon($input->start_time))->format('H:i'),
+            'end_time'   => (new Carbon($input->end_time))->format('H:i'),
+        ]);
 
         if ($event->update($input->all())) {
+            $event->dates()->sync($date->id);
+
             $this->writeActivity('calendar', $event, 'Heeft een agenda puntje gewijzigd.');
             flash('U hebt het item in de kalender succesvol aangepast.')->success();
         }
 
-        return redirect()->route('admin.calendar.create');
+        return redirect()->route('admin.calendar.index');
     }
 
     /**

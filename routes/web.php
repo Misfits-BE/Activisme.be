@@ -98,5 +98,7 @@ Route::get('/kalender', 'Frontend\CalendarController@index')->name('calendar.ind
 Route::get('/admin/kalender/status/{event}/{status}', 'Backend\CalendarController@status')->name('admin.calendar.status');
 Route::get('/admin/kalender', 'Backend\CalendarController@index')->name('admin.calendar.index');
 Route::get('/admin/kalender/nieuw', 'Backend\CalendarController@create')->name('admin.calendar.create');
+Route::get('/admin/kalender/wijzig/{id}', 'Backend\CalendarController@edit')->name('admin.calendar.edit');
 Route::get('/admin/kalender/verwijder/{id}', 'Backend\CalendarController@destroy')->name('admin.calendar.destroy');
 Route::post('/admin/kalender/opslaan', 'Backend\CalendarController@store')->name('admin.calendar.store');
+Route::patch('/admin/kalender/wijzig/{id}', 'Backend\CalendarController@update')->name('admin.calendar.update');
