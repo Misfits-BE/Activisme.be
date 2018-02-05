@@ -58,7 +58,7 @@ class ArticleController extends Controller
      */
     public function create(): View
     {
-        return view('backend.articles.create');
+        return view('backend.articles.create', ['categories' => $this->tagRepository->all(['id', 'name'])]);
     }
 
     /**

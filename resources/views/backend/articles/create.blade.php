@@ -83,16 +83,20 @@
                                 <label class="col-lg-2 col-form-label text-lg-right">Categorieen: <span class="text-danger">*</span></label>
 
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control{{ $errors->has('categories') ? ' is-invalid' : '' }}" value="{{ old('categories') }}" name="categories" placeholder="De categorieen voor het bericht">
+                                    <select class="form-control{{ $errors->has('categories') ? ' is-invalid' : '' }}" name="categories">
+                                        <option value="">-- Selecteer een categorie voor het nieuwsbericht --</value>
+
+                                        @foreach ($categories as $category) {{-- Loop door de categorieen --}}
+                                            <option value="{{ $category->id }}" {{ (collect(old('categories'))->contains($category->id)) ? 'selected':'' }}>
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach {{-- /// Loop --}}
+                                    </select>
 
                                     @if ($errors->has('categories'))
                                         <div class="invalid-feedback">
                                             <strong>{{ $errors->first('categories') }}</strong>
                                         </div>
-                                    @else {{-- Geen validatie fouten gevonden dus geef gewoon de help tekst weer --}}
-                                        <small class="form-text text-muted">
-                                            <span class="text-danger">*</span> Categorieen worden gescheiden door een comma. bv: cat1, cat2, enz...
-                                        </small>
                                     @endif
                                 </div>
                             </div>
