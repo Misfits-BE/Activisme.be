@@ -97,6 +97,7 @@ class CalendarController extends Controller
      * @todo Implementeer routering 
      * @todo Implementeer phpunit test. 
      * @todo Opbouwen van de view. 
+     * @todo opbouwen controller logic. 
      * @todo Implementatie activity logger. 
      * 
      * @param  Events $event De database query voor het evenement. 
@@ -104,7 +105,28 @@ class CalendarController extends Controller
      */
     public function edit(Events $event): View
     {
-        // TODO: Implementatie controller Logica
+        //
+    }
+
+    /**
+     * Update een evenement in het systeem.
+     *
+     * @todo Uitschrijven van unit test 
+     * 
+     * @param  CalendarValidator $input     De gegeven gebruikers invoer. (Gevalideerd)
+     * @param  int               $event     De controle query voor de database.   
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(CalendarValidator $input, int $event): RedirectResponse
+    {
+        $event = $this->eventRepository->findOrFail($event)
+
+        if ($event->update($input->all())) {
+            $this->writeActivity('calendar', $event, 'Heeft een agenda puntje gewijzigd.');
+            flash('U hebt het item in de kalender succesvol aangepast.')->success();
+        }
+
+        return redirect()->route('admin.calendar.create');
     }
 
     /**
@@ -125,25 +147,6 @@ class CalendarController extends Controller
         }
 
         return redirect()->route('admin.calendar.index');
-    }
-
-    /**
-     * Update een evenement in het systeem.
-     *
-     * @todo Uitschrijven van unit test 
-     * @todo Implementatie activity logger.
-     * 
-     * @param  CalendarValidator $input     De gegeven gebruikers invoer. (Gevalideerd)
-     * @param  Events            $event     De controle query voor de database.   
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(CalendarValidator $input, Events $event): RedirectResponse
-    {
-        if ($this->eventRepository->update($input->all(), $event->id)) {
-            flash('U hebt het item in de kalender succesvol aangepast.')->success();
-        }
-
-        return redirect()->route('admin.calendar.create');
     }
 
     /** 
