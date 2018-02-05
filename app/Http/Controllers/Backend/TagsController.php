@@ -84,7 +84,6 @@ class TagsController extends Controller
     /**
      * De weergave voor het wijzigen van een categorie in het systeem.
      * 
-     * @todo Opbouwen van de view
      * @todo Implementatie phpunit test (no auth, wrong permissions, correct permissions, banned user, ID = OK, ID = NOK)
      * 
      * @param  int $tag     De unieke identificatie van de categorie in de databank. 
@@ -100,8 +99,6 @@ class TagsController extends Controller
     /**
      * Methode voor het aanpassen van een categorie in het systeem. 
      * 
-     * @todo Implementatie routering (web.php)
-     * @todo implementatie routering (edit weergave)
      * @todo Opbouwen controller logic (activiteiten logger niet vergeten)
      * @todo implementatie phpunit test (no auth, permission = OK, permission = NOK, banned user, Request OK, Request Validation error)
      * 
@@ -111,7 +108,14 @@ class TagsController extends Controller
      */
     public function update(TagValidator $input, int $tag): RedirectResponse 
     {
-        //
+        $tag = $this->tagRepository->findOrFail($tag); 
+
+        if ($tag->update($input->except('_token', '_method'))) {
+            $this->writeActivity('categories', $tag, 'heeft een categorie aangepast in de databank.');
+            flash("U hebt de categorie {$tag->name} aangepast in het systeem.")->success();
+        }
+
+        return redirect()->route('admin.categories.index');
     }
 
 

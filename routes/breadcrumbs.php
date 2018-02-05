@@ -79,3 +79,10 @@ Breadcrumbs::register('categories-create', function ($breadcrumbs): void {
     $breadcrumbs->push('Categorieen', route('admin.categories.index'));
     $breadcrumbs->push('Nieuw', route('admin.categories.create'));
 });
+
+Breadcrumbs::register('categories-edit', function ($breadcrumbs): void {
+    $breadcrumbs->push('Home', url('home')); 
+    $breadcrumbs->push('Nieuws', route('admin.articles.index'));
+    $breadcrumbs->push('Categorieen', route('admin.categories.index'));
+    $breadcrumbs->push('Wijzig', route('admin.categories.create'));
+});

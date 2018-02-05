@@ -77,6 +77,7 @@ Route::get('/admin/categorieen/nieuw', 'Backend\TagsController@create')->name('a
 Route::get('/admin/categorieen/wijzigen/{id}', 'Backend\TagsController@edit')->name('admin.categories.edit');
 Route::get('/admin/categorieen/verwijder/{id}', 'Backend\TagsController@destroy')->name('admin.categories.delete');
 Route::post('/admin/categorieen/opslaan', 'Backend\TagsController@store')->name('admin.categories.store');
+Route::patch('/admin/categorieen/wijzig/{id}', 'Backend\TagsController@update')->name('admin.categories.update');
 
 // Contact route 
 Route::post('/contact', 'Frontend\ContactController@send')->name('contact.send');
