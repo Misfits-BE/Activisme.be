@@ -52,9 +52,6 @@ class TagsController extends Controller
     /**
      * De creatie pagina voor een nieuwe categorie. 
      *
-     * @todo Registratie routering(web.php)
-     * @todo Registratie routering (index view) 
-     * @todo Opbouwen blade index view
      * @todo Implementatie phpunit test (no auth, wrong permissions, correct permissions, banned user)
      *
      * @return \Illuminate\View\View
@@ -67,10 +64,6 @@ class TagsController extends Controller
     /** 
      * Opslag methode voor een nieuwe categorie in het systeem. 
      * 
-     * @todo Registratie routering (web.php)
-     * @todo Registratie routering (create view)
-     * @todo Opbouwen van de validator
-     * @todo Opbouwen controller logic (Activiteiten logger niet vergeten)
      * @todo Implementatie phpunit test (no auth, wrong permissions, correct permissions, banned user, request OK, request validation errors)
      * 
      * @param  TagValidator $input  De invoer van de gebruiker (gevalideerd).
@@ -78,14 +71,19 @@ class TagsController extends Controller
      */
     public function store(TagValidator $input): RedirectResponse 
     {
-        // 
+        $input->merge(['author_id' => $input->user()->id]);
+
+        if ($tag = $this->tagRepository->create($input->except('_token'))) {
+            flash("Je hebt de categorie {$tag->name} opgeslagen in het systeem.")->success();
+            $this->writeActivity('categories', $tag, 'Heeft een categorie voor de nieuwsberichten toegevoegd.');
+        }
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
      * De weergave voor het wijzigen van een categorie in het systeem.
      * 
-     * @todo Registratie routering (web.php)
-     * @todo Registratie routering (index weergave)
      * @todo Opbouwen van de view
      * @todo Implementatie phpunit test (no auth, wrong permissions, correct permissions, banned user, ID = OK, ID = NOK)
      * 
@@ -104,7 +102,6 @@ class TagsController extends Controller
      * 
      * @todo Implementatie routering (web.php)
      * @todo implementatie routering (edit weergave)
-     * @todo Opbouwen van de validator
      * @todo Opbouwen controller logic (activiteiten logger niet vergeten)
      * @todo implementatie phpunit test (no auth, permission = OK, permission = NOK, banned user, Request OK, Request Validation error)
      * 
@@ -114,7 +111,7 @@ class TagsController extends Controller
      */
     public function update(TagValidator $input, int $tag): RedirectResponse 
     {
-        // 
+        //
     }
 
 

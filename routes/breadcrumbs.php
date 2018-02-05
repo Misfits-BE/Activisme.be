@@ -69,6 +69,13 @@ Breadcrumbs::register('newsletter-edit', function ($breadcrumbs): void {
 
 Breadcrumbs::register('categories-index', function ($breadcrumbs): void {
     $breadcrumbs->push('Home', url('home')); 
-    $breadcrumbs->push('Nieuws artikelen', route('admin.articles.index'));
+    $breadcrumbs->push('Nieuws', route('admin.articles.index'));
     $breadcrumbs->push('Categorieen', route('admin.categories.index'));
+});
+
+Breadcrumbs::register('categories-create', function ($breadcrumbs): void {
+    $breadcrumbs->push('Home', url('home')); 
+    $breadcrumbs->push('Nieuws', route('admin.articles.index'));
+    $breadcrumbs->push('Categorieen', route('admin.categories.index'));
+    $breadcrumbs->push('Nieuw', route('admin.categories.create'));
 });

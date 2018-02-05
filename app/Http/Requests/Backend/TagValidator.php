@@ -4,6 +4,13 @@ namespace ActivismeBe\Http\Requests\Backend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Validatie class voor de nieuwsberichten categorieen
+ * 
+ * @author      Tim Joosten <tim@activisme.be>
+ * @copyright   2018 Tim Joosten
+ * @package     \ActivismeBe\Http\Requests\Backend
+ */
 class TagValidator extends FormRequest
 {
     /**
@@ -11,9 +18,9 @@ class TagValidator extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return auth()->check() && auth()->user()->hasRole('admin');
     }
 
     /**
@@ -21,10 +28,11 @@ class TagValidator extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'name'        => 'string|max:190|required',
+            'description' => 'string|required'
         ];
     }
 }

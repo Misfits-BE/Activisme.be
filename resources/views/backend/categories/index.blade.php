@@ -13,7 +13,7 @@
                         <i class="fa fa-fw fa-tags"></i> Nieuws bericht (categorieen)
 
                         <span class="pull-right">
-                            <a href="" class="badge badge-link">
+                            <a href="{{ route('admin.categories.create') }}" class="badge badge-link">
                                 <i class="fa fa-plus"></i> Categorie toevoegen
                             </a>
                         </span>
@@ -38,7 +38,7 @@
 
                                             <td> {{-- Opties --}}
                                                 <span class="pull-right">
-                                                    <a href="" class="text-muted">
+                                                    <a href="{{ route('admin.categories.edit', $category) }}" class="text-muted">
                                                         <i class="fa fa-fw fa-pencil"></i>
                                                     </a>
                                                 
