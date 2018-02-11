@@ -53,7 +53,9 @@ class Tag extends Model
      */
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault([
+            'name' => '<span class="text-danger">' . config('app.name') . '</span>'
+        ]);
     }
 
     /**
