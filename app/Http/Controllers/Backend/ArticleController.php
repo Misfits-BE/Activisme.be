@@ -58,7 +58,7 @@ class ArticleController extends Controller
      */
     public function create(): View
     {
-        return view('backend.articles.create');
+        return view('backend.articles.create', ['categories' => $this->tagRepository->all(['id', 'name'])]);
     }
 
     /**
@@ -72,16 +72,8 @@ class ArticleController extends Controller
         $input->merge(['author_id' => $input->user()->id]);
 
         if ($article = $this->articleRepository->create($input->all())) {
+            $article->tags()->attach($input->categories); 
             $article->addMedia($input->file('image'))->toMediaCollection('images');
-
-            foreach (array_map('trim', explode(',', $input->categories)) as $category) {
-                $category = $this->tagRepository->entity()->firstOrCreate(['name' => $category]);
-                $category->articles()->attach($article->id);
-
-                activity('category-activities')->performedOn($category)
-                    ->causedBy($input->user())
-                    ->log("Heeft een categorie aangemaakt ({$category->name}) in het systeem.");
-            }
 
             activity('articles-log')->performedOn($article)->causedBy($input->user())
                 ->log("Heeft '{$article->title}' toegevoegd als nieuws artikel.");

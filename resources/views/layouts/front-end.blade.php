@@ -58,7 +58,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="newsDropdown">
                                 <a class="dropdown-item" href="{{ route('admin.articles.index') }}"><i class="fa fa-fw fa-newspaper-o"></i> Artikelen</a>
-                                <a class="dropdown-item" href="#"><i class="fa fa-fw fa-tags"></i> Categorieen</a>
+                                <a class="dropdown-item" href="{{ route('admin.categories.index') }}"><i class="fa fa-fw fa-tags"></i> Categorieen</a>
                                 <a class="dropdown-item" href="{{ route('admin.nieuwsbrief.index') }}"><i class="fa fa-fw fa-newspaper-o"></i> Nieuwsbrieven</a>
                             </div>
                         </li>
