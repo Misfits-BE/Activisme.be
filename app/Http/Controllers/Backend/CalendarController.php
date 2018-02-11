@@ -94,17 +94,47 @@ class CalendarController extends Controller
     /**
      * Formulier weergave voor het wijzigen van een evenement. 
      * 
-     * @todo Implementeer routering 
      * @todo Implementeer phpunit test. 
      * @todo Opbouwen van de view. 
+     * @todo opbouwen controller logic. 
      * @todo Implementatie activity logger. 
      * 
-     * @param  Events $event De database query voor het evenement. 
+     * @param  int $event De database query voor het evenement. 
      * @return \Illuminate\View\View
      */
-    public function edit(Events $event): View
+    public function edit(int $event): View
     {
-        // TODO: Implementatie controller Logica
+        return view('backend.calendar.edit', [
+            'event' => $this->eventRepository->with(['dates'])->findOrFail($event)
+        ]); 
+    }
+
+    /**
+     * Update een evenement in het systeem.
+     *
+     * @todo Uitschrijven van unit test 
+     * 
+     * @param  CalendarValidator $input     De gegeven gebruikers invoer. (Gevalideerd)
+     * @param  int               $event     De controle query voor de database.   
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(CalendarValidator $input, int $event): RedirectResponse
+    {
+        $event = $this->eventRepository->findOrFail($event);
+        $date  = $this->calendarRepository->entity()->firstOrCreate(['start_date' => $input->start_date]);
+        $input->merge([
+            'start_time' => (new Carbon($input->start_time))->format('H:i'),
+            'end_time'   => (new Carbon($input->end_time))->format('H:i'),
+        ]);
+
+        if ($event->update($input->all())) {
+            $event->dates()->sync($date->id);
+
+            $this->writeActivity('calendar', $event, 'Heeft een agenda puntje gewijzigd.');
+            flash('U hebt het item in de kalender succesvol aangepast.')->success();
+        }
+
+        return redirect()->route('admin.calendar.index');
     }
 
     /**
@@ -125,25 +155,6 @@ class CalendarController extends Controller
         }
 
         return redirect()->route('admin.calendar.index');
-    }
-
-    /**
-     * Update een evenement in het systeem.
-     *
-     * @todo Uitschrijven van unit test 
-     * @todo Implementatie activity logger.
-     * 
-     * @param  CalendarValidator $input     De gegeven gebruikers invoer. (Gevalideerd)
-     * @param  Events            $event     De controle query voor de database.   
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(CalendarValidator $input, Events $event): RedirectResponse
-    {
-        if ($this->eventRepository->update($input->all(), $event->id)) {
-            flash('U hebt het item in de kalender succesvol aangepast.')->success();
-        }
-
-        return redirect()->route('admin.calendar.create');
     }
 
     /** 
