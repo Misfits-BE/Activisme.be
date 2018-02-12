@@ -35,12 +35,16 @@ class CalendarController extends Controller
     /**
      * De index controller voor de front-end kalender.
      *
+     * @todo GI #84 Implement pagination in the view.
+     * @todo GI #84 Implement custom pagination view for calendar.
+     * @todo GI #84 Implement orderBy on the date
+     *
      * @return \Illuminate\View\View
      */
     public function index(): View
     {
         return view('frontend.calendar.index', [
-            'dates' => $this->calendarRepository->entity()->whereHas('events', $filter = function ($query) { 
+            'dates' => $this->calendarRepository->entity()->whereHas('events', $filter = function ($query) {
                 $query->where('status', 'public'); 
             })->with(['events' => $filter])->simplePaginate(15)
         ]);
