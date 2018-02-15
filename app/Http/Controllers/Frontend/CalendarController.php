@@ -40,9 +40,9 @@ class CalendarController extends Controller
     public function index(): View
     {
         return view('frontend.calendar.index', [
-            'dates' => $this->calendarRepository->entity()->whereHas('events', $filter = function ($query): void {
-                $query->where('status', 'public'); 
-            })->with(['events' => $filter])->simplePaginate(15)
+            'dates' => $this->calendarRepository->entity()->whereHas('events', $filter = function ($query) {
+                $query->where('status', 'public');
+            })->with(['events' => $filter])->orderBy('start_date', 'DESC')->simplePaginate(15)
         ]);
     }
 }
