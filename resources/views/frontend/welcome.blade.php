@@ -6,7 +6,7 @@
             {{-- Default value = display-3 but changed to 4 due responsive bug. --}}
             <h1 class="display-4">{{ config('app.name', 'Laravel') }},</h1>
             <p class="lead">
-                Een klein collectief. Dat opkomten voor Daklozen, Vluchtelingen, Ook zetten wij in voor wereldvrede en andere sociale punten.
+                Een klein collectief. Dat opkomt voor Daklozen, Vluchtelingen, Ook zetten wij in voor wereldvrede en andere sociale punten.
             </p>
             <hr class="my-4">
             <p class="lead">
