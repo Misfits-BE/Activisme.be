@@ -6,6 +6,7 @@ use ActivismeBe\User;
 use Cog\Laravel\Ban\Models\Ban;
 use ActivismeBE\DatabaseLayering\Repositories\Contracts\RepositoryInterface;
 use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
+use ActivismeBe\Notifications\UserBlocked;
 
 /**
  * Class UserRepository
@@ -49,7 +50,12 @@ class UserRepository extends Repository
      */
     public function lockUser(int $user): Ban
     {
-        return $this->find($user)->ban(['expired_at' => '+2 weeks']);
+        $when = now()->addMinute();
+
+        $user = $this->find($user);
+        $user->notify((new UserBlocked($user, auth()->user()))->delay($when));
+
+        return $user->ban(['expired_at' => '+2 weeks']);
     }
 
     /**
