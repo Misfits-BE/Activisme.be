@@ -91,12 +91,18 @@
                         <div class="card-header"><i class="fa fa-newspaper-o"></i> Nieuwsbrief</div>
                         <div class="card-body">
                             <div class="input-group">
-                                <input type="text" name="email" class="form-control" placeholder="Email adres">
+                                <input type="text" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email adres">
                                 <span class="input-group-btn">
-                                <button class="btn btn-secondary" type="submit">
-                                    <i class="fa fa-send"></i>
-                                </button>
-                            </span>
+                                    <button class="btn btn-secondary" type="submit">
+                                        <i class="fa fa-send"></i>
+                                    </button>
+                                </span>
+
+                                @if ($errors->has('email'))
+                                    <div class="invalid-feedback">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -4,6 +4,13 @@ namespace ActivismeBe\Http\Requests\Frontend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class NewsLetterValidator
+ *
+ * @author      Tim Joosten <tim@activisme.be>
+ * @copyright   2018 Tim Joosten
+ * @package     ActivismeBe\Http\Requests\Frontend
+ */
 class NewsLetterValidator extends FormRequest
 {
     /**
@@ -11,7 +18,7 @@ class NewsLetterValidator extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,8 +28,16 @@ class NewsLetterValidator extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return ['email' => 'max:120|unique:newsletters|required'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function messages(): array
+    {
+        return ['email' => 'E-mail adres is vereist.'];
     }
 }

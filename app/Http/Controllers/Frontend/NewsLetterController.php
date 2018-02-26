@@ -46,7 +46,7 @@ class NewsLetterController extends Controller
      * Slaag de gegevens van de gast gebruiker op in de databank. 
      * 
      * @param  NewsLetterValidator $input De gegevens gebruikers invoer (gevalideerd)  
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(NewsLetterValidator $input): RedirectResponse  
     {
@@ -76,7 +76,8 @@ class NewsLetterController extends Controller
         $person = $this->newsletterRepository->findEmail($uuid);
 
         if ($person->delete()) {
-            flash('We hebben je verwijderd uit de mailinglijst voor onze nieuwsbrief.')->success()->important();
+            flash('We hebben je verwijderd uit de mailinglijst voor onze nieuwsbrief.')
+                ->success()->important();
         }
 
         return redirect()->route('home.front');
