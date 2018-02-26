@@ -79,6 +79,9 @@ Auth::routes();
 /** TESTING needed */ Route::post('/admin/categorieen/opslaan', 'Backend\TagsController@store')->name('admin.categories.store');
 /** TESTING needed */ Route::patch('/admin/categorieen/wijzig/{id}', 'Backend\TagsController@update')->name('admin.categories.update');
 
+// Category frontend routes
+/** TESTING needed */ Route::get('/categorie/{slug}', 'Frontend\CategoryController@show')->name('categories');
+
 // Contact route 
 /** TESTING needed */ Route::post('/contact', 'Frontend\ContactController@send')->name('contact.send');
 

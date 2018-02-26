@@ -105,7 +105,7 @@
                     <div class="card-body">
                         @if (count($tags) > 0) 
                             @foreach ($tags as $tag) {{-- Loop through the tags --}}
-                                <a class="badge badge-danger" href="">
+                                <a class="badge badge-danger" href="{{ route('categories', ['slug' => $tag->slug]) }}">
                                     {{ $tag->name }}
                                 </a>
                             @endforeach
