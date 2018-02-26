@@ -7,6 +7,7 @@ use Cog\Laravel\Ban\Models\Ban;
 use ActivismeBE\DatabaseLayering\Repositories\Contracts\RepositoryInterface;
 use ActivismeBE\DatabaseLayering\Repositories\Eloquent\Repository;
 use ActivismeBe\Notifications\UserBlocked;
+use ActivismeBe\Notifications\UserRevokeBlocked;
 
 /**
  * Class UserRepository
@@ -66,6 +67,11 @@ class UserRepository extends Repository
      */
     public function activateUser(int $user): ?int
     {
-        return $this->find($user)->unban();
+        $when = now()->addMinute();
+
+        $user = $this->find($user); 
+        $user->notify((new UserRevokeBlocked($user))->delay($when));
+
+        return $user->unban();
     }
 }
