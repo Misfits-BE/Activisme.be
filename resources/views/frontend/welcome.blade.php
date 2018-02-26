@@ -22,6 +22,8 @@
     </div>
 
     <div class="container">
+        @include('flash::message') {{-- Flash session view partial --}}
+
         <div class="row">
             <div class="col-lg-8"> {{-- Content --}}
             

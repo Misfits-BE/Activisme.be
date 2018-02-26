@@ -54,19 +54,22 @@ class NewsLetterController extends Controller
 
         if ($user = $this->newsletterRepository->create($input->except('_token'))) {
             $user->notify((new RegisterNewsLetter($user))->delay(Carbon::now()->addMinute(1)));
-            flash("We hebben jouw ingeschreven op de nieuwsbrief.")->success(); 
+            flash("We hebben jouw ingeschreven op de nieuwsbrief.")->success()->important();
         }
 
         return back(302); // Stuur de gast gebruiker terug naar de vorige pagina. 
     }
 
     /**
-     * Verwijder een persoon uit de ontvangers voor de nieuwsbrief. 
-     * 
+     * Verwijder een persoon uit de ontvangers voor de nieuwsbrief.
+     *
      * @todo registratie mail notificatie dat de gebruiker is uitgeschreven.
-     * 
+     *
      * @param  string $uuid The unieke identificatie van de gebruiker.
+     *
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Exception
      */
     public function unsubscribe(string $uuid): RedirectResponse 
     {
