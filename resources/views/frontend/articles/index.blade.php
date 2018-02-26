@@ -34,7 +34,7 @@
                                         <img class="mr-3" src="{{ $article->getFirstMediaUrl('images', 'thumb-100') }}" alt="{{ $article->title }}" style="border-radius: 3px; width: 100px; height: 100px;">
                                     </a>
                                     <div class="media-body">
-                                        <h5 class="mt-0 mb-1 icon-jumbotron">{{ $article->title }}</h5>
+                                        <h5 class="mt-0 mb-1 icon-jumbotron">{{ ucfirst($article->title) }}</h5>
 
                                         @if (strlen(strip_tags($article->message)) > 150)
                                             {!! strip_tags(str_limit(ucfirst($article->message), 157, '...')) !!}
