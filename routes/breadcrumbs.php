@@ -92,3 +92,8 @@ Breadcrumbs::register('categories-edit', function ($breadcrumbs): void {
     $breadcrumbs->push('Categorieen', route('admin.categories.index'));
     $breadcrumbs->push('Wijzig', route('admin.categories.create'));
 });
+
+Breadcrumbs::register('newsletter-index', function ($breadcrumbs): void {
+   $breadcrumbs->push('Home', url('home'));
+   $breadcrumbs->push('Nieuwsbrieven', route('admin.nieuwsbrief.index'));
+});
