@@ -28,7 +28,7 @@ class SendNewsletter extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param  $message   De nieuwsbrief data vanuit de databank.  
+     * @param  $message   De nieuwsbrief data vanuit de databank.
      * @return void
      */
     public function __construct($message)
@@ -57,6 +57,9 @@ class SendNewsletter extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject($this->message->titel)
-            ->view('mail.newsletter.email', ['message' => $this->message]);
+            ->view('mail.newsletter.email', [
+                'title'   => $this->message->titel,
+                'content' => $this->message->content
+            ]);
     }
 }
