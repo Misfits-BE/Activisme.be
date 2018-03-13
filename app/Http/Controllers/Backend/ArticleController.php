@@ -93,6 +93,11 @@ class ArticleController extends Controller
     public function edit($article): View
     {
         $article = $this->articleRepository->findOrFail($article);
+
+        if () {
+            
+        }
+
         return view('backend.articles.edit', compact('article', 'categories'));
     }
 
