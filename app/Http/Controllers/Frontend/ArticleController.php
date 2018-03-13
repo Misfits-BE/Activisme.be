@@ -43,7 +43,7 @@ class ArticleController extends Controller
     {
         if ($this->articleRepository->entity()->count() === 0) {
             // Return the user back to the index if there are no news messages in the database. 
-            return redirect()->to(url('/'));
+            return redirect()->route('home.front');
         }
 
         $articles = $this->articleRepository->entity()

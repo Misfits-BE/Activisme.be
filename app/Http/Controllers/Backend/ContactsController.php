@@ -34,7 +34,7 @@ class ContactsController extends Controller
      */
     public function __construct(ContactRepository $contactRepository)
     {
-        $this->middleware(['role:admin', 'forbid-banned-user']);
+        $this->middleware(['auth', 'role:admin', 'forbid-banned-user']);
         $this->contactRepository = $contactRepository;
     }
 
