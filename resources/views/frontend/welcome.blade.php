@@ -6,7 +6,7 @@
             {{-- Default value = display-3 but changed to 4 due responsive bug. --}}
             <h1 class="display-4">{{ config('app.name', 'Laravel') }},</h1>
             <p class="lead">
-                Een klein collectief. Dat opkomten voor Daklozen, Vluchtelingen, Ook zetten wij in voor wereldvrede en andere sociale punten.
+                Een klein collectief. Dat opkomt voor Daklozen, Vluchtelingen, Ook zetten wij in voor wereldvrede en andere sociale punten.
             </p>
             <hr class="my-4">
             <p class="lead">
@@ -61,7 +61,7 @@
                                             <img style="border-radius: 3px; width: 100px; height: 100px;" class="mr-3" src="{{ $article->getFirstMediaUrl('images', 'thumb-100') }}" alt="{{ $article->title }}">
                                         </a>
                                         <div class="media-body">
-                                            <h5 class="mt-0 mb-1">{{ $article->title }}</h5>
+                                            <h5 class="mt-0 mb- icon-jumbotron">{{ ucfirst($article->title) }}</h5>
 
                                             @if (strlen(strip_tags($article->message)) > 150)
                                                 {!! str_limit(ucfirst($article->message), 157, '...') !!}
@@ -105,7 +105,7 @@
                     <div class="card-body">
                         @if (count($tags) > 0) 
                             @foreach ($tags as $tag) {{-- Loop through the tags --}}
-                                <a class="badge badge-danger" href="">
+                                <a class="badge badge-danger" href="{{ route('categories', ['slug' => $tag->slug]) }}">
                                     {{ $tag->name }}
                                 </a>
                             @endforeach
