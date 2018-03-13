@@ -72,7 +72,7 @@
                                 <label class="col-lg-2 col-form-label text-lg-right">Nieuwsbericht: <span class="text-danger">*</span></label>
 
                                 <div class="col-lg-10">
-                                    <textarea name="content" rows="7" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" placeholder="Het nieuwsbericht">{{ old('content') }}</textarea>
+                                    <textarea name="content" id="editor1" rows="7" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" placeholder="Het nieuwsbericht">{{ old('content') }}</textarea>
 
                                     @if ($errors->has('content'))
                                         <div class="invalid-feedback">
@@ -100,3 +100,11 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js"></script>
+
+    <script>
+        CKEDITOR.replace('editor1');
+    </script>
+@endpush
