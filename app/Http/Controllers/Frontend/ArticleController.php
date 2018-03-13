@@ -68,7 +68,6 @@ class ArticleController extends Controller
         $tags    = $this->tagRepository->entity()->inRandomOrder()->take(20)->get();
         $share   = Share::load(route('news.show', ['slug' => $article->slug]), str_limit($article->title, 250))->services('facebook', 'twitter');
 
-
         return view('frontend.articles.show', compact('article', 'tags', 'share'));
     }
 }

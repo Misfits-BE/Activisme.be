@@ -36,8 +36,8 @@ Auth::routes();
 /** TESTING needed */ Route::post('/admin/contacten/opslaan', 'Backend\ContactsController@store')->name('admin.contacts.store');
 
 // Frontend
-Route::get('/disclaimer', 'DisclaimerController@index')->name('disclaimer.index');
-Route::get('/visie', 'Frontend\VisieController@index')->name('visie.index');
+/** TESTING needed */ Route::get('/disclaimer', 'DisclaimerController@index')->name('disclaimer.index');
+/** TESTING needed */ Route::get('/visie', 'Frontend\VisieController@index')->name('visie.index');
 
 // Logs routes
 /** TESTING needed */ Route::get('/admin/logs', 'LogsController@index')->name('admin.logs.index');
@@ -78,30 +78,6 @@ Route::get('/visie', 'Frontend\VisieController@index')->name('visie.index');
 /** TESTING needed */ Route::get('/admin/categorieen/verwijder/{id}', 'Backend\TagsController@destroy')->name('admin.categories.delete');
 /** TESTING needed */ Route::post('/admin/categorieen/opslaan', 'Backend\TagsController@store')->name('admin.categories.store');
 /** TESTING needed */ Route::patch('/admin/categorieen/wijzig/{id}', 'Backend\TagsController@update')->name('admin.categories.update');
-
-// Contact route 
-Route::post('/contact', 'Frontend\ContactController@send')->name('contact.send');
-
-// Bug routes 
-/** TESTING needed */ Route::get('/admin/meld-een-probleem', 'Backend\BugController@index')->name('bug.index');
-/** TESTING needed */ Route::post('/admin/meld-een-probleem', 'Backend\BugController@store')->name('bug.create');
-
-// Article routes (backend)
-/** TESTING needed */ Route::get('/admin/artikels', 'Backend\ArticleController@index')->name('admin.articles.index');
-/** TESTING needed */ Route::get('/admin/artikels/nieuw', 'Backend\ArticleController@create')->name('admin.articles.create');
-/** TESTING needed */ Route::post('/admin/artikels/store', 'Backend\ArticleController@store')->name('admin.articles.store');
-/** TESTING needed */ Route::get('/admin/artikels/wijzig/{id}', 'Backend\ArticleController@edit')->name('admin.articles.edit');
-/** TESTING needed */ Route::get('/admin/artikels/verwijder/{id}', 'Backend\ArticleController@delete')->name('admin.articles.delete');
-
-// Article routes (frontend)
-Route::get('/nieuws', 'Frontend\ArticleController@index')->name('news.index');
-Route::get('/nieuws/{slug}', 'Frontend\ArticleController@show')->name('news.show');
-
-// Article status routes
-/** TESTING needed */ Route::get('admin/article/status/{article}/{status}', 'Backend\ArticleStatusController@update')->name('admin.status.change');
-
-// Calendar routes
-Route::get('/kalender', 'Frontend\CalendarController@index')->name('calendar.index');
 
 /** TESTING needed */ Route::get('/admin/kalender/status/{event}/{status}', 'Backend\CalendarController@status')->name('admin.calendar.status');
 /** TESTING needed */ Route::get('/admin/kalender', 'Backend\CalendarController@index')->name('admin.calendar.index');
