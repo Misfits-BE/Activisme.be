@@ -32,7 +32,7 @@ class NewsletterRepository extends Repository
      * Deze functie geeft ook een HTTP/1 404 - Not Found terug. 
      * Als er geen email adres onder de uuid word gevonden. 
      * 
-     * @param  string $uuidde unieke identificatie van het email adres.
+     * @param  string $uuid unieke identificatie van het email adres.
      * @return \ActivismeBe\NewsLetter
      */
     public function findEmail(string $uuid): NewsLetter 

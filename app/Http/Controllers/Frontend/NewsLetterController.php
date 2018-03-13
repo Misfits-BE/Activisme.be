@@ -46,7 +46,7 @@ class NewsLetterController extends Controller
      * Slaag de gegevens van de gast gebruiker op in de databank. 
      * 
      * @param  NewsLetterValidator $input De gegevens gebruikers invoer (gevalideerd)  
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(NewsLetterValidator $input): RedirectResponse  
     {
@@ -54,26 +54,30 @@ class NewsLetterController extends Controller
 
         if ($user = $this->newsletterRepository->create($input->except('_token'))) {
             $user->notify((new RegisterNewsLetter($user))->delay(Carbon::now()->addMinute(1)));
-            flash("We hebben jouw ingeschreven op de nieuwsbrief.")->success(); 
+            flash("We hebben jouw ingeschreven op de nieuwsbrief.")->success()->important();
         }
 
         return back(302); // Stuur de gast gebruiker terug naar de vorige pagina. 
     }
 
     /**
-     * Verwijder een persoon uit de ontvangers voor de nieuwsbrief. 
-     * 
+     * Verwijder een persoon uit de ontvangers voor de nieuwsbrief.
+     *
      * @todo registratie mail notificatie dat de gebruiker is uitgeschreven.
-     * 
+     *
      * @param  string $uuid The unieke identificatie van de gebruiker.
+     *
      * @return \Illuminate\Http\RedirectResponse
+     *
+     * @throws \Exception
      */
     public function unsubscribe(string $uuid): RedirectResponse 
     {
         $person = $this->newsletterRepository->findEmail($uuid);
 
         if ($person->delete()) {
-            flash('We hebben je verwijderd uit de mailinglijst voor onze nieuwsbrief.')->success()->important();
+            flash('We hebben je verwijderd uit de mailinglijst voor onze nieuwsbrief.')
+                ->success()->important();
         }
 
         return redirect()->route('home.front');
