@@ -4,7 +4,8 @@ All notable changes to `misfits-BE/activisme.be` will be documented in this file
 
 ## 1.0.0-RC1
 
-- Fix #104 Implement code of conduct.  
+- Fix #104 | Implement code of conduct.  
+- Fix #105 | Pagination view instanctie frontend kalender 
 
 ## 1.0.0-RC
 
