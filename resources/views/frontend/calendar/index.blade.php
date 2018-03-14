@@ -86,7 +86,7 @@
                                 </tbody>
                             </table>
 
-                            {{-- pagination instance --}}
+                            {{ $dates->render('vendor.pagination.simple-bootstrap-4.blade.php') }} {{-- pagination instance --}}
                         </div>
                     </div>
                 @else 
