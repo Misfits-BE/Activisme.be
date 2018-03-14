@@ -7,13 +7,14 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <i class="fa fa-fw fa-plus"></i> Artikel toevoegen
+                    <div class="card-header"> 
+                        <i class="fa fa-fw fa-plus"></i> <strong>Wijzig artikel:</strong> {{ $article->title }}
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('admin.articles.store') }}" method="POST" id="create-article" enctype="multipart/form-data">
-                            {{ csrf_field() }} {{-- Form field protection --}}
+                        <form action="{{ route('admin.articles.update', $article) }}" method="POST" id="create-article" enctype="multipart/form-data">
+                            {{ csrf_field() }}          {{-- Form field protection --}}
+                            {{ method_field('PATCH') }} {{-- HTTP/1 Method spoofind --}}
 
                             <div class="form-group row">
                                 <label class="col-lg-2 col-form-label text-lg-right">Publicatie datum: <span class="text-danger">*</span></label>
@@ -26,7 +27,7 @@
                                             <strong>{{ $errors->first('publish_date') }}</strong>
                                         </div>
                                     @else {{-- Geen errors gevonden geef gewoon de help text weer. --}}
-                                    <small class="form-text text-muted"><span class="text-danger">*</span> Standaard formaat voor de datum = YYYY/MM/DD</small>
+                                        <small class="form-text text-muted"><span class="text-danger">*</span> Standaard formaat voor de datum = DD/MM/YYYY</small>
                                     @endif
                                 </div>
                             </div>
@@ -73,17 +74,23 @@
                                 <label class="col-lg-2 col-form-label text-lg-right">Categorieen:</label>
 
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control{{ $errors->has('categories') ? ' is-invalid' : '' }}" value="{{ old('categories') }}" name="categories" placeholder="De categorieen voor het bericht">
+                                    <select class="form-control{{ $errors->has('categories') ? ' is-invalid' : '' }}" name="categories">
+                                        <option value="">-- Category van het nieuwsbericht --</option>
+
+                                        @foreach ($categories as $category) {{-- Loop through categories --}}
+                                        
+                                            <option value="{{ $category->id }}" @if (old('categories') === $category->id) selected @endif>
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach {{-- /// END loop --}}
+                                    </select>
 
                                     @if ($errors->has('categories'))
                                         <div class="invalid-feedback">
                                             <strong>{{ $errors->first('categories') }}</strong>
                                         </div>
-                                    @else {{-- Geen validatie fouten gevonden dus geef gewoon de help tekst weer --}}
-                                    <small class="form-text text-muted">
-                                        <span class="text-danger">*</span> Categorieen worden gescheiden door een comma. bv: cat1, cat2, enz... <br>
-                                        <strong><span class="text-danger">* Indien je hier categorieen ingeeft zullen de oude automatisch verwijderd worden.</span></strong>
-                                    </small>
+                                    @else
+                                        <small class="form-text text-muted"><span class="text-danger">*</span> Deze leeglaten indien u de categorie niet wilt wijzigen.</small>
                                     @endif
                                 </div>
                             </div>

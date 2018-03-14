@@ -92,11 +92,8 @@ class ArticleController extends Controller
      */
     public function edit($article): View
     {
-        $article = $this->articleRepository->findOrFail($article);
-
-        if () {
-            
-        }
+        $article    = $this->articleRepository->findOrFail($article); 
+        $categories = $this->tagRepository->all(['id', 'name']);
 
         return view('backend.articles.edit', compact('article', 'categories'));
     }
@@ -104,7 +101,7 @@ class ArticleController extends Controller
     /**
      * Methode om de wijzigen van een bestaan artikel op te slaan.
      * 
-     * @todo De controller moet nog verder worden uitgewerkt. 
+     * @todo Implementatie phpunit tests
      *
      * @param  NewsUpdateValidator  $input   Het object voor de opgegeven gebruikers data. (gevalideerd)
      * @param  int                  $article De unieke waarde voor de data in de databank. (PK)
@@ -113,6 +110,24 @@ class ArticleController extends Controller
     public function update(NewsUpdateValidator $input, $article): RedirectResponse
     {
         $input->merge(['author_id' => $input->user()->id]);
+        $article = $this->articleRepository->findOrfail($article);
+
+        if ($article->update($input->except('_token', 'image', 'categories'))) {
+            if (! is_null($input->categories)) {
+                $article->tags()->sync([$input->categories]); 
+            } 
+
+            if (! is_null($input->image)) { //! New user profile image is given. 
+                $user->clearMediaCollection('images');  //! Clear the previous media directory. 
+                $user->addMedia($input->file('image'))->toMediaCollection('images');
+            }
+
+            activity('articles-log')->performedOn($article)->causedBy(auth()->user())
+                ->log("Heeft het artikel '{$article->title}' gewijzigd");
+
+            flash('je hebt het artikel gewijzigd.')->success();
+        }
+
         return redirect()->route('admin.articles.index');
     }
 

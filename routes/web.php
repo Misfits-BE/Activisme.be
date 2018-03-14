@@ -95,6 +95,7 @@ Auth::routes();
 /** TESTING needed */ Route::post('/admin/artikels/store', 'Backend\ArticleController@store')->name('admin.articles.store');
 /** TESTING needed */ Route::get('/admin/artikels/wijzig/{id}', 'Backend\ArticleController@edit')->name('admin.articles.edit');
 /** TESTING needed */ Route::get('/admin/artikels/verwijder/{id}', 'Backend\ArticleController@delete')->name('admin.articles.delete');
+/** TESTING needed */ Route::patch('/admin/artikels/wijzig/{id}', 'Backend\ArticleController@update')->name('admin.articles.update');
 
 // Article routes (frontend)
 /** TESTING needed */ Route::get('/nieuws', 'Frontend\ArticleController@index')->name('news.index');
