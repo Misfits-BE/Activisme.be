@@ -24,8 +24,8 @@ Auth::routes();
 /** TESTING needed */ Route::patch('/admin/account/instellingen/beveiliging', 'Auth\AccountSettingsController@updateSecurity')->name('account.settings.security');
 
 // Home routes
-/** TESTING needed */ Route::get('/', 'Frontend\HomeController@index')->name('home.front');
-/** TESTING needed */ Route::get('/admin/home', 'HomeController@index')->name('home');
+Route::get('/', 'Frontend\HomeController@index')->name('home.front');
+Route::get('/admin/home', 'HomeController@index')->name('home');
 
 // Address book routes
 /** TESTING needed */ Route::get('/admin/contacten', 'Backend\ContactsController@index')->name('admin.contacts.index');
@@ -36,8 +36,8 @@ Auth::routes();
 /** TESTING needed */ Route::post('/admin/contacten/opslaan', 'Backend\ContactsController@store')->name('admin.contacts.store');
 
 // Frontend
-/** TESTING needed */ Route::get('/disclaimer', 'DisclaimerController@index')->name('disclaimer.index');
-/** TESTING needed */ Route::get('/visie', 'Frontend\VisieController@index')->name('visie.index');
+Route::get('/disclaimer', 'DisclaimerController@index')->name('disclaimer.index');
+Route::get('/visie', 'Frontend\VisieController@index')->name('visie.index');
 
 // Logs routes
 /** TESTING needed */ Route::get('/admin/logs', 'LogsController@index')->name('admin.logs.index');
@@ -105,7 +105,7 @@ Auth::routes();
 /** TESTING needed */ Route::get('admin/article/status/{article}/{status}', 'Backend\ArticleStatusController@update')->name('admin.status.change');
 
 // Calendar routes
-/** TESTING needed */ Route::get('/kalender', 'Frontend\CalendarController@index')->name('calendar.index');
+Route::get('/kalender', 'Frontend\CalendarController@index')->name('calendar.index');
 
 /** TESTING needed */ Route::get('/admin/kalender/status/{event}/{status}', 'Backend\CalendarController@status')->name('admin.calendar.status');
 /** TESTING needed */ Route::get('/admin/kalender', 'Backend\CalendarController@index')->name('admin.calendar.index');
